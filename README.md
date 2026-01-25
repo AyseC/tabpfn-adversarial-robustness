@@ -9,11 +9,11 @@
 
 ---
 
-## 🎯 Research Objective
+##  Research Objective
 
 Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-Fitting Network) compared to traditional **GBDT** models (XGBoost, LightGBM).
 
-## 🔥 Key Findings
+##  Key Findings
 
 ### 1. **Dataset-Dependent Robustness** (p < 0.001)
 - **Wine Dataset (13 features):** TabPFN **1.71x MORE vulnerable** than GBDTs
@@ -37,7 +37,7 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 
 ---
 
-## 📊 Results Summary
+##  Results Summary
 
 | Dataset | Model | Attack | ASR | Robustness Score |
 |---------|-------|--------|-----|------------------|
@@ -52,7 +52,7 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Installation
 ```bash
@@ -96,7 +96,7 @@ jupyter notebook notebooks/analysis.ipynb
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 ```
 tabpfn-adversarial-robustness/
 ├── src/
@@ -116,7 +116,7 @@ tabpfn-adversarial-robustness/
 
 ---
 
-## 🔬 Methodology
+##  Methodology
 
 ### Models
 - **TabPFN:** Transformer-based tabular foundation model
@@ -146,7 +146,7 @@ tabpfn-adversarial-robustness/
 
 ---
 
-## 📈 Main Contributions
+##  Main Contributions
 
 1. **First comprehensive adversarial robustness evaluation of TabPFN**
 2. **Discovery of dataset-dependent vulnerability pattern**
@@ -157,7 +157,7 @@ tabpfn-adversarial-robustness/
 
 ---
 
-## 📊 Visualizations
+##  Visualizations
 
 All visualizations available in `results/` directory:
 
@@ -170,7 +170,7 @@ All visualizations available in `results/` directory:
 
 ---
 
-## 📚 References
+##  References
 
 ### TabPFN
 - Hollmann et al. (2022). TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second. [arXiv:2207.01848](https://arxiv.org/abs/2207.01848)
@@ -186,7 +186,7 @@ All visualizations available in `results/` directory:
 
 ---
 
-## 🎓 Citation
+##  Citation
 
 If you use this code or findings in your research, please cite:
 ```bibtex
@@ -200,13 +200,13 @@ If you use this code or findings in your research, please cite:
 
 ---
 
-## 📝 License
+##  License
 
 MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - TabPFN authors (Hollmann et al.)
 - Adversarial Robustness Toolbox community
@@ -214,7 +214,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-## 📧 Contact
+##  Contact
 
 **Ayse Coskuner**
 - GitHub: [@AyseC](https://github.com/AyseC)
@@ -222,7 +222,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-## 🔄 Updates
+##  Updates
 
 **Latest Version:** v1.0.0 (2025)
 - Complete implementation of Boundary and NES attacks
@@ -232,5 +232,3 @@ MIT License - see [LICENSE](LICENSE) for details.
 - Publication-ready results
 
 ---
-
-**⭐ Star this repository if you found it helpful!**
