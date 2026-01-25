@@ -6,7 +6,7 @@ Master's thesis research on adversarial attacks against TabPFN compared to tradi
 
 **TabPFN is 1.7x more vulnerable to adversarial attacks than GBDTs (XGBoost, LightGBM)**
 
-## 📊 Results (Wine Dataset)
+## Results (Wine Dataset)
 
 | Model | Attack Success Rate | Robustness Score |
 |-------|-------------------|------------------|
