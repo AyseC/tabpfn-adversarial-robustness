@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+*.egg-info/
+
+# Data & Results
+data/offline/*.csv
+results/logs/
+*.ckpt
+
+# IDE & macOS
+.vscode/
+.DS_Store
+.ipynb_checkpoints/

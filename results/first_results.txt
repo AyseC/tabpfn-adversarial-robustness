@@ -1,0 +1,18 @@
+ADVERSARIAL ROBUSTNESS TEST - Wine Dataset
+Date: $(date)
+
+BOUNDARY ATTACK RESULTS:
+
+XGBoost:
+- Attack Success Rate: 40%
+- Avg Perturbation: 2.04
+- Avg Queries: 362
+- More robust!
+
+TabPFN:
+- Attack Success Rate: 80%
+- Avg Perturbation: 2.20
+- Avg Queries: 272
+- Less robust!
+
+KEY FINDING: TabPFN is 2x more vulnerable to adversarial attacks!
