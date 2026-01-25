@@ -2,7 +2,7 @@
 
 Master's thesis research on adversarial attacks against TabPFN compared to traditional GBDT models.
 
-## 🎯 Main Finding
+## Main Finding
 
 **TabPFN is 1.7x more vulnerable to adversarial attacks than GBDTs (XGBoost, LightGBM)**
 
@@ -14,7 +14,7 @@ Master's thesis research on adversarial attacks against TabPFN compared to tradi
 | XGBoost | 46.7% | 0.671 |
 | TabPFN | 73.3% | 0.604 |
 
-## 🚀 Quick Start
+## Quick Start
 ```bash
 # Setup
 python -m venv venv
@@ -32,13 +32,13 @@ python run_wine_experiment.py
 - `results/` - Experimental results
 - `config/` - Configuration files
 
-## 🔬 Methods
+## Methods
 
 - **Models**: TabPFN, XGBoost, LightGBM
 - **Attack**: Boundary Attack (decision-based)
 - **Metrics**: Attack Success Rate, Perturbation, Query Efficiency
 
-## 📚 References
+## References
 
 - Hollmann et al. (2024) - TabPFN: Tabular Prior-Fitting Network
 - Brendel et al. (2018) - Decision-Based Adversarial Attacks
@@ -46,5 +46,5 @@ python run_wine_experiment.py
 ---
 
 **Student**: Ayse Coskuner  
-**Institution**: [Your University]  
+**Institution**: Hildesheim University
 **Year**: 2025
