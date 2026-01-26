@@ -39,7 +39,7 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 
 ##  Defense Mechanisms Against Adversarial Attacks
 
-We evaluated multiple defense strategies to mitigate adversarial attacks on TabPFN.  
+Multiple defense strategies were evaluated to mitigate adversarial attacks on TabPFN. 
 Among the tested approaches, **ensemble voting** proved to be the most effective and statistically significant defense for tabular data.
 
 - **Ensemble Voting (TabPFN + XGBoost + LightGBM):**
