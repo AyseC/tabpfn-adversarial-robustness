@@ -23,7 +23,7 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 ### 2. **Statistical Validation**
 - All major findings statistically significant (p < 0.01)
 - Cohen's d = 0.737 (medium-large effect size)
-- Results suitable for publication ✅
+
 
 ### 3. **Attack Comparison**
 - **Boundary Attack:** More effective (73% vs 67% ASR on TabPFN)
@@ -34,6 +34,25 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 - TabPFN vulnerability is **parameter-independent**
 - XGBoost shows parameter sensitivity
 - TabPFN's weakness is fundamental, not attack-specific
+
+---
+
+##  Defense Mechanisms Against Adversarial Attacks
+
+Multiple defense strategies were evaluated to mitigate adversarial attacks on TabPFN. 
+Among the tested approaches, **ensemble voting** proved to be the most effective and statistically significant defense for tabular data.
+
+- **Ensemble Voting (TabPFN + XGBoost + LightGBM):**
+  Successfully defended against **81.8%** of adversarial examples (18/22), with a statistically significant improvement (**p = 0.0056**).
+
+- **Gaussian Noise Injection:**
+  Achieved a **72.7%** recovery rate at optimal noise levels (σ = 0.01–0.03), but results were **not statistically significant** (p = 0.055).
+
+- **Feature Squeezing:**
+  Showed **no effectiveness** on tabular data, indicating that image-based defenses do not directly transfer to tabular domains.
+
+**Key Insight:**  
+Ensemble-based defenses offer the most reliable protection against adversarial attacks on tabular foundation models.
 
 ---
 
