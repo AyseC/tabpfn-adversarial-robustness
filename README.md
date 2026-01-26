@@ -23,7 +23,7 @@ Comprehensive evaluation of adversarial robustness in **TabPFN** (Tabular Prior-
 ### 2. **Statistical Validation**
 - All major findings statistically significant (p < 0.01)
 - Cohen's d = 0.737 (medium-large effect size)
-- Results suitable for publication ✅
+
 
 ### 3. **Attack Comparison**
 - **Boundary Attack:** More effective (73% vs 67% ASR on TabPFN)
