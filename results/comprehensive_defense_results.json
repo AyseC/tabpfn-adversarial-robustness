@@ -1,0 +1,16 @@
+{
+  "sample_size": 22,
+  "best_defenses": {
+    "gaussian": {
+      "std": 0.01,
+      "recovery": 72.72727272727273
+    },
+    "squeezing": {
+      "bit_depth": null,
+      "recovery": 0
+    },
+    "ensemble": {
+      "recovery": 81.81818181818183
+    }
+  }
+}
