@@ -1,0 +1,74 @@
+{
+  "sample_size": 20,
+  "gaussian_noise": {
+    "0.01": {
+      "recovery_rate": 80.0,
+      "helps": 16,
+      "hurts": 4,
+      "total": 20
+    },
+    "0.03": {
+      "recovery_rate": 65.0,
+      "helps": 13,
+      "hurts": 7,
+      "total": 20
+    },
+    "0.05": {
+      "recovery_rate": 60.0,
+      "helps": 12,
+      "hurts": 8,
+      "total": 20
+    },
+    "0.07": {
+      "recovery_rate": 50.0,
+      "helps": 10,
+      "hurts": 10,
+      "total": 20
+    },
+    "0.1": {
+      "recovery_rate": 55.00000000000001,
+      "helps": 11,
+      "hurts": 9,
+      "total": 20
+    }
+  },
+  "feature_squeezing": {
+    "4": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 20,
+      "total": 20
+    },
+    "6": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 20,
+      "total": 20
+    },
+    "8": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 20,
+      "total": 20
+    }
+  },
+  "ensemble": {
+    "recovery_rate": 20.0,
+    "helps": 4,
+    "hurts": 16,
+    "total": 20
+  },
+  "best_defenses": {
+    "gaussian": {
+      "std": 0.01,
+      "recovery": 80.0
+    },
+    "squeezing": {
+      "bit_depth": null,
+      "recovery": 0
+    },
+    "ensemble": {
+      "recovery": 20.0
+    }
+  }
+}
