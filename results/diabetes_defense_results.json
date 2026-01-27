@@ -1,0 +1,74 @@
+{
+  "sample_size": 13,
+  "gaussian_noise": {
+    "0.01": {
+      "recovery_rate": 76.92307692307693,
+      "helps": 10,
+      "hurts": 3,
+      "total": 13
+    },
+    "0.03": {
+      "recovery_rate": 61.53846153846154,
+      "helps": 8,
+      "hurts": 5,
+      "total": 13
+    },
+    "0.05": {
+      "recovery_rate": 69.23076923076923,
+      "helps": 9,
+      "hurts": 4,
+      "total": 13
+    },
+    "0.07": {
+      "recovery_rate": 46.15384615384615,
+      "helps": 6,
+      "hurts": 7,
+      "total": 13
+    },
+    "0.1": {
+      "recovery_rate": 61.53846153846154,
+      "helps": 8,
+      "hurts": 5,
+      "total": 13
+    }
+  },
+  "feature_squeezing": {
+    "4": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 14,
+      "total": 14
+    },
+    "6": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 14,
+      "total": 14
+    },
+    "8": {
+      "recovery_rate": 0.0,
+      "helps": 0,
+      "hurts": 14,
+      "total": 14
+    }
+  },
+  "ensemble": {
+    "recovery_rate": 30.76923076923077,
+    "helps": 4,
+    "hurts": 9,
+    "total": 13
+  },
+  "best_defenses": {
+    "gaussian": {
+      "std": 0.01,
+      "recovery": 76.92307692307693
+    },
+    "squeezing": {
+      "bit_depth": null,
+      "recovery": 0
+    },
+    "ensemble": {
+      "recovery": 30.76923076923077
+    }
+  }
+}
