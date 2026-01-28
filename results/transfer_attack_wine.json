@@ -1,0 +1,1508 @@
+{
+  "XGBoost \u2192 TabPFN": {
+    "source_model": "XGBoost",
+    "target_model": "TabPFN",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 5,
+    "no_transfer": 25,
+    "transfer_rate": 16.666666666666664,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.7286853398536426,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.516496129531992,
+        "queries": 182
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.8839688543455669,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.5012659023899064,
+        "queries": 205
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.056102594032057,
+        "queries": 165
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.5309953052485867,
+        "queries": 203
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.762478704764242,
+        "queries": 205
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.4596780026711443,
+        "queries": 77
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.6496306148811222,
+        "queries": 165
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.6271646025875195,
+        "queries": 177
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.8127322078807513,
+        "queries": 174
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.736612027163755,
+        "queries": 179
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.48513193783944497,
+        "queries": 70
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.152416414160047,
+        "queries": 206
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.9301518673789615,
+        "queries": 188
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.6247039333207887,
+        "queries": 167
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.356701680453957,
+        "queries": 193
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.9406234140245937,
+        "queries": 182
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.625690049707503,
+        "queries": 187
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 4.350435256585794,
+        "queries": 206
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.4380801433856716,
+        "queries": 171
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.5915557084269947,
+        "queries": 178
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.167452213514926,
+        "queries": 167
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.6964893895102677,
+        "queries": 213
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.447772760653621,
+        "queries": 171
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.2904055252927236,
+        "queries": 202
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.49058414924136645,
+        "queries": 102
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.9727889196395214,
+        "queries": 179
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.9750930145033863,
+        "queries": 171
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.5331627391412375,
+        "queries": 186
+      }
+    ]
+  },
+  "LightGBM \u2192 TabPFN": {
+    "source_model": "LightGBM",
+    "target_model": "TabPFN",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 2,
+    "no_transfer": 28,
+    "transfer_rate": 6.666666666666667,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.4157946680248705,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.8245713372886496,
+        "queries": 170
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4670861361833347,
+        "queries": 174
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 4.341136018033201,
+        "queries": 189
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.6395314352983383,
+        "queries": 202
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.470972611863555,
+        "queries": 180
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.7308395272778552,
+        "queries": 181
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.862086051708136,
+        "queries": 177
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.6730333671563442,
+        "queries": 190
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.5011866199096464,
+        "queries": 178
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4298636207713122,
+        "queries": 170
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.567587318336737,
+        "queries": 193
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.4513385129761362,
+        "queries": 69
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.4514793056003334,
+        "queries": 185
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.48216927349905125,
+        "queries": 52
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4913933319607184,
+        "queries": 180
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.70628256020228,
+        "queries": 177
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.9182621512222275,
+        "queries": 232
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.0950028000385927,
+        "queries": 182
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.976745722167829,
+        "queries": 194
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.7477550767495855,
+        "queries": 193
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.48780742068634153,
+        "queries": 76
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.6400351901896526,
+        "queries": 176
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.3709944549860735,
+        "queries": 189
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.555619002020505,
+        "queries": 177
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.5638850818913882,
+        "queries": 184
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4240886324158972,
+        "queries": 186
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.0483133696809066,
+        "queries": 181
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.733081081257926,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.5889746881821663,
+        "queries": 169
+      }
+    ]
+  },
+  "TabPFN \u2192 XGBoost": {
+    "source_model": "TabPFN",
+    "target_model": "XGBoost",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 14,
+    "no_transfer": 16,
+    "transfer_rate": 46.666666666666664,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.2354255781086434,
+        "queries": 141
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.8926930030350921,
+        "queries": 168
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.7299567252521926,
+        "queries": 156
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.0196520113381737,
+        "queries": 186
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.867213756534442,
+        "queries": 149
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.4865704790938055,
+        "queries": 165
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 3.6422791903143525,
+        "queries": 183
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.4980907509199372,
+        "queries": 61
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.662994029367453,
+        "queries": 157
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.582335419193362,
+        "queries": 149
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.6623192218622815,
+        "queries": 156
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.910586802678064,
+        "queries": 170
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.408519321871279,
+        "queries": 147
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.777445041691353,
+        "queries": 154
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.9764579244076972,
+        "queries": 155
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.4256667983351843,
+        "queries": 148
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.9124348483185365,
+        "queries": 136
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.2331016498071783,
+        "queries": 139
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.563768618406802,
+        "queries": 144
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.4543273033507094,
+        "queries": 186
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.1062915236508757,
+        "queries": 117
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.720275716671233,
+        "queries": 168
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.686488987892695,
+        "queries": 166
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.0960853283815615,
+        "queries": 166
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.3335056657714142,
+        "queries": 140
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.6920310738976105,
+        "queries": 156
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 4.546273114582768,
+        "queries": 171
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.290020137842046,
+        "queries": 181
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.9397740700143276,
+        "queries": 167
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.45745077342693,
+        "queries": 164
+      }
+    ]
+  },
+  "TabPFN \u2192 LightGBM": {
+    "source_model": "TabPFN",
+    "target_model": "LightGBM",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 11,
+    "no_transfer": 19,
+    "transfer_rate": 36.666666666666664,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.1554459691228898,
+        "queries": 148
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.031148975545685,
+        "queries": 135
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.2631542238001563,
+        "queries": 152
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.054181343607,
+        "queries": 155
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.682461770669688,
+        "queries": 153
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.6130796683590827,
+        "queries": 137
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.0387136641371097,
+        "queries": 201
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.462406942328173,
+        "queries": 68
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.2417227832630773,
+        "queries": 137
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.7390001762587978,
+        "queries": 177
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.470521136423643,
+        "queries": 164
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.3915453387364916,
+        "queries": 161
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.917058153630817,
+        "queries": 133
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 3.270007910792487,
+        "queries": 150
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.5198627156116638,
+        "queries": 162
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.4557522412942454,
+        "queries": 138
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.87397408472063,
+        "queries": 225
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.4197535993641086,
+        "queries": 173
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.9556320268526663,
+        "queries": 159
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 4.409331136427419,
+        "queries": 141
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.7549612018807794,
+        "queries": 172
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.79170484296211,
+        "queries": 182
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.978168055058249,
+        "queries": 196
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.4229241008505995,
+        "queries": 137
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.3128427513168135,
+        "queries": 126
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.3947121128420528,
+        "queries": 157
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.9864213965587014,
+        "queries": 141
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.519665292969227,
+        "queries": 135
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.170805316950826,
+        "queries": 160
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.8121012937448215,
+        "queries": 144
+      }
+    ]
+  },
+  "XGBoost \u2192 LightGBM": {
+    "source_model": "XGBoost",
+    "target_model": "LightGBM",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 17,
+    "no_transfer": 13,
+    "transfer_rate": 56.666666666666664,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.468567812361401,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4840082725677315,
+        "queries": 173
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.929174904296729,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.462396103808819,
+        "queries": 218
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.953780136985085,
+        "queries": 214
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.8923385470390324,
+        "queries": 175
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.2940009585017176,
+        "queries": 176
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.8304951045792315,
+        "queries": 197
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.4922823268128079,
+        "queries": 89
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.2447897276837008,
+        "queries": 182
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.7294055179903896,
+        "queries": 192
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.3221240710037263,
+        "queries": 169
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.3121082995111597,
+        "queries": 187
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 0.48701027712952677,
+        "queries": 78
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.260330068820898,
+        "queries": 178
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 0.4848759799465331,
+        "queries": 112
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4392669085115817,
+        "queries": 173
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.3308130290168774,
+        "queries": 189
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.390840988924106,
+        "queries": 200
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.1886102747467384,
+        "queries": 174
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 4.014313503257788,
+        "queries": 197
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.5732823741208537,
+        "queries": 184
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.941908519550617,
+        "queries": 178
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.8502631375927874,
+        "queries": 174
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.651100928786725,
+        "queries": 177
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.9305113150208857,
+        "queries": 177
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.9484671296555363,
+        "queries": 171
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.848787249973355,
+        "queries": 184
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.8422217255197182,
+        "queries": 180
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.2533777080484803,
+        "queries": 176
+      }
+    ]
+  },
+  "LightGBM \u2192 XGBoost": {
+    "source_model": "LightGBM",
+    "target_model": "XGBoost",
+    "samples_tested": 30,
+    "source_success": 30,
+    "transfer_success": 12,
+    "no_transfer": 18,
+    "transfer_rate": 40.0,
+    "attacks": [
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.3899462653808343,
+        "queries": 190
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 0.5140143098820027,
+        "queries": 185
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 0.7088584018066887,
+        "queries": 180
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.2244256828516407,
+        "queries": 218
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.2549988966699845,
+        "queries": 179
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.5956477786649452,
+        "queries": 184
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.386966603823361,
+        "queries": 194
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.210384568925499,
+        "queries": 175
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.339696820339777,
+        "queries": 178
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.0984712477225558,
+        "queries": 178
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.201048885952016,
+        "queries": 195
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 0.48721258713221466,
+        "queries": 85
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.5470655337329702,
+        "queries": 167
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.43935149152622177,
+        "queries": 76
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.1538210240762155,
+        "queries": 183
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.6181930514392073,
+        "queries": 197
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.9754343297795787,
+        "queries": 171
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.6416356284299937,
+        "queries": 189
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 4.047189304955717,
+        "queries": 191
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.894883255685652,
+        "queries": 189
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.7274673048915012,
+        "queries": 181
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.9438411604562353,
+        "queries": 175
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.981363370306494,
+        "queries": 177
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.4847816900464015,
+        "queries": 116
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.5908774148299565,
+        "queries": 174
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.1018925062891762,
+        "queries": 175
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 3.096051803301981,
+        "queries": 178
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.482404805193981,
+        "queries": 174
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.95148425318305,
+        "queries": 196
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.514894703574733,
+        "queries": 172
+      }
+    ]
+  }
+}
