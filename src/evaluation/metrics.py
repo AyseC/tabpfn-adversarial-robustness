@@ -50,8 +50,40 @@ class RobustnessMetrics:
         return np.mean([r.queries for r in successful])
     
     @staticmethod
+    def adversarial_accuracy(clean_acc: float, asr: float) -> float:
+        """
+        Adversarial Accuracy - Literature standard metric
+        
+        Measures the proportion of samples that remain correctly 
+        classified after adversarial attack.
+        
+        Args:
+            clean_acc: Clean accuracy (before attack)
+            asr: Attack success rate
+        
+        Returns:
+            Adversarial accuracy = clean_acc * (1 - asr)
+        """
+        return clean_acc * (1 - asr)
+    
+    @staticmethod
     def robustness_score(clean_acc: float, asr: float, avg_pert: float) -> float:
-        """Overall robustness score (higher = more robust)"""
+        """
+        Composite Robustness Score (higher = more robust)
+        
+        Combines three factors:
+        - Clean accuracy (40%): Baseline model performance
+        - Attack resistance (40%): 1 - ASR
+        - Perturbation magnitude (20%): Normalized avg perturbation
+        
+        Args:
+            clean_acc: Clean accuracy
+            asr: Attack success rate
+            avg_pert: Average L2 perturbation for successful attacks
+        
+        Returns:
+            Weighted robustness score in [0, 1]
+        """
         # Normalize perturbation (assume max reasonable is 5.0)
         norm_pert = min(avg_pert / 5.0, 1.0)
         
@@ -60,7 +92,7 @@ class RobustnessMetrics:
         return score
     
     @staticmethod
-    def compute_all(results: List[AttackResult], y_true: np.ndarray, 
+    def compute_all(results: List[AttackResult], y_true: np.ndarray,
                    y_pred: np.ndarray) -> Dict[str, float]:
         """Compute all metrics"""
         metrics = {
@@ -70,6 +102,13 @@ class RobustnessMetrics:
             'avg_queries': RobustnessMetrics.average_queries(results),
         }
         
+        # Primary metric: Adversarial Accuracy (literature standard)
+        metrics['adversarial_accuracy'] = RobustnessMetrics.adversarial_accuracy(
+            metrics['clean_accuracy'],
+            metrics['attack_success_rate']
+        )
+        
+        # Secondary metric: Composite Robustness Score
         metrics['robustness_score'] = RobustnessMetrics.robustness_score(
             metrics['clean_accuracy'],
             metrics['attack_success_rate'],

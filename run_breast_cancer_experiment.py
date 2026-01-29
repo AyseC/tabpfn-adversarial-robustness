@@ -39,7 +39,7 @@ models = {
 }
 
 all_results = {}
-n_samples = 20
+n_samples = 15
 
 for model_name, model in models.items():
     print(f"\n{'-'*70}")

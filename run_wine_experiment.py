@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+
 """Wine dataset experiment - run from project root"""
 import numpy as np
 import json
