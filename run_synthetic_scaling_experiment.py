@@ -26,7 +26,7 @@ print("="*80)
 # Feature counts to test
 feature_counts = [5, 10, 15, 20]
 n_samples_per_dataset = 200
-n_test_attacks = 10
+n_test_attacks = 15
 
 print(f"\nExperimental Design:")
 print(f"  Feature counts: {feature_counts}")
