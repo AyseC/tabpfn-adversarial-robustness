@@ -1,0 +1,8 @@
+{
+  "tabpfn_wins": 1,
+  "gbdt_wins": 1,
+  "ties": 3,
+  "datasets_tested": 5,
+  "models_tested": 3,
+  "samples_per_experiment": 15
+}
