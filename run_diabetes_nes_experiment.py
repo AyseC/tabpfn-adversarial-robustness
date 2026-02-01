@@ -1,24 +1,23 @@
-"""Diabetes Dataset Experiment - Boundary Attack"""
+"""NES Attack Experiment - Diabetes Dataset"""
 import numpy as np
 import json
 import warnings
-from pathlib import Path
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
-from src.attacks.boundary_attack import BoundaryAttack
+from src.attacks.nes_attack import NESAttack
 from src.evaluation.metrics import RobustnessMetrics, AttackResult
 
 print("="*70)
-print("ADVERSARIAL ROBUSTNESS: DIABETES DATASET")
+print("NES ATTACK EXPERIMENT - DIABETES DATASET")
 print("="*70)
 
-# Load Diabetes dataset - SAME as NES experiment
+# Load data - SAME as boundary attack experiment
 print("\nLoading Diabetes dataset from OpenML...")
 try:
     diabetes = fetch_openml('diabetes', version=1, as_frame=False, parser='auto')
@@ -26,6 +25,7 @@ try:
     
     # Convert target to int
     if y.dtype == object:
+        from sklearn.preprocessing import LabelEncoder
         le = LabelEncoder()
         y = le.fit_transform(y)
     else:
@@ -43,12 +43,7 @@ except Exception as e:
     X = diabetes_reg.data
     y = (diabetes_reg.target > np.median(diabetes_reg.target)).astype(int)
 
-print(f"\nDataset: Diabetes")
-print(f"  Samples: {len(X)}")
-print(f"  Features: {X.shape[1]}")
-print(f"  Class 0: {sum(y==0)}, Class 1: {sum(y==1)}")
-
-# Standardize
+# Standardize features
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
@@ -56,16 +51,17 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
 
+print(f"\nDataset: Diabetes")
+print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
+
 n_samples = 15
-
-# Models
-models = {
-    'XGBoost': GBDTWrapper(model_type='xgboost'),
-    'LightGBM': GBDTWrapper(model_type='lightgbm'),
-    'TabPFN': TabPFNWrapper(device='cpu')
-}
-
 all_results = {}
+
+models = {
+    'TabPFN': TabPFNWrapper(device='cpu'),
+    'XGBoost': GBDTWrapper(model_type='xgboost'),
+    'LightGBM': GBDTWrapper(model_type='lightgbm')
+}
 
 for model_name, model in models.items():
     print(f"\n{'-'*70}")
@@ -77,8 +73,9 @@ for model_name, model in models.items():
     clean_acc = np.mean(y_pred == y_test)
     print(f"Clean Accuracy: {clean_acc:.4f}")
     
-    print(f"\nAttacking {n_samples} samples...")
-    attack = BoundaryAttack(model, max_iterations=200, epsilon=0.5, verbose=False)
+    print(f"\nNES Attack on {n_samples} samples...")
+    attack = NESAttack(model, max_iterations=200, n_samples=30, 
+                       learning_rate=0.3, sigma=0.3, verbose=False)
     
     results = []
     for i in range(min(n_samples, len(X_test))):
@@ -107,8 +104,6 @@ for model_name, model in models.items():
         if success:
             print(f"  [{i+1}] ✓ {y_true}→{y_adv}, pert={pert:.2f}, q={queries}")
     
-    print(f"\nSuccessful attacks: {sum(1 for r in results if r.success)}/{len(results)}")
-    
     metrics = RobustnessMetrics.compute_all(results, y_test[:n_samples], y_pred[:n_samples])
     
     all_results[model_name] = {
@@ -125,12 +120,11 @@ for model_name, model in models.items():
     print(f"  Adversarial Accuracy: {metrics['adversarial_accuracy']:.2%}")
 
 # Save results
-Path("results").mkdir(exist_ok=True)
-with open('results/diabetes_experiment.json', 'w') as f:
+with open('results/diabetes_nes_experiment.json', 'w') as f:
     json.dump(all_results, f, indent=2)
 
 print(f"\n{'='*70}")
-print("RESULTS - DIABETES DATASET")
+print("RESULTS")
 print(f"{'='*70}")
 print(f"\n{'Model':<12} {'ASR':<10} {'Adv Acc':<12} {'Robustness':<12}")
 print("-"*50)
@@ -138,4 +132,4 @@ for model_name, res in all_results.items():
     print(f"{model_name:<12} {res['attack_success_rate']:<10.2%} "
           f"{res['adversarial_accuracy']:<12.2%} {res['robustness_score']:<12.4f}")
 
-print(f"\n✓ Saved: results/diabetes_experiment.json")
+print(f"\n✓ Saved: results/diabetes_nes_experiment.json")

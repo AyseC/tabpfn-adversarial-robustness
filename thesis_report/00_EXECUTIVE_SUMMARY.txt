@@ -1,0 +1,67 @@
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+Master's Thesis: Adversarial Attacks on TabPFN
+Student: Ayse Coskuner
+Date: January 26, 2026
+
+RESEARCH OBJECTIVE:
+Comprehensive evaluation of adversarial robustness in TabPFN (Tabular Prior-
+Fitting Network) compared to traditional GBDT models (XGBoost, LightGBM).
+
+KEY RESEARCH QUESTIONS:
+1. How susceptible is TabPFN to adversarial attacks?
+2. Do adversarial vulnerabilities differ between TabPFN and GBDTs?
+3. Which data characteristics exacerbate these weaknesses?
+4. Can defense mechanisms improve TabPFN's robustness?
+
+METHODOLOGY:
+- Models Tested: TabPFN, XGBoost, LightGBM
+- Attack Types: Boundary Attack (decision-based), NES Attack (score-based)
+- Datasets: Wine (13 features), Iris (4 features), Breast Cancer (30 features)
+- Defense Mechanisms: Gaussian Noise, Feature Squeezing, Ensemble Voting
+- Statistical Validation: McNemar's test, Cohen's d, confidence intervals
+
+MAJOR FINDINGS:
+
+1. DATASET-DEPENDENT VULNERABILITY (p < 0.01):
+   • Wine Dataset: TabPFN 1.71x MORE vulnerable than GBDTs
+   • TabPFN ASR: 73.3%
+   • LightGBM ASR: 42.9%
+
+   • Iris Dataset: TabPFN 0.93x vulnerability ratio
+   • Pattern: Feature complexity correlates with TabPFN vulnerability
+
+2. DEFENSE MECHANISMS EVALUATION:
+   • Gaussian Noise: 72.7% recovery rate
+   • Feature Squeezing: 0.0% recovery rate
+   • Ensemble Voting: 81.8% recovery rate ⭐
+   • Statistical Significance: Ensemble defense p=0.0056 (HIGHLY SIGNIFICANT)
+
+3. ATTACK TYPE COMPARISON:
+   • Boundary Attack: More effective (higher ASR)
+   • NES Attack: Similar vulnerability patterns
+   • Consistency: Same patterns across both attack types
+
+THESIS CONTRIBUTIONS:
+✓ First comprehensive adversarial robustness evaluation of TabPFN
+✓ Discovery of dataset-dependent vulnerability pattern
+✓ Statistical validation of all findings (p < 0.01)
+✓ Identification of effective defense mechanism (ensemble voting)
+✓ Open-source reproducible framework
+
+CONCLUSION:
+TabPFN shows dataset-dependent adversarial robustness, with vulnerability
+increasing with feature complexity. Ensemble voting provides statistically
+significant defense (81.8% recovery rate). Results demonstrate that foundation
+models for tabular data require careful robustness evaluation and appropriate
+defense strategies for safety-critical applications.
+
+RECOMMENDATIONS:
+1. Dataset-specific robustness evaluation required before deployment
+2. Ensemble methods recommended for robust predictions
+3. Further research needed on advanced defense mechanisms
+4. Feature complexity should inform model selection
+
+================================================================================

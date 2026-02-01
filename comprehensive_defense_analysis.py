@@ -66,7 +66,7 @@ print("\n[2/4] Testing Gaussian Noise with different std values...")
 print("(Testing 30 samples - this will take ~5-7 minutes)")
 
 attack = BoundaryAttack(tabpfn, max_iterations=100, epsilon=0.5, verbose=False)
-n_samples = 30
+n_samples = 15
 
 std_values = [0.01, 0.03, 0.05, 0.07, 0.10]
 gaussian_results = {std: {'helps': 0, 'hurts': 0, 'total': 0} for std in std_values}

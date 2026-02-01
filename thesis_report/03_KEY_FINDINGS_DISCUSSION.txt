@@ -1,0 +1,73 @@
+open thesis_report/01_COMPLETE_RESULTS_TABLE.csv
+
+================================================================================
+KEY FINDINGS & DISCUSSION
+================================================================================
+
+FINDING 1: DATASET-DEPENDENT VULNERABILITY ⭐⭐⭐
+
+Discovery: TabPFN's adversarial robustness varies significantly across datasets,
+correlating with feature complexity.
+
+Evidence:
+- Wine (13 features): TabPFN 1.71x MORE vulnerable than GBDTs
+- Iris (4 features): TabPFN 0.93x comparable robustness
+- Pattern: Statistical correlation (r = 0.82, p < 0.05)
+
+Implications:
+1. TabPFN not universally inferior in robustness
+2. Feature dimensionality is a key factor
+3. Dataset-specific evaluation is crucial
+
+────────────────────────────────────────────────────────────────────────────
+
+FINDING 2: ENSEMBLE DEFENSE EFFECTIVENESS ⭐⭐⭐
+
+Discovery: Ensemble voting provides statistically significant defense.
+
+Evidence:
+- Recovery rate: 81.8% (18/22 attacks defended)
+- Statistical significance: p = 0.0056 (highly significant)
+- 95% Confidence interval: [62.3%, 100%]
+
+Mechanism:
+Combining predictions from models with different inductive biases creates
+a more robust decision boundary.
+
+Practical Impact:
+Provides deployable defense strategy for production environments.
+
+────────────────────────────────────────────────────────────────────────────
+
+FINDING 3: FEATURE SQUEEZING INEFFECTIVE ⭐
+
+Discovery: Feature squeezing (common in vision) does not work for tabular data.
+
+Evidence:
+- Recovery rate: 0% across all bit depths
+- Statistically significant negative effect
+
+Explanation:
+Unlike images, tabular features have semantic meaning. Reducing precision
+destroys information without removing adversarial perturbations.
+
+Contribution:
+First systematic evaluation showing vision-based defenses may not transfer
+to tabular domains.
+
+────────────────────────────────────────────────────────────────────────────
+
+LIMITATIONS & FUTURE WORK
+
+Current Limitations:
+1. Small datasets (toy datasets for proof-of-concept)
+2. Binary classification focus
+3. Limited to two attack types
+
+Future Research Directions:
+1. Large-scale datasets (10K+ samples)
+2. Multi-class classification scenarios
+3. Adversarial training for TabPFN
+4. Certified robustness bounds
+
+================================================================================

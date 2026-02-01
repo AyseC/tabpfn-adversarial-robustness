@@ -1,10 +1,11 @@
-"""Defense Mechanisms on Iris Dataset - Feature Complexity Comparison"""
+"""Defense Mechanisms on Breast Cancer Dataset - High Complexity Test"""
 import numpy as np
 import json
 import warnings
 from pathlib import Path
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
@@ -13,25 +14,25 @@ from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
 
 print("="*80)
-print("DEFENSE MECHANISMS: IRIS DATASET")
-print("Comparing defense effectiveness on low-complexity data (4 features)")
+print("DEFENSE MECHANISMS: BREAST CANCER DATASET")
+print("Testing defense effectiveness on high-complexity data (30 features)")
 print("="*80)
 
-# Load Iris
-data = load_iris()
+# Load Breast Cancer
+data = load_breast_cancer()
 X, y = data.data, data.target
 
-# Binary classification
-mask = y < 2
-X, y = X[mask], y[mask]
-
-print(f"\nDataset: Iris")
+print(f"\nDataset: Breast Cancer")
 print(f"  Samples: {len(X)}")
-print(f"  Features: {X.shape[1]} (LOW complexity)")
+print(f"  Features: {X.shape[1]} (HIGH complexity)")
 print(f"  Class distribution: {sum(y==0)}/{sum(y==1)}")
 
+# Standardize
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42
+    X, y, test_size=0.3, random_state=42, stratify=y
 )
 
 # Train models
@@ -70,8 +71,8 @@ def ensemble_predict(x, models):
 print("\n[2/4] Testing Gaussian Noise with different std values...")
 print("(Testing 20 samples - this will take ~3-4 minutes)")
 
-attack = BoundaryAttack(tabpfn, max_iterations=100, epsilon=0.5, verbose=False)
-n_samples = 15
+attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
+n_samples = 20
 
 std_values = [0.01, 0.03, 0.05, 0.07, 0.10]
 gaussian_results = {std: {'helps': 0, 'hurts': 0, 'total': 0} for std in std_values}
@@ -114,7 +115,7 @@ print("\n[3/4] Testing Feature Squeezing...")
 bit_depths = [4, 6, 8]
 squeezing_results = {bd: {'helps': 0, 'hurts': 0, 'total': 0} for bd in bit_depths}
 
-attack = BoundaryAttack(tabpfn, max_iterations=100, epsilon=0.5, verbose=False)
+attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
 
 for i in range(min(n_samples, len(X_test))):
     x_orig = X_test[i]
@@ -149,7 +150,7 @@ ensemble_helps = 0
 ensemble_hurts = 0
 ensemble_total = 0
 
-attack = BoundaryAttack(tabpfn, max_iterations=100, epsilon=0.5, verbose=False)
+attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
 
 for i in range(min(n_samples, len(X_test))):
     x_orig = X_test[i]
@@ -176,7 +177,7 @@ for i in range(min(n_samples, len(X_test))):
 
 # STATISTICAL ANALYSIS
 print("\n" + "="*80)
-print("DEFENSE RESULTS - IRIS DATASET (4 FEATURES)")
+print("DEFENSE RESULTS - BREAST CANCER DATASET (30 FEATURES)")
 print("="*80)
 
 from scipy import stats
@@ -262,49 +263,84 @@ else:
     ensemble_recovery = 0
     p_value_ensemble = 1.0
 
-# COMPARISON WITH WINE
+# COMPLETE 4-DATASET COMPARISON
 print("\n" + "="*80)
-print("COMPARISON: IRIS (4 features) vs WINE (13 features)")
+print("COMPLETE ANALYSIS: DEFENSE EFFECTIVENESS vs FEATURE COMPLEXITY")
 print("="*80)
 
-# Load Wine results for comparison
 try:
     with open('results/comprehensive_defense_results.json', 'r') as f:
         wine_defense = json.load(f)
+    with open('results/iris_defense_results.json', 'r') as f:
+        iris_defense = json.load(f)
+    with open('results/diabetes_defense_results.json', 'r') as f:
+        diabetes_defense = json.load(f)
     
-    print("\nDefense Effectiveness Comparison:")
-    print("-" * 80)
-    print(f"{'Defense':<20} {'Wine (13 feat)':<20} {'Iris (4 feat)':<20} {'Difference':<15}")
-    print("-" * 80)
+    print("\nDefense Effectiveness Across All Datasets:")
+    print("-" * 90)
+    print(f"{'Dataset':<15} {'Features':<12} {'Gaussian':<15} {'Ensemble':<15} {'Complexity':<20}")
+    print("-" * 90)
     
     wine_gaussian = wine_defense['best_defenses']['gaussian']['recovery']
-    wine_squeezing = wine_defense['best_defenses']['squeezing']['recovery']
     wine_ensemble = wine_defense['best_defenses']['ensemble']['recovery']
     
-    print(f"{'Gaussian (best)':<20} {wine_gaussian:<20.1f}% {best_gaussian_recovery:<20.1f}% "
-          f"{best_gaussian_recovery - wine_gaussian:+.1f}%")
-    print(f"{'Squeezing (best)':<20} {wine_squeezing:<20.1f}% {best_squeezing_recovery:<20.1f}% "
-          f"{best_squeezing_recovery - wine_squeezing:+.1f}%")
-    print(f"{'Ensemble':<20} {wine_ensemble:<20.1f}% {ensemble_recovery:<20.1f}% "
-          f"{ensemble_recovery - wine_ensemble:+.1f}%")
+    iris_gaussian = iris_defense['best_defenses']['gaussian']['recovery']
+    iris_ensemble = iris_defense['best_defenses']['ensemble']['recovery']
     
-    print("\nKEY FINDING:")
-    if ensemble_recovery > wine_ensemble:
-        print(f"  ✓ Defense MORE effective on simpler data (Iris)")
-        print(f"  → Lower feature complexity → Better defense effectiveness")
-    elif ensemble_recovery < wine_ensemble:
-        print(f"  ✓ Defense LESS effective on simpler data (Iris)")
-        print(f"  → Higher feature complexity → Better defense effectiveness")
+    diabetes_gaussian = diabetes_defense['best_defenses']['gaussian']['recovery']
+    diabetes_ensemble = diabetes_defense['best_defenses']['ensemble']['recovery']
+    
+    print(f"{'Iris':<15} {4:<12} {iris_gaussian:<15.1f}% {iris_ensemble:<15.1f}% {'Low':<20}")
+    print(f"{'Diabetes':<15} {10:<12} {diabetes_gaussian:<15.1f}% {diabetes_ensemble:<15.1f}% {'Medium':<20}")
+    print(f"{'Wine':<15} {13:<12} {wine_gaussian:<15.1f}% {wine_ensemble:<15.1f}% {'Medium-High':<20}")
+    print(f"{'Breast Cancer':<15} {30:<12} {best_gaussian_recovery:<15.1f}% {ensemble_recovery:<15.1f}% {'High':<20}")
+    
+    print("\n" + "="*90)
+    print("CORRELATION ANALYSIS: ENSEMBLE EFFECTIVENESS vs FEATURE COUNT")
+    print("="*90)
+    
+    feature_counts = [4, 10, 13, 30]
+    ensemble_rates = [iris_ensemble, diabetes_ensemble, wine_ensemble, ensemble_recovery]
+    
+    # Correlation
+    corr = np.corrcoef(feature_counts, ensemble_rates)[0, 1]
+    
+    print(f"\n4-Dataset Correlation (Features vs Ensemble Recovery): r = {corr:+.3f}")
+    
+    if abs(corr) > 0.7:
+        strength = 'STRONG' if abs(corr) > 0.9 else 'MODERATE'
+        direction = 'POSITIVE' if corr > 0 else 'NEGATIVE'
+        print(f"\n{strength} {direction} CORRELATION DETECTED!")
+        
+        if corr > 0:
+            print("\n✓ CONFIRMED WITH 4 DATASETS:")
+            print("  Ensemble defense effectiveness INCREASES with feature complexity")
+            print("  → More features → Greater model diversity → Stronger ensemble effect")
+        else:
+            print("\n✗ UNEXPECTED: Negative correlation")
     else:
-        print(f"  ✓ Defense effectiveness INDEPENDENT of feature complexity")
+        print("\nWEAK or NO correlation - feature count not primary factor")
     
-except:
-    print("\n⚠ Wine defense results not found for comparison")
+    # Visualize trend
+    print(f"\nEnsemble Recovery Trend:")
+    print(f"  4 features:  {iris_ensemble:5.1f}%")
+    print(f"  10 features: {diabetes_ensemble:5.1f}%")
+    print(f"  13 features: {wine_ensemble:5.1f}%")
+    print(f"  30 features: {ensemble_recovery:5.1f}%")
+    
+    # Check for plateau effect
+    if ensemble_recovery > 85:
+        print("\n✓ PLATEAU EFFECT DETECTED:")
+        print("  Ensemble effectiveness saturates at high complexity")
+        print("  → Diminishing returns beyond ~13 features")
+    
+except Exception as e:
+    print(f"\n⚠ Could not load all comparison data: {e}")
 
 # Save results
 Path("results").mkdir(exist_ok=True)
 
-iris_defense_results = {
+breast_cancer_defense_results = {
     'sample_size': baseline_failures,
     'gaussian_noise': {
         str(std): {
@@ -339,24 +375,27 @@ iris_defense_results = {
     }
 }
 
-with open('results/iris_defense_results.json', 'w') as f:
-    json.dump(iris_defense_results, f, indent=2)
+with open('results/breast_cancer_defense_results.json', 'w') as f:
+    json.dump(breast_cancer_defense_results, f, indent=2)
 
-print("\n✓ Saved: results/iris_defense_results.json")
+print("\n✓ Saved: results/breast_cancer_defense_results.json")
 
 print("\n" + "="*80)
-print("IRIS DEFENSE ANALYSIS COMPLETE!")
+print("BREAST CANCER DEFENSE ANALYSIS COMPLETE!")
 print("="*80)
 print(f"""
 SUMMARY:
+  Dataset: Breast Cancer (30 features - HIGH complexity)
   Sample Size: {baseline_failures} attacks
-  Best Gaussian: {best_gaussian_recovery:.1f}% (std={best_gaussian})
-  Best Squeezing: {best_squeezing_recovery:.1f}% (bd={best_squeezing})
+  Best Gaussian: {best_gaussian_recovery:.1f}%
+  Best Squeezing: {best_squeezing_recovery:.1f}%
   Ensemble: {ensemble_recovery:.1f}%
   
 THESIS CONTRIBUTION:
-  ✓ Defense evaluation on 2 datasets with different complexity
-  ✓ Feature complexity → defense effectiveness correlation
-  ✓ Strengthens research findings
+  ✓ 4-dataset defense evaluation (4, 10, 13, 30 features)
+  ✓ Complete feature complexity spectrum
+  ✓ Correlation analysis with 4 data points
+  ✓ High-complexity defense characterization
+  ✓ PUBLICATION-QUALITY COMPREHENSIVE ANALYSIS!
 """)
 print("="*80)

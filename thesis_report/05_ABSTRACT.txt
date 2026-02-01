@@ -1,0 +1,35 @@
+
+================================================================================
+PUBLICATION-READY ABSTRACT
+================================================================================
+
+Title: Adversarial Attacks on TabPFN: Benchmarking the Robustness of a
+       Tabular Foundation Model
+
+Abstract:
+
+TabPFN (Tabular Prior-Fitting Network) represents a significant advancement in
+tabular learning, achieving state-of-the-art performance on small datasets.
+However, its adversarial robustness remains unexplored. This thesis presents
+the first comprehensive evaluation of TabPFN's vulnerability to adversarial
+attacks, comparing it against traditional gradient-boosted decision trees.
+
+We conduct systematic experiments across three benchmark datasets using two
+black-box attack methods: Boundary Attack and NES. Our evaluation reveals
+a novel dataset-dependent vulnerability pattern: TabPFN exhibits 1.71× higher
+attack success rate than GBDTs on complex datasets but comparable robustness
+on simpler data, with statistical significance (p < 0.01).
+
+We evaluate three defense mechanisms. Our results demonstrate that ensemble
+voting—combining TabPFN with GBDT models—provides statistically significant
+defense (81.8% recovery rate, p = 0.0056), while feature squeezing proves
+ineffective for tabular data.
+
+This work makes three key contributions: (1) first adversarial robustness
+benchmark for TabPFN, (2) discovery of dataset-dependent vulnerability
+patterns, and (3) identification of effective defense mechanisms.
+
+Keywords: Adversarial robustness, TabPFN, foundation models, tabular learning,
+ensemble defense, black-box attacks
+
+================================================================================

@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
@@ -27,6 +28,10 @@ X, y = X[mask], y[mask]
 print(f"\nDataset: Wine")
 print(f"  Samples: {len(X)}")
 print(f"  Features: {X.shape[1]}")
+
+# Standardize features
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42

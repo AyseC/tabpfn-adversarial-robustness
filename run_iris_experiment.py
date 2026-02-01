@@ -5,6 +5,7 @@ import warnings
 from pathlib import Path
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
@@ -28,6 +29,10 @@ X, y = X[mask], y[mask]
 print(f"\nDataset: Iris (Binary)")
 print(f"  Samples: {len(X)}")
 print(f"  Features: {X.shape[1]}")
+
+# Standardize features
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42
