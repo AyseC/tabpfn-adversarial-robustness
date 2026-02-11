@@ -1,422 +1,297 @@
 # Adversarial Robustness of TabPFN vs GBDTs
 
-**Master's Thesis Research**  
-Student: Ayse Coskuner  
-Supervisor: Ilia Koloiarov  
-Year: 2025
+## Master's Thesis Research
+- **Student:** Ayse Coskuner
+- **Supervisor:** Ilia Koloiarov
+- **Institution:** University of Hildesheim
+- **Year:** 2025
 
 ## Research Objective
 
 Comprehensive evaluation of adversarial robustness in TabPFN (Tabular Prior-Fitting Network) compared to traditional GBDT models (XGBoost, LightGBM).
 
+---
+
 ## Major Findings
 
-### 1. Dataset-Dependent Vulnerability (p < 0.001)
+### 1. TabPFN Generally More Robust Than GBDTs
 
-TabPFN's adversarial robustness varies significantly across datasets:
+TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 
-| Dataset | Features | TabPFN ASR | Best GBDT ASR | Vulnerability Ratio | Interpretation |
-|---------|----------|------------|---------------|---------------------|----------------|
-| Heart | 13 | 50.0% | 91.7% | 0.55x | TabPFN 2x more robust |
-| Iris | 4 | 93.3% | 100% | 0.93x | TabPFN more robust |
-| Diabetes | 10 | 84.6% | 83.3% | 1.02x | Comparable |
-| Wine | 13 | 73.3% | 42.9% | 1.71x | GBDT more robust |
-| Breast Cancer | 30 | 80.0% | 68.4% | 1.17x | TabPFN more vulnerable |
+| Dataset | Features | TabPFN ASR | Best GBDT ASR | Difference | Winner |
+|---------|----------|------------|---------------|------------|--------|
+| Wine | 13 | 86.67% | 93.33% | -6.67% | TabPFN ✓ |
+| Iris | 4 | 86.67% | 100.00% | -13.33% | TabPFN ✓ |
+| Diabetes | 8 | 100.00% | 100.00% | 0.00% | Tie |
+| Heart | 13 | 50.00% | 83.33% | -33.33% | TabPFN ✓ |
+| Breast Cancer | 30 | 76.92% | 85.71% | -8.79% | TabPFN ✓ |
 
-**Key Insight:** Datasets with identical feature counts (Wine and Heart, both 13 features) exhibit opposite vulnerability patterns. This demonstrates that feature dimensionality alone is insufficient to predict adversarial robustness.
+**Statistical Analysis:**
+- Mean ASR difference: **-12.4%** (TabPFN lower)
+- Bootstrap 95% CI: **[-23.5%, -4.4%]** (excludes zero = significant)
+- Cohen's d: **-0.98** (Large effect size)
+- Paired t-test: p=0.093 (marginally significant due to small n=5)
 
-### 2. Asymmetric Transferability (Novel Finding)
+### 2. Boundary Attack More Effective Than NES on Tabular Data (p=0.002)
 
-Cross-model adversarial transferability analysis reveals asymmetric patterns:
+| Attack Type | Mean ASR | Std Dev |
+|-------------|----------|---------|
+| Boundary Attack | 89.89% | 13.13% |
+| NES Attack | 61.01% | 27.25% |
 
-| Transfer Direction | Transfer Rate | Interpretation |
-|-------------------|---------------|----------------|
-| XGBoost → TabPFN | 16.7% | Very low |
-| LightGBM → TabPFN | 6.7% | Very low |
-| **GBDTs → TabPFN (avg)** | **11.7%** | **Very low transfer** |
-| TabPFN → XGBoost | 46.7% | Moderate |
-| TabPFN → LightGBM | 36.7% | Low-moderate |
-| **TabPFN → GBDTs (avg)** | **41.7%** | **Moderate transfer** |
-| XGBoost → LightGBM | 56.7% | Moderate-high |
-| LightGBM → XGBoost | 40.0% | Moderate |
-| **GBDT ↔ GBDT (avg)** | **48.3%** | **Moderate-high** |
+**Key Discovery:** Decision-based attacks (Boundary) significantly outperform score-based attacks (NES) on tabular data. This **contradicts image domain literature** where NES is typically stronger.
 
-**Asymmetry Ratio:** TabPFN attacks transfer 3.5x better to GBDTs than reverse direction.
+**Explanation:** 
+- Decision trees have non-smooth decision boundaries
+- NES gradient estimation fails on discontinuous probability landscapes
+- Lower dimensionality (4-30 features vs 784+ for images) amplifies this effect
 
-**Interpretation:** TabPFN learns fundamentally different decision boundaries, showing high robustness to GBDT-specific attacks while producing attacks that transfer to simpler architectures.
+### 3. Parameter Sensitivity Analysis
 
-### 3. Feature Complexity-Defense Correlation (r = +0.853)
+**NES Attack - sigma is CRITICAL:**
 
-Ensemble defense effectiveness strongly correlates with feature dimensionality:
+| sigma | TabPFN ASR | XGBoost ASR | LightGBM ASR |
+|-------|------------|-------------|--------------|
+| 0.1 | 30% | 0% | 30% |
+| 0.3 | 30% | 0% | 30% |
+| 0.5 | 50% | 100% | 70% |
+| 1.0 | 90% | 100% | 100% |
 
-| Dataset | Features | Gaussian Noise | Ensemble Voting | Complexity |
-|---------|----------|----------------|-----------------|------------|
-| Iris | 4 | 80.0% | 20.0% | Low |
-| Diabetes | 10 | 76.9% | 30.8% | Medium |
-| Wine | 13 | 72.7% | 81.8% | Medium-High |
-| Breast Cancer | 30 | (In progress) | (In progress) | High |
+**Finding:** Default sigma=0.3 was suboptimal. With sigma≥0.5, NES achieves comparable ASR to Boundary Attack.
 
-**Correlation Analysis:**
-- Ensemble effectiveness vs. feature count: r = +0.853 (strong positive)
-- Statistical significance: p < 0.01
+**Boundary Attack:** Robust to hyperparameter changes (max_iterations, epsilon have minimal effect).
 
-**Explanation:** High-dimensional feature spaces enable model diversity. Models learn complementary decision boundaries, maximizing ensemble voting effectiveness.
+### 4. Transfer Attack Asymmetry (Dataset-Dependent)
 
-### 4. Controlled Synthetic Experiments
+| Dataset | GBDT → TabPFN | TabPFN → GBDT | Ratio |
+|---------|---------------|---------------|-------|
+| Iris | 3.33% | 34.62% | 10.38x |
+| Diabetes | 9.09% | 63.64% | 7.00x |
+| Heart | 47.73% | 16.67% | 0.35x |
+| Breast Cancer | 40.38% | 16.67% | 0.41x |
+| Wine | 0% | 0% | N/A |
 
-To isolate the effect of feature dimensionality, controlled experiments were conducted:
-
-| Features | TabPFN ASR | GBDT ASR | Vulnerability Ratio | Interpretation |
-|----------|------------|----------|---------------------|----------------|
-| 5 | 70% | 80% | 0.87x | TabPFN more robust |
-| 10 | 88.9% | 100% | 0.89x | TabPFN more robust |
-| 15 | 80% | 80% | 1.00x | Comparable |
-| 20 | 87.5% | 83.3% | 1.05x | TabPFN more vulnerable |
-
-**Correlation Analysis:**
-- TabPFN: r = +0.650 (vulnerability increases with feature count)
-- GBDTs: r = -0.570 (robustness increases with feature count)
-
-**Conclusion:** Feature dimensionality is a significant factor in controlled settings, but real-world datasets demonstrate that additional intrinsic data characteristics play crucial roles.
+**Pattern:** 
+- Low-dimensional datasets (Iris, Diabetes): TabPFN → GBDT transfers better
+- High-dimensional datasets (Heart, Breast Cancer): GBDT → TabPFN transfers better
 
 ### 5. Defense Mechanisms Evaluation
 
-Multiple defense strategies were evaluated across datasets:
+| Defense Type | Mean Recovery | Best Dataset | Best Recovery |
+|--------------|---------------|--------------|---------------|
+| Feature Squeezing | 59.67% | Iris (8-bit) | 93.33% |
+| Gaussian Noise | 57.09% | Iris (σ=0.03) | 80.00% |
+| Ensemble Voting | 33.13% | Breast Cancer | 61.54% |
 
-| Defense Strategy | Best Performance | Statistical Significance | Notes |
-|-----------------|------------------|-------------------------|-------|
-| Ensemble Voting | 81.8% (Wine) | Yes (p = 0.0056) | Highly effective on complex data |
-| Gaussian Noise | 72.7-80.0% | Marginal to Yes | Consistent across datasets |
-| Feature Squeezing | 0% | No | Vision-based defense fails on tabular data |
+**Best Defense per Dataset:**
 
-**Key Finding:** Feature squeezing (successful in computer vision) achieved 0% recovery across all tabular datasets, demonstrating fundamental domain differences and need for tabular-specific defenses.
+| Dataset | Features | Best Defense | Recovery |
+|---------|----------|--------------|----------|
+| Wine | 13 | Gaussian Noise σ=0.01 | 73.33% |
+| Iris | 4 | Feature Squeezing 8-bit | 93.33% |
+| Diabetes | 8 | Feature Squeezing 16-bit | 81.82% |
+| Heart | 13 | Ensemble Voting | 41.67% |
+| Breast Cancer | 30 | Gaussian Noise σ=0.01 | 69.23% |
 
-## Research Contributions
+**Key Finding:** No single defense works best for all datasets. Defense effectiveness depends on data characteristics.
 
-1. **First comprehensive adversarial evaluation of TabPFN**
-   - Systematic robustness characterization of tabular foundation models
-   - Multiple attack types, datasets, and defense mechanisms
-   
-2. **Dataset-dependent vulnerability pattern discovery**
-   - Statistical validation (p < 0.001)
-   - Challenges assumptions about architectural robustness
-   
-3. **Asymmetric transferability in foundation models**
-   - 3.5x transfer ratio (TabPFN → GBDT vs. reverse)
-   - Novel insight into foundation model decision boundaries
-   
-4. **Feature complexity-ensemble effectiveness correlation**
-   - Strong positive relationship (r = +0.853)
-   - Theoretical basis for complexity-aware defense strategies
-   
-5. **Domain-specific defense requirements**
-   - First systematic evaluation: vision defenses fail on tabular data
-   - Demonstrates need for tabular-specific research
-   
-6. **Controlled synthetic experiments**
-   - Isolates feature dimensionality effects
-   - Complements real-world findings
+---
 
-## Complete Experimental Results
+## Experimental Setup
 
-### Datasets Tested
+### Datasets
 
-**Real-World Datasets (5):**
-- Wine Quality (13 features, 130 samples)
-- Iris (4 features, 100 samples)
-- Diabetes (10 features, 442 samples)
-- Heart Disease (13 features, 297 samples)
-- Breast Cancer (30 features, 569 samples)
+| Dataset | Samples | Features | Classes | Source |
+|---------|---------|----------|---------|--------|
+| Wine | 130 | 13 | 2 (binary) | sklearn |
+| Iris | 100 | 4 | 2 (binary) | sklearn |
+| Diabetes | 768 | 8 | 2 | OpenML (Pima Indians) |
+| Heart | 297 | 13 | 2 | OpenML/UCI |
+| Breast Cancer | 569 | 30 | 2 | sklearn |
 
-**Synthetic Datasets (4):**
-- 5, 10, 15, 20 features (200 samples each)
+### Preprocessing
+- **StandardScaler** applied to all datasets
+- **stratify=y** in train/test split (70/30)
+- **random_state=42** for reproducibility
+- **n_samples=15** adversarial examples per experiment
 
-**Total:** 9 datasets, 60+ experiments
+### Attack Methods
 
-### Attack Evaluation Results
+**1. Boundary Attack (Decision-based)**
+- max_iterations: 200
+- epsilon: 0.5
+- Black-box, uses only predicted labels
 
-| Dataset | Model | Clean Acc | ASR | Avg Pert | Robustness |
-|---------|-------|-----------|-----|----------|------------|
-| Wine | TabPFN | 89.7% | 73.3% | 1.23 | 0.604 |
-| Wine | XGBoost | 90.0% | 46.7% | 1.38 | 0.671 |
-| Wine | LightGBM | 89.7% | 42.9% | 1.45 | 0.688 |
-| Iris | TabPFN | 93.3% | 93.3% | 0.89 | 0.495 |
-| Iris | XGBoost | 90.0% | 100% | 1.02 | 0.473 |
-| Iris | LightGBM | 91.7% | 100% | 0.97 | 0.439 |
-| Diabetes | TabPFN | 75.2% | 84.6% | 2.07 | 0.491 |
-| Diabetes | XGBoost | 75.2% | 83.3% | 1.66 | 0.453 |
-| Diabetes | LightGBM | 75.2% | 83.3% | 1.32 | 0.439 |
-| Heart | TabPFN | 84.4% | 50.0% | 0.56 | 0.542 |
-| Heart | XGBoost | 80.0% | 91.7% | 2.27 | 0.444 |
-| Heart | LightGBM | 82.2% | 100% | 2.41 | 0.416 |
-| Breast Cancer | TabPFN | 98.8% | 80.0% | 1.22 | 0.529 |
-| Breast Cancer | XGBoost | 95.9% | 73.7% | 1.87 | 0.560 |
-| Breast Cancer | LightGBM | 95.9% | 68.4% | 1.09 | 0.550 |
+**2. NES Attack (Score-based)**
+- max_iterations: 200
+- n_samples: 30
+- learning_rate: 0.3
+- sigma: 0.3
+- Uses probability outputs
 
-**Note:** Clean Acc = Clean Accuracy, ASR = Attack Success Rate (lower is better), Avg Pert = Average Perturbation, Robustness = Composite score (higher is better)
+### Models
+- **TabPFN:** Tabular Prior-Fitted Network (CPU mode)
+- **XGBoost:** Extreme Gradient Boosting (default params)
+- **LightGBM:** Light Gradient Boosting Machine (default params)
+
+---
+
+## Project Structure
+```
+tabpfn-adversarial/
+├── src/
+│   ├── models/
+│   │   ├── tabpfn_wrapper.py
+│   │   └── gbdt_wrapper.py
+│   ├── attacks/
+│   │   ├── boundary_attack.py
+│   │   └── nes_attack.py
+│   └── evaluation/
+│       └── metrics.py
+├── results/
+│   ├── *_experiment.json
+│   ├── *_nes_experiment.json
+│   ├── *_defense_results.json
+│   ├── transfer_attack_*.json
+│   ├── parameter_sensitivity.json
+│   └── statistical_analysis.json
+├── run_*_experiment.py          # Boundary attack experiments
+├── run_*_nes_experiment.py      # NES attack experiments
+├── run_*_defense_experiment.py  # Defense experiments
+├── run_transfer_attack_*.py     # Transfer attack experiments
+├── run_parameter_sensitivity.py # Parameter analysis
+├── run_statistical_analysis.py  # Statistical tests
+├── analyze_*.py                 # Analysis scripts
+└── README.md
+```
+
+---
 
 ## Quick Start
 
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/AyseC/tabpfn-adversarial-robustness.git
-cd tabpfn-adversarial-robustness
+git clone https://github.com/AyseC/tabpfn-adversarial.git
+cd tabpfn-adversarial
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Install package
-pip install -e .
 ```
 
 ### Running Experiments
-
-**Basic Attack Experiments:**
 ```bash
-# Individual datasets
+# Boundary Attack (all datasets)
 python run_wine_experiment.py
 python run_iris_experiment.py
 python run_diabetes_experiment.py
 python run_heart_experiment.py
 python run_breast_cancer_experiment.py
-```
 
-**Advanced Experiments:**
-```bash
-# Synthetic feature scaling experiment
-python run_synthetic_scaling_experiment.py
+# NES Attack (all datasets)
+python run_wine_nes_experiment.py
+python run_iris_nes_experiment.py
+python run_diabetes_nes_experiment.py
+python run_heart_nes_experiment.py
+python run_breast_cancer_nes_experiment.py
 
-# Defense mechanisms analysis
+# Transfer Attacks
+python run_transfer_attack_wine.py
+python run_transfer_attack_iris.py
+python run_transfer_attack_diabetes.py
+python run_transfer_attack_heart.py
+python run_transfer_attack_breast_cancer.py
+
+# Defense Mechanisms
 python run_wine_defense_experiment.py
 python run_iris_defense_experiment.py
 python run_diabetes_defense_experiment.py
+python run_heart_defense_experiment.py
+python run_breast_cancer_defense_experiment.py
 
-# Transfer attack analysis
-python run_transfer_attack_wine.py
-
-# Statistical validation
-python statistical_analysis.py
+# Statistical Analysis
+python run_statistical_analysis.py
+python run_parameter_sensitivity.py
+python analyze_defense_results.py
 ```
 
-**Report Generation:**
-```bash
-# Generate comprehensive thesis report
-python generate_final_comprehensive_report.py
-```
+---
 
-## Project Structure
-```
-tabpfn-adversarial-robustness/
-├── src/
-│   ├── models/              # Model wrappers (TabPFN, XGBoost, LightGBM)
-│   ├── attacks/             # Attack implementations (Boundary, NES)
-│   ├── evaluation/          # Metrics and evaluation tools
-│   └── utils/               # Utility functions
-├── results/                 # Experimental results
-│   ├── *.json              # Raw numerical results
-│   ├── *.png               # Visualizations
-│   └── *.csv               # Summary tables
-├── thesis_report/           # Generated thesis materials
-├── run_*_experiment.py      # Experiment execution scripts
-└── README.md
-```
+## Statistical Validation Summary
 
-## Methodology
+| Finding | Test | p-value | Significant? |
+|---------|------|---------|--------------|
+| Boundary > NES | Paired t-test | **0.002** | ✓ Yes |
+| TabPFN > GBDT | Bootstrap CI | **[−23.5%, −4.4%]** | ✓ Yes |
+| TabPFN > GBDT | Paired t-test | 0.093 | Marginal (α=0.10) |
+| Transfer Asymmetry | Paired t-test | 0.722 | ✗ No |
+| Dim vs NES Gap | Pearson r | −0.902 (p=0.098) | Marginal |
 
-### Models Evaluated
+---
 
-- **TabPFN:** Transformer-based prior-fitting network for tabular data
-- **XGBoost:** Extreme gradient boosting with decision trees
-- **LightGBM:** Light gradient boosting machine
+## Key Contributions
 
-### Attack Methods
+1. **First comprehensive adversarial evaluation of TabPFN**
+   - 5 real datasets, 2 attack types, 3 defense mechanisms
 
-**1. Boundary Attack (Decision-based)**
-- Requires only model predictions (black-box)
-- No gradient information needed
-- Iterative perturbation refinement approach
-- Parameters: max_iterations=100, epsilon=0.5
+2. **Novel finding: Decision-based attacks outperform score-based on tabular data**
+   - Statistically significant (p=0.002)
+   - Contradicts image domain literature
 
-**2. Natural Evolution Strategies Attack (Score-based)**
-- Utilizes prediction probabilities
-- Gradient estimation via evolution strategies
-- Higher query efficiency
-- Parameters: samples=100, learning_rate=0.01
+3. **Parameter sensitivity analysis for tabular attacks**
+   - NES sigma parameter is critical (0.3 → 1.0 increases ASR from 0% to 100%)
+   - Boundary Attack robust to hyperparameter choices
 
-**3. Transfer Attacks**
-- Cross-model attack transferability evaluation
-- 6 transfer directions tested (TabPFN ↔ XGBoost ↔ LightGBM)
-- 30 samples per configuration
+4. **Dataset-dependent vulnerability patterns**
+   - No universal "winner" between TabPFN and GBDTs
+   - Robustness depends on data characteristics
 
-### Defense Mechanisms
+5. **Defense mechanism evaluation**
+   - Feature Squeezing and Gaussian Noise most effective
+   - Best defense varies by dataset
 
-**1. Ensemble Voting**
-- Majority voting across TabPFN, XGBoost, LightGBM
-- Exploits model diversity
-- Most effective defense (up to 81.8% recovery)
+---
 
-**2. Gaussian Noise Injection**
-- Input preprocessing with calibrated noise
-- Tested: σ = 0.01, 0.03, 0.05, 0.07, 0.10
-- Moderately effective (70-80% recovery)
+## Limitations
 
-**3. Feature Squeezing**
-- Bit-depth reduction for feature values
-- Tested: 4, 6, 8 bits
-- Ineffective for tabular data (0% recovery)
+- Black-box attacks only (no gradient-based white-box attacks)
+- Binary classification focus
+- Small sample sizes (n=15) due to computational constraints
+- CPU-only TabPFN (no GPU acceleration)
 
-### Evaluation Metrics
+## Future Work
 
-- **Attack Success Rate (ASR):** Percentage of successful adversarial examples
-- **Average Perturbation:** L2 norm of adversarial perturbations
-- **Query Efficiency:** Number of model queries required
-- **Robustness Score:** Composite metric (higher indicates greater robustness)
-- **Defense Recovery Rate:** Percentage of attacks defended successfully
-- **Statistical Significance:** Chi-square tests, p-values, correlation analysis
+- White-box attack evaluation (if gradient access available)
+- Multi-class classification robustness
+- Larger sample sizes for statistical power
+- Adversarial training for TabPFN
+- Domain-specific defense mechanisms
 
-## Research Questions and Findings
-
-### RQ1: How susceptible is TabPFN to adversarial attacks?
-
-**Finding:** TabPFN exhibits dataset-dependent vulnerability with ASR ranging from 50% to 93%. Susceptibility varies significantly based on data characteristics rather than being uniformly robust or vulnerable.
-
-### RQ2: Do adversarial vulnerabilities differ between TabPFN and GBDTs?
-
-**Finding:** Yes, significantly. Differences vary by dataset:
-- Heart Disease: TabPFN 2x more robust than GBDTs
-- Wine: GBDTs 1.7x more robust than TabPFN
-- Transfer attacks show 3.5x asymmetry (TabPFN → GBDT vs. reverse)
-
-### RQ3: Which data characteristics exacerbate these weaknesses?
-
-**Finding:** Multiple factors identified:
-- Feature dimensionality (r = +0.65 for TabPFN in controlled experiments)
-- Intrinsic data characteristics (separability, noise, correlation)
-- Domain-specific properties (medical vs. chemical vs. botanical)
-- Complexity beyond simple feature count
-
-### RQ4: Can defense mechanisms improve TabPFN's robustness?
-
-**Finding:** Yes. Ensemble voting achieves 81.8% recovery rate with statistical significance (p = 0.0056). Effectiveness strongly correlates with feature complexity (r = +0.853).
-
-## Key Visualizations
-
-All visualizations available in `results/` directory:
-
-- `synthetic_feature_scaling.png` - Controlled experiment results
-- `comprehensive_defense_analysis.png` - Defense mechanism comparison
-- `transfer_attack_wine.png` - Transfer attack heatmap (if generated)
-- `final_comprehensive_analysis.png` - Complete dataset overview
-- `wine_comparison.png` - Wine dataset detailed results
-- `statistical_analysis.png` - Statistical significance analysis
-
-## Statistical Validation
-
-All major findings validated using rigorous statistical methods:
-
-- **Hypothesis testing:** p < 0.01 for dataset-dependent vulnerability
-- **Chi-square tests:** Defense mechanism effectiveness
-- **Correlation analysis:** Pearson correlation coefficients
-- **Confidence intervals:** 95% CI for all metrics
-- **Effect sizes:** Cohen's d computed where applicable
-
-## Practical Implications
-
-### For Practitioners
-
-1. **Robustness Evaluation:** Test TabPFN on your specific dataset before deployment
-2. **Defense Strategy:** Implement ensemble voting, especially for high-dimensional data
-3. **Domain Awareness:** High clean accuracy ≠ adversarial robustness (e.g., Breast Cancer: 98.8% accuracy, 80% ASR)
-
-### For Researchers
-
-1. **Foundation Model Robustness:** Meta-learning does not automatically confer robustness
-2. **Tabular Adversarial ML:** Need for domain-specific attack and defense methods
-3. **Transfer Learning:** Asymmetric transferability patterns in foundation models warrant investigation
-
-## Limitations and Future Work
-
-### Current Limitations
-
-- Black-box attacks only (gradient-based attacks not evaluated)
-- Binary classification focus (multi-class robustness unexplored)
-- Transfer attacks on single dataset (Wine)
-- Adversarial training not feasible (TabPFN pre-trained)
-
-### Future Directions
-
-1. Robustness-aware foundation model training
-2. Certified defenses for tabular data
-3. Multi-class adversarial evaluation
-4. White-box attack analysis (if gradient access available)
-5. Domain-specific defense mechanism development
-
-## References
-
-### TabPFN
-
-- Hollmann, N., Schmier, R., Tunstall, L. T., Artelt, A., & Hutter, F. (2022). TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second. *arXiv preprint arXiv:2207.01848*.
-- Hollmann, N., Artelt, A., Schmier, R., & Hutter, F. (2024). Accurate predictions on small data with a tabular foundation model. *Nature*, 625, 147-154.
-
-### Adversarial Machine Learning
-
-- Brendel, W., Rauber, J., & Bethge, M. (2018). Decision-Based Adversarial Attacks: Reliable Attacks Against Black-Box Machine Learning Models. *ICLR*.
-- Ilyas, A., Engstrom, L., Athalye, A., & Lin, J. (2018). Black-box Adversarial Attacks with Limited Queries and Information. *ICML*.
-
-### Tabular Adversarial Research
-
-- Chen, J., Wu, X., & Xu, B. (2020). Adversarial Machine Learning on Tabular Data: A Survey. *arXiv preprint arXiv:2002.08398*.
-- Kantchelian, A., Tygar, J. D., & Joseph, A. D. (2016). Evasion and Hardening of Tree Ensemble Classifiers. *ICML*.
+---
 
 ## Citation
-
-If you use this work in your research, please cite:
 ```bibtex
 @mastersthesis{coskuner2025adversarial,
-  title={Adversarial Attacks on TabPFN: Benchmarking the Robustness of a Tabular Foundation Model},
+  title={Adversarial Robustness Evaluation of TabPFN: A Tabular Foundation Model},
   author={Coskuner, Ayse},
   year={2025},
   school={University of Hildesheim},
-  type={Master's Thesis}
+  supervisor={Koloiarov, Ilia}
 }
 ```
 
-## Contact
-
-**Ayse Coskuner**
-- GitHub: @AyseC
-- Repository: tabpfn-adversarial-robustness
-
-## Version History
-
-### Version 2.0.0 (January 2025)
-
-- Added Breast Cancer dataset (30 features, 569 samples)
-- Completed transfer attack analysis (6 directions)
-- Enhanced defense evaluation (4 datasets)
-- Discovery of asymmetric transferability (3.5x ratio)
-- Feature complexity-ensemble correlation (r = +0.853)
-- Statistical validation of all findings
-- Publication-ready results and comprehensive report
-
-### Version 1.0.0 (December 2024)
-
-- Initial implementation with Wine and Iris datasets
-- Boundary and NES attack implementations
-- Basic statistical analysis
+---
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License
 
 ## Acknowledgments
 
 - TabPFN authors (Hollmann et al.) for the foundation model
-- Adversarial Robustness Toolbox community
 - OpenML and UCI ML Repository for datasets
 - Thesis supervisor: Ilia Koloiarov
