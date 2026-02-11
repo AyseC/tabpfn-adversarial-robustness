@@ -1,74 +1,45 @@
 {
-  "sample_size": 20,
-  "gaussian_noise": {
-    "0.01": {
-      "recovery_rate": 80.0,
-      "helps": 16,
-      "hurts": 4,
-      "total": 20
-    },
-    "0.03": {
-      "recovery_rate": 65.0,
-      "helps": 13,
-      "hurts": 7,
-      "total": 20
-    },
-    "0.05": {
-      "recovery_rate": 60.0,
-      "helps": 12,
-      "hurts": 8,
-      "total": 20
-    },
-    "0.07": {
-      "recovery_rate": 50.0,
-      "helps": 10,
-      "hurts": 10,
-      "total": 20
-    },
-    "0.1": {
-      "recovery_rate": 55.00000000000001,
-      "helps": 11,
-      "hurts": 9,
-      "total": 20
-    }
+  "no_defense": {
+    "asr": 1.0,
+    "n_samples": 15
   },
-  "feature_squeezing": {
-    "4": {
-      "recovery_rate": 0.0,
-      "helps": 0,
-      "hurts": 20,
-      "total": 20
-    },
-    "6": {
-      "recovery_rate": 0.0,
-      "helps": 0,
-      "hurts": 20,
-      "total": 20
-    },
-    "8": {
-      "recovery_rate": 0.0,
-      "helps": 0,
-      "hurts": 20,
-      "total": 20
-    }
+  "gaussian_noise_0.01": {
+    "asr": 0.3333333333333333,
+    "recovery": 0.6666666666666667,
+    "noise_std": 0.01
   },
-  "ensemble": {
-    "recovery_rate": 20.0,
-    "helps": 4,
-    "hurts": 16,
-    "total": 20
+  "gaussian_noise_0.03": {
+    "asr": 0.2,
+    "recovery": 0.8,
+    "noise_std": 0.03
   },
-  "best_defenses": {
-    "gaussian": {
-      "std": 0.01,
-      "recovery": 80.0
-    },
-    "squeezing": {
-      "bit_depth": null,
-      "recovery": 0
-    },
-    "ensemble": {
-      "recovery": 20.0
-    }
+  "gaussian_noise_0.05": {
+    "asr": 0.2,
+    "recovery": 0.8,
+    "noise_std": 0.05
+  },
+  "gaussian_noise_0.1": {
+    "asr": 0.26666666666666666,
+    "recovery": 0.7333333333333334,
+    "noise_std": 0.1
+  },
+  "feature_squeezing_4bit": {
+    "asr": 0.4666666666666667,
+    "recovery": 0.5333333333333333,
+    "bit_depth": 4
+  },
+  "feature_squeezing_8bit": {
+    "asr": 0.06666666666666667,
+    "recovery": 0.9333333333333333,
+    "bit_depth": 8
+  },
+  "feature_squeezing_16bit": {
+    "asr": 0.06666666666666667,
+    "recovery": 0.9333333333333333,
+    "bit_depth": 16
+  },
+  "ensemble_voting": {
+    "asr": 0.6666666666666666,
+    "recovery": 0.33333333333333337
   }
 }

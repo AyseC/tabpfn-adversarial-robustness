@@ -1,4 +1,4 @@
-"""Defense Mechanisms on Breast Cancer Dataset - High Complexity Test"""
+"""Defense Mechanisms Experiment - Breast Cancer Dataset"""
 import numpy as np
 import json
 import warnings
@@ -13,19 +13,16 @@ from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
 
-print("="*80)
-print("DEFENSE MECHANISMS: BREAST CANCER DATASET")
-print("Testing defense effectiveness on high-complexity data (30 features)")
-print("="*80)
+print("="*70)
+print("DEFENSE MECHANISMS - BREAST CANCER DATASET")
+print("="*70)
 
-# Load Breast Cancer
+# Load dataset
 data = load_breast_cancer()
 X, y = data.data, data.target
 
 print(f"\nDataset: Breast Cancer")
-print(f"  Samples: {len(X)}")
-print(f"  Features: {X.shape[1]} (HIGH complexity)")
-print(f"  Class distribution: {sum(y==0)}/{sum(y==1)}")
+print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
 
 # Standardize
 scaler = StandardScaler()
@@ -35,367 +32,181 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
 
-# Train models
-print("\n[1/4] Training models...")
-tabpfn = TabPFNWrapper(device='cpu')
-tabpfn.fit(X_train, y_train)
-print("  ✓ TabPFN trained")
+# Train TabPFN
+print("\nTraining TabPFN...")
+model = TabPFNWrapper(device='cpu')
+model.fit(X_train, y_train)
+clean_acc = np.mean(model.predict(X_test) == y_test)
+print(f"  Clean Accuracy: {clean_acc:.2%}")
 
-xgboost = GBDTWrapper(model_type='xgboost')
-xgboost.fit(X_train, y_train)
-print("  ✓ XGBoost trained")
+n_samples = 15
+results = {}
 
-lightgbm = GBDTWrapper(model_type='lightgbm')
-lightgbm.fit(X_train, y_train)
-print("  ✓ LightGBM trained")
+# 1. No Defense (Baseline)
+print("\n" + "-"*70)
+print("1. NO DEFENSE (Baseline)")
+print("-"*70)
 
-# Defense functions
-def add_gaussian_noise(X, std=0.05):
-    """Add Gaussian noise"""
-    return X + np.random.randn(*X.shape) * std
-
-def feature_squeezing(X, bit_depth=6):
-    """Reduce precision"""
-    X_min, X_max = X.min(axis=0), X.max(axis=0)
-    X_norm = (X - X_min) / (X_max - X_min + 1e-10)
-    levels = 2 ** bit_depth
-    X_squeezed = np.round(X_norm * levels) / levels
-    return X_squeezed * (X_max - X_min) + X_min
-
-def ensemble_predict(x, models):
-    """Majority voting"""
-    predictions = [model.predict(x.reshape(1, -1))[0] for model in models]
-    return max(set(predictions), key=predictions.count)
-
-# EXPERIMENT 1: GAUSSIAN NOISE
-print("\n[2/4] Testing Gaussian Noise with different std values...")
-print("(Testing 20 samples - this will take ~3-4 minutes)")
-
-attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
-n_samples = 20
-
-std_values = [0.01, 0.03, 0.05, 0.07, 0.10]
-gaussian_results = {std: {'helps': 0, 'hurts': 0, 'total': 0} for std in std_values}
-baseline_failures = 0
+attack = BoundaryAttack(model, max_iterations=200, epsilon=0.5, verbose=False)
+baseline_success = 0
+baseline_total = 0
 
 for i in range(min(n_samples, len(X_test))):
     x_orig = X_test[i]
     y_true = y_test[i]
+    y_pred = model.predict(x_orig.reshape(1, -1))[0]
     
-    if tabpfn.predict(x_orig.reshape(1, -1))[0] != y_true:
+    if y_pred != y_true:
         continue
     
-    x_adv, success, _, _ = attack.attack(x_orig, y_true)
+    x_adv, success, _, pert = attack.attack(x_orig, y_true)
+    baseline_total += 1
+    if success:
+        baseline_success += 1
+
+baseline_asr = baseline_success / baseline_total if baseline_total > 0 else 0
+print(f"  ASR: {baseline_asr:.2%} ({baseline_success}/{baseline_total})")
+results['no_defense'] = {'asr': baseline_asr, 'n_samples': baseline_total}
+
+# 2. Gaussian Noise Defense
+print("\n" + "-"*70)
+print("2. GAUSSIAN NOISE DEFENSE")
+print("-"*70)
+
+noise_levels = [0.01, 0.03, 0.05, 0.1]
+
+for noise_std in noise_levels:
+    success = 0
+    total = 0
     
-    if not success:
-        continue
-    
-    baseline_failures += 1
-    pred_no_def = tabpfn.predict(x_adv.reshape(1, -1))[0]
-    
-    if pred_no_def != y_true:
-        for std in std_values:
-            x_adv_noisy = add_gaussian_noise(x_adv, std=std)
-            pred_def = tabpfn.predict(x_adv_noisy.reshape(1, -1))[0]
+    for i in range(min(n_samples, len(X_test))):
+        x_orig = X_test[i]
+        y_true = y_test[i]
+        y_pred = model.predict(x_orig.reshape(1, -1))[0]
+        
+        if y_pred != y_true:
+            continue
+        
+        x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
+        
+        if attack_success:
+            x_defended = x_adv + np.random.normal(0, noise_std, x_adv.shape)
+            y_defended = model.predict(x_defended.reshape(1, -1))[0]
             
-            gaussian_results[std]['total'] += 1
-            if pred_def == y_true:
-                gaussian_results[std]['helps'] += 1
-            else:
-                gaussian_results[std]['hurts'] += 1
-    
-    if (i+1) % 10 == 0:
-        print(f"  Progress: {i+1}/{n_samples} samples tested")
-
-print(f"\n  Baseline: {baseline_failures} successful attacks")
-
-# EXPERIMENT 2: FEATURE SQUEEZING
-print("\n[3/4] Testing Feature Squeezing...")
-
-bit_depths = [4, 6, 8]
-squeezing_results = {bd: {'helps': 0, 'hurts': 0, 'total': 0} for bd in bit_depths}
-
-attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
-
-for i in range(min(n_samples, len(X_test))):
-    x_orig = X_test[i]
-    y_true = y_test[i]
-    
-    if tabpfn.predict(x_orig.reshape(1, -1))[0] != y_true:
-        continue
-    
-    x_adv, success, _, _ = attack.attack(x_orig, y_true)
-    
-    if not success:
-        continue
-    
-    pred_no_def = tabpfn.predict(x_adv.reshape(1, -1))[0]
-    
-    if pred_no_def != y_true:
-        for bd in bit_depths:
-            x_adv_squeezed = feature_squeezing(x_adv.reshape(1, -1), bit_depth=bd)
-            pred_squeezed = tabpfn.predict(x_adv_squeezed)[0]
-            
-            squeezing_results[bd]['total'] += 1
-            if pred_squeezed == y_true:
-                squeezing_results[bd]['helps'] += 1
-            else:
-                squeezing_results[bd]['hurts'] += 1
-
-# EXPERIMENT 3: ENSEMBLE DEFENSE
-print("\n[4/4] Testing Ensemble Defense...")
-
-ensemble_models = [tabpfn, xgboost, lightgbm]
-ensemble_helps = 0
-ensemble_hurts = 0
-ensemble_total = 0
-
-attack = BoundaryAttack(tabpfn, max_iterations=150, epsilon=0.5, verbose=False)
-
-for i in range(min(n_samples, len(X_test))):
-    x_orig = X_test[i]
-    y_true = y_test[i]
-    
-    if tabpfn.predict(x_orig.reshape(1, -1))[0] != y_true:
-        continue
-    
-    x_adv, success, _, _ = attack.attack(x_orig, y_true)
-    
-    if not success:
-        continue
-    
-    pred_no_def = tabpfn.predict(x_adv.reshape(1, -1))[0]
-    
-    if pred_no_def != y_true:
-        ensemble_pred = ensemble_predict(x_adv, ensemble_models)
-        ensemble_total += 1
+            if y_defended != y_true:
+                success += 1
         
-        if ensemble_pred == y_true:
-            ensemble_helps += 1
-        else:
-            ensemble_hurts += 1
-
-# STATISTICAL ANALYSIS
-print("\n" + "="*80)
-print("DEFENSE RESULTS - BREAST CANCER DATASET (30 FEATURES)")
-print("="*80)
-
-from scipy import stats
-
-# Gaussian Noise
-print("\n1. GAUSSIAN NOISE DEFENSE:")
-print("-" * 80)
-print(f"{'Std Dev':<12} {'Recovery Rate':<18} {'Helps':<8} {'Hurts':<8} {'p-value':<12} {'Significant?':<12}")
-print("-" * 80)
-
-best_gaussian = None
-best_gaussian_recovery = 0
-
-for std in std_values:
-    res = gaussian_results[std]
-    if res['total'] > 0:
-        recovery_rate = res['helps'] / res['total'] * 100
-        
-        if res['helps'] + res['hurts'] > 0:
-            chi2_stat = (abs(res['helps'] - res['hurts']) - 1)**2 / (res['helps'] + res['hurts'])
-            p_value = 1 - stats.chi2.cdf(chi2_stat, 1)
-        else:
-            p_value = 1.0
-        
-        significant = "YES ✓" if p_value < 0.05 else "NO"
-        
-        print(f"{std:<12.2f} {recovery_rate:<18.1f}% {res['helps']:<8} {res['hurts']:<8} "
-              f"{p_value:<12.4f} {significant:<12}")
-        
-        if recovery_rate > best_gaussian_recovery:
-            best_gaussian_recovery = recovery_rate
-            best_gaussian = std
-
-# Feature Squeezing
-print("\n2. FEATURE SQUEEZING DEFENSE:")
-print("-" * 80)
-print(f"{'Bit Depth':<12} {'Recovery Rate':<18} {'Helps':<8} {'Hurts':<8} {'p-value':<12} {'Significant?':<12}")
-print("-" * 80)
-
-best_squeezing = None
-best_squeezing_recovery = 0
-
-for bd in bit_depths:
-    res = squeezing_results[bd]
-    if res['total'] > 0:
-        recovery_rate = res['helps'] / res['total'] * 100
-        
-        if res['helps'] + res['hurts'] > 0:
-            chi2_stat = (abs(res['helps'] - res['hurts']) - 1)**2 / (res['helps'] + res['hurts'])
-            p_value = 1 - stats.chi2.cdf(chi2_stat, 1)
-        else:
-            p_value = 1.0
-        
-        significant = "YES ✓" if p_value < 0.05 else "NO"
-        
-        print(f"{bd:<12} {recovery_rate:<18.1f}% {res['helps']:<8} {res['hurts']:<8} "
-              f"{p_value:<12.4f} {significant:<12}")
-        
-        if recovery_rate > best_squeezing_recovery:
-            best_squeezing_recovery = recovery_rate
-            best_squeezing = bd
-
-# Ensemble
-print("\n3. ENSEMBLE DEFENSE:")
-print("-" * 80)
-
-if ensemble_total > 0:
-    ensemble_recovery = ensemble_helps / ensemble_total * 100
+        total += 1
     
-    if ensemble_helps + ensemble_hurts > 0:
-        chi2_stat = (abs(ensemble_helps - ensemble_hurts) - 1)**2 / (ensemble_helps + ensemble_hurts)
-        p_value_ensemble = 1 - stats.chi2.cdf(chi2_stat, 1)
-    else:
-        p_value_ensemble = 1.0
+    defended_asr = success / total if total > 0 else 0
+    recovery = baseline_asr - defended_asr if baseline_asr > 0 else 0
     
-    significant_ensemble = "YES ✓" if p_value_ensemble < 0.05 else "NO"
-    
-    print(f"Recovery Rate: {ensemble_recovery:.1f}%")
-    print(f"Helps: {ensemble_helps}, Hurts: {ensemble_hurts}, Total: {ensemble_total}")
-    print(f"p-value: {p_value_ensemble:.4f}")
-    print(f"Statistically Significant: {significant_ensemble}")
-else:
-    ensemble_recovery = 0
-    p_value_ensemble = 1.0
-
-# COMPLETE 4-DATASET COMPARISON
-print("\n" + "="*80)
-print("COMPLETE ANALYSIS: DEFENSE EFFECTIVENESS vs FEATURE COMPLEXITY")
-print("="*80)
-
-try:
-    with open('results/comprehensive_defense_results.json', 'r') as f:
-        wine_defense = json.load(f)
-    with open('results/iris_defense_results.json', 'r') as f:
-        iris_defense = json.load(f)
-    with open('results/diabetes_defense_results.json', 'r') as f:
-        diabetes_defense = json.load(f)
-    
-    print("\nDefense Effectiveness Across All Datasets:")
-    print("-" * 90)
-    print(f"{'Dataset':<15} {'Features':<12} {'Gaussian':<15} {'Ensemble':<15} {'Complexity':<20}")
-    print("-" * 90)
-    
-    wine_gaussian = wine_defense['best_defenses']['gaussian']['recovery']
-    wine_ensemble = wine_defense['best_defenses']['ensemble']['recovery']
-    
-    iris_gaussian = iris_defense['best_defenses']['gaussian']['recovery']
-    iris_ensemble = iris_defense['best_defenses']['ensemble']['recovery']
-    
-    diabetes_gaussian = diabetes_defense['best_defenses']['gaussian']['recovery']
-    diabetes_ensemble = diabetes_defense['best_defenses']['ensemble']['recovery']
-    
-    print(f"{'Iris':<15} {4:<12} {iris_gaussian:<15.1f}% {iris_ensemble:<15.1f}% {'Low':<20}")
-    print(f"{'Diabetes':<15} {10:<12} {diabetes_gaussian:<15.1f}% {diabetes_ensemble:<15.1f}% {'Medium':<20}")
-    print(f"{'Wine':<15} {13:<12} {wine_gaussian:<15.1f}% {wine_ensemble:<15.1f}% {'Medium-High':<20}")
-    print(f"{'Breast Cancer':<15} {30:<12} {best_gaussian_recovery:<15.1f}% {ensemble_recovery:<15.1f}% {'High':<20}")
-    
-    print("\n" + "="*90)
-    print("CORRELATION ANALYSIS: ENSEMBLE EFFECTIVENESS vs FEATURE COUNT")
-    print("="*90)
-    
-    feature_counts = [4, 10, 13, 30]
-    ensemble_rates = [iris_ensemble, diabetes_ensemble, wine_ensemble, ensemble_recovery]
-    
-    # Correlation
-    corr = np.corrcoef(feature_counts, ensemble_rates)[0, 1]
-    
-    print(f"\n4-Dataset Correlation (Features vs Ensemble Recovery): r = {corr:+.3f}")
-    
-    if abs(corr) > 0.7:
-        strength = 'STRONG' if abs(corr) > 0.9 else 'MODERATE'
-        direction = 'POSITIVE' if corr > 0 else 'NEGATIVE'
-        print(f"\n{strength} {direction} CORRELATION DETECTED!")
-        
-        if corr > 0:
-            print("\n✓ CONFIRMED WITH 4 DATASETS:")
-            print("  Ensemble defense effectiveness INCREASES with feature complexity")
-            print("  → More features → Greater model diversity → Stronger ensemble effect")
-        else:
-            print("\n✗ UNEXPECTED: Negative correlation")
-    else:
-        print("\nWEAK or NO correlation - feature count not primary factor")
-    
-    # Visualize trend
-    print(f"\nEnsemble Recovery Trend:")
-    print(f"  4 features:  {iris_ensemble:5.1f}%")
-    print(f"  10 features: {diabetes_ensemble:5.1f}%")
-    print(f"  13 features: {wine_ensemble:5.1f}%")
-    print(f"  30 features: {ensemble_recovery:5.1f}%")
-    
-    # Check for plateau effect
-    if ensemble_recovery > 85:
-        print("\n✓ PLATEAU EFFECT DETECTED:")
-        print("  Ensemble effectiveness saturates at high complexity")
-        print("  → Diminishing returns beyond ~13 features")
-    
-except Exception as e:
-    print(f"\n⚠ Could not load all comparison data: {e}")
-
-# Save results
-Path("results").mkdir(exist_ok=True)
-
-breast_cancer_defense_results = {
-    'sample_size': baseline_failures,
-    'gaussian_noise': {
-        str(std): {
-            'recovery_rate': gaussian_results[std]['helps'] / gaussian_results[std]['total'] * 100 
-                            if gaussian_results[std]['total'] > 0 else 0,
-            'helps': gaussian_results[std]['helps'],
-            'hurts': gaussian_results[std]['hurts'],
-            'total': gaussian_results[std]['total']
-        }
-        for std in std_values
-    },
-    'feature_squeezing': {
-        str(bd): {
-            'recovery_rate': squeezing_results[bd]['helps'] / squeezing_results[bd]['total'] * 100
-                            if squeezing_results[bd]['total'] > 0 else 0,
-            'helps': squeezing_results[bd]['helps'],
-            'hurts': squeezing_results[bd]['hurts'],
-            'total': squeezing_results[bd]['total']
-        }
-        for bd in bit_depths
-    },
-    'ensemble': {
-        'recovery_rate': ensemble_recovery,
-        'helps': ensemble_helps,
-        'hurts': ensemble_hurts,
-        'total': ensemble_total
-    },
-    'best_defenses': {
-        'gaussian': {'std': best_gaussian, 'recovery': best_gaussian_recovery},
-        'squeezing': {'bit_depth': best_squeezing, 'recovery': best_squeezing_recovery},
-        'ensemble': {'recovery': ensemble_recovery}
+    print(f"  σ={noise_std}: ASR={defended_asr:.2%}, Recovery={recovery:.2%}")
+    results[f'gaussian_noise_{noise_std}'] = {
+        'asr': defended_asr,
+        'recovery': recovery,
+        'noise_std': noise_std
     }
-}
 
+# 3. Feature Squeezing Defense
+print("\n" + "-"*70)
+print("3. FEATURE SQUEEZING DEFENSE")
+print("-"*70)
+
+bit_depths = [4, 8, 16]
+
+for bits in bit_depths:
+    success = 0
+    total = 0
+    
+    for i in range(min(n_samples, len(X_test))):
+        x_orig = X_test[i]
+        y_true = y_test[i]
+        y_pred = model.predict(x_orig.reshape(1, -1))[0]
+        
+        if y_pred != y_true:
+            continue
+        
+        x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
+        
+        if attack_success:
+            x_min, x_max = X_train.min(), X_train.max()
+            x_normalized = (x_adv - x_min) / (x_max - x_min + 1e-8)
+            x_squeezed = np.round(x_normalized * (2**bits - 1)) / (2**bits - 1)
+            x_defended = x_squeezed * (x_max - x_min) + x_min
+            
+            y_defended = model.predict(x_defended.reshape(1, -1))[0]
+            
+            if y_defended != y_true:
+                success += 1
+        
+        total += 1
+    
+    defended_asr = success / total if total > 0 else 0
+    recovery = baseline_asr - defended_asr if baseline_asr > 0 else 0
+    
+    print(f"  {bits}-bit: ASR={defended_asr:.2%}, Recovery={recovery:.2%}")
+    results[f'feature_squeezing_{bits}bit'] = {
+        'asr': defended_asr,
+        'recovery': recovery,
+        'bit_depth': bits
+    }
+
+# 4. Ensemble Voting Defense
+print("\n" + "-"*70)
+print("4. ENSEMBLE VOTING DEFENSE")
+print("-"*70)
+
+xgb = GBDTWrapper(model_type='xgboost')
+lgb = GBDTWrapper(model_type='lightgbm')
+xgb.fit(X_train, y_train)
+lgb.fit(X_train, y_train)
+
+success = 0
+total = 0
+
+for i in range(min(n_samples, len(X_test))):
+    x_orig = X_test[i]
+    y_true = y_test[i]
+    y_pred = model.predict(x_orig.reshape(1, -1))[0]
+    
+    if y_pred != y_true:
+        continue
+    
+    x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
+    
+    if attack_success:
+        pred_tabpfn = model.predict(x_adv.reshape(1, -1))[0]
+        pred_xgb = xgb.predict(x_adv.reshape(1, -1))[0]
+        pred_lgb = lgb.predict(x_adv.reshape(1, -1))[0]
+        
+        votes = [pred_tabpfn, pred_xgb, pred_lgb]
+        ensemble_pred = max(set(votes), key=votes.count)
+        
+        if ensemble_pred != y_true:
+            success += 1
+    
+    total += 1
+
+defended_asr = success / total if total > 0 else 0
+recovery = baseline_asr - defended_asr if baseline_asr > 0 else 0
+
+print(f"  Ensemble: ASR={defended_asr:.2%}, Recovery={recovery:.2%}")
+results['ensemble_voting'] = {'asr': defended_asr, 'recovery': recovery}
+
+# Save
+Path("results").mkdir(exist_ok=True)
 with open('results/breast_cancer_defense_results.json', 'w') as f:
-    json.dump(breast_cancer_defense_results, f, indent=2)
+    json.dump(results, f, indent=2)
 
-print("\n✓ Saved: results/breast_cancer_defense_results.json")
+print("\n" + "="*70)
+print("SUMMARY - BREAST CANCER DEFENSE")
+print("="*70)
+print(f"\n{'Defense':<25} {'ASR':<12} {'Recovery':<12}")
+print("-"*50)
+print(f"{'No Defense':<25} {results['no_defense']['asr']:<12.2%} {'-':<12}")
+for key, val in results.items():
+    if key != 'no_defense' and 'recovery' in val:
+        print(f"{key:<25} {val['asr']:<12.2%} {val['recovery']:<12.2%}")
 
-print("\n" + "="*80)
-print("BREAST CANCER DEFENSE ANALYSIS COMPLETE!")
-print("="*80)
-print(f"""
-SUMMARY:
-  Dataset: Breast Cancer (30 features - HIGH complexity)
-  Sample Size: {baseline_failures} attacks
-  Best Gaussian: {best_gaussian_recovery:.1f}%
-  Best Squeezing: {best_squeezing_recovery:.1f}%
-  Ensemble: {ensemble_recovery:.1f}%
-  
-THESIS CONTRIBUTION:
-  ✓ 4-dataset defense evaluation (4, 10, 13, 30 features)
-  ✓ Complete feature complexity spectrum
-  ✓ Correlation analysis with 4 data points
-  ✓ High-complexity defense characterization
-  ✓ PUBLICATION-QUALITY COMPREHENSIVE ANALYSIS!
-""")
-print("="*80)
+print(f"\n✓ Saved: results/breast_cancer_defense_results.json")

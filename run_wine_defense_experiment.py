@@ -1,28 +1,29 @@
-"""Defense Mechanisms Experiment - Iris Dataset"""
+"""Defense Mechanisms Experiment - Wine Dataset"""
 import numpy as np
 import json
 import warnings
 from pathlib import Path
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
+from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
 
 print("="*70)
-print("DEFENSE MECHANISMS - IRIS DATASET")
+print("DEFENSE MECHANISMS - WINE DATASET")
 print("="*70)
 
 # Load dataset
-data = load_iris()
+data = load_wine()
 X, y = data.data, data.target
 mask = y < 2
 X, y = X[mask], y[mask]
 
-print(f"\nDataset: Iris")
+print(f"\nDataset: Wine")
 print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
 
 # Standardize
@@ -43,9 +44,7 @@ print(f"  Clean Accuracy: {clean_acc:.2%}")
 n_samples = 15
 results = {}
 
-# ============================================
 # 1. No Defense (Baseline)
-# ============================================
 print("\n" + "-"*70)
 print("1. NO DEFENSE (Baseline)")
 print("-"*70)
@@ -71,9 +70,7 @@ baseline_asr = baseline_success / baseline_total if baseline_total > 0 else 0
 print(f"  ASR: {baseline_asr:.2%} ({baseline_success}/{baseline_total})")
 results['no_defense'] = {'asr': baseline_asr, 'n_samples': baseline_total}
 
-# ============================================
 # 2. Gaussian Noise Defense
-# ============================================
 print("\n" + "-"*70)
 print("2. GAUSSIAN NOISE DEFENSE")
 print("-"*70)
@@ -95,7 +92,6 @@ for noise_std in noise_levels:
         x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
         
         if attack_success:
-            # Apply noise defense
             x_defended = x_adv + np.random.normal(0, noise_std, x_adv.shape)
             y_defended = model.predict(x_defended.reshape(1, -1))[0]
             
@@ -114,9 +110,7 @@ for noise_std in noise_levels:
         'noise_std': noise_std
     }
 
-# ============================================
 # 3. Feature Squeezing Defense
-# ============================================
 print("\n" + "-"*70)
 print("3. FEATURE SQUEEZING DEFENSE")
 print("-"*70)
@@ -138,7 +132,6 @@ for bits in bit_depths:
         x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
         
         if attack_success:
-            # Apply feature squeezing
             x_min, x_max = X_train.min(), X_train.max()
             x_normalized = (x_adv - x_min) / (x_max - x_min + 1e-8)
             x_squeezed = np.round(x_normalized * (2**bits - 1)) / (2**bits - 1)
@@ -161,14 +154,10 @@ for bits in bit_depths:
         'bit_depth': bits
     }
 
-# ============================================
 # 4. Ensemble Voting Defense
-# ============================================
 print("\n" + "-"*70)
 print("4. ENSEMBLE VOTING DEFENSE")
 print("-"*70)
-
-from src.models.gbdt_wrapper import GBDTWrapper
 
 xgb = GBDTWrapper(model_type='xgboost')
 lgb = GBDTWrapper(model_type='lightgbm')
@@ -189,7 +178,6 @@ for i in range(min(n_samples, len(X_test))):
     x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
     
     if attack_success:
-        # Ensemble voting
         pred_tabpfn = model.predict(x_adv.reshape(1, -1))[0]
         pred_xgb = xgb.predict(x_adv.reshape(1, -1))[0]
         pred_lgb = lgb.predict(x_adv.reshape(1, -1))[0]
@@ -206,18 +194,15 @@ defended_asr = success / total if total > 0 else 0
 recovery = baseline_asr - defended_asr if baseline_asr > 0 else 0
 
 print(f"  Ensemble: ASR={defended_asr:.2%}, Recovery={recovery:.2%}")
-results['ensemble_voting'] = {
-    'asr': defended_asr,
-    'recovery': recovery
-}
+results['ensemble_voting'] = {'asr': defended_asr, 'recovery': recovery}
 
-# Save results
+# Save
 Path("results").mkdir(exist_ok=True)
-with open('results/iris_defense_results.json', 'w') as f:
+with open('results/wine_defense_results.json', 'w') as f:
     json.dump(results, f, indent=2)
 
 print("\n" + "="*70)
-print("SUMMARY - IRIS DEFENSE")
+print("SUMMARY - WINE DEFENSE")
 print("="*70)
 print(f"\n{'Defense':<25} {'ASR':<12} {'Recovery':<12}")
 print("-"*50)
@@ -226,4 +211,4 @@ for key, val in results.items():
     if key != 'no_defense' and 'recovery' in val:
         print(f"{key:<25} {val['asr']:<12.2%} {val['recovery']:<12.2%}")
 
-print(f"\n✓ Saved: results/iris_defense_results.json")
+print(f"\n✓ Saved: results/wine_defense_results.json")
