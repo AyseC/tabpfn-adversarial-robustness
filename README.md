@@ -41,7 +41,7 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 
 **Key Discovery:** Decision-based attacks (Boundary) significantly outperform score-based attacks (NES) on tabular data. This **contradicts image domain literature** where NES is typically stronger.
 
-**Explanation:** 
+**Explanation:**
 - Decision trees have non-smooth decision boundaries
 - NES gradient estimation fails on discontinuous probability landscapes
 - Lower dimensionality (4-30 features vs 784+ for images) amplifies this effect
@@ -71,7 +71,7 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 | Breast Cancer | 40.38% | 16.67% | 0.41x |
 | Wine | 0% | 0% | N/A |
 
-**Pattern:** 
+**Pattern:**
 - Low-dimensional datasets (Iris, Diabetes): TabPFN → GBDT transfers better
 - High-dimensional datasets (Heart, Breast Cancer): GBDT → TabPFN transfers better
 
@@ -93,7 +93,9 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 | Heart | 13 | Ensemble Voting | 41.67% |
 | Breast Cancer | 30 | Gaussian Noise σ=0.01 | 69.23% |
 
-**Key Finding:** No single defense works best for all datasets. Defense effectiveness depends on data characteristics.
+**Key Finding:** No single defense works best for all datasets. Defense effectiveness depends on data characteristics. Gaussian noise preprocessing provides complete protection against adversarial attacks on TabPFN in certain configurations, suggesting TabPFN's transformer architecture is particularly sensitive to input perturbations.
+
+**Feature Complexity Threshold:** A notable threshold around 13 features was observed — datasets at or above this threshold show a strong correlation between feature complexity and ensemble defense effectiveness.
 
 ---
 
@@ -129,6 +131,12 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 - sigma: 0.3
 - Uses probability outputs
 
+**3. Transfer Attack (Model-agnostic)**
+- Source models: TabPFN → GBDT and GBDT → TabPFN (both directions)
+- Adversarial examples generated on source model, evaluated on target model
+- Transfer rate measured across all 5 datasets
+- Black-box with respect to target model — no target model access required during attack generation
+
 ### Models
 - **TabPFN:** Tabular Prior-Fitted Network (CPU mode)
 - **XGBoost:** Extreme Gradient Boosting (default params)
@@ -137,7 +145,7 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 ---
 
 ## Project Structure
-```
+\`\`\`
 tabpfn-adversarial/
 ├── src/
 │   ├── models/
@@ -163,14 +171,14 @@ tabpfn-adversarial/
 ├── run_statistical_analysis.py  # Statistical tests
 ├── analyze_*.py                 # Analysis scripts
 └── README.md
-```
+\`\`\`
 
 ---
 
 ## Quick Start
 
 ### Installation
-```bash
+\`\`\`bash
 # Clone repository
 git clone https://github.com/AyseC/tabpfn-adversarial.git
 cd tabpfn-adversarial
@@ -181,10 +189,10 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-```
+\`\`\`
 
 ### Running Experiments
-```bash
+\`\`\`bash
 # Boundary Attack (all datasets)
 python run_wine_experiment.py
 python run_iris_experiment.py
@@ -217,7 +225,7 @@ python run_breast_cancer_defense_experiment.py
 python run_statistical_analysis.py
 python run_parameter_sensitivity.py
 python analyze_defense_results.py
-```
+\`\`\`
 
 ---
 
@@ -236,7 +244,7 @@ python analyze_defense_results.py
 ## Key Contributions
 
 1. **First comprehensive adversarial evaluation of TabPFN**
-   - 5 real datasets, 2 attack types, 3 defense mechanisms
+   - 5 real datasets, 3 attack types, 3 defense mechanisms
 
 2. **Novel finding: Decision-based attacks outperform score-based on tabular data**
    - Statistically significant (p=0.002)
@@ -249,10 +257,16 @@ python analyze_defense_results.py
 4. **Dataset-dependent vulnerability patterns**
    - No universal "winner" between TabPFN and GBDTs
    - Robustness depends on data characteristics
+   - Feature complexity threshold (~13 features) correlates with ensemble defense effectiveness
 
-5. **Defense mechanism evaluation**
-   - Feature Squeezing and Gaussian Noise most effective
-   - Best defense varies by dataset
+5. **Transfer attack asymmetry**
+   - TabPFN → GBDT transfers more effectively on low-dimensional datasets (up to 10.38x ratio)
+   - GBDT → TabPFN transfers more effectively on high-dimensional datasets
+
+6. **Defense mechanism evaluation**
+   - Feature Squeezing and Gaussian Noise most effective overall
+   - Gaussian noise preprocessing provides complete protection against adversarial attacks on TabPFN in certain configurations
+   - Best defense varies by dataset; no universal solution
 
 ---
 
@@ -260,7 +274,7 @@ python analyze_defense_results.py
 
 - Black-box attacks only (no gradient-based white-box attacks)
 - Binary classification focus
-- Small sample sizes (n=15) due to computational constraints
+- Small sample sizes (n=15) per experiment due to computational constraints
 - CPU-only TabPFN (no GPU acceleration)
 
 ## Future Work
@@ -274,7 +288,7 @@ python analyze_defense_results.py
 ---
 
 ## Citation
-```bibtex
+\`\`\`bibtex
 @mastersthesis{coskuner2025adversarial,
   title={Adversarial Robustness Evaluation of TabPFN: A Tabular Foundation Model},
   author={Coskuner, Ayse},
@@ -282,7 +296,7 @@ python analyze_defense_results.py
   school={University of Hildesheim},
   supervisor={Koloiarov, Ilia}
 }
-```
+\`\`\`
 
 ---
 
