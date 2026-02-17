@@ -145,7 +145,7 @@ TabPFN showed lower Attack Success Rate (ASR) in **4 out of 5 datasets**:
 ---
 
 ## Project Structure
-\`\`\`
+```
 tabpfn-adversarial/
 ├── src/
 │   ├── models/
@@ -171,14 +171,14 @@ tabpfn-adversarial/
 ├── run_statistical_analysis.py  # Statistical tests
 ├── analyze_*.py                 # Analysis scripts
 └── README.md
-\`\`\`
+```
 
 ---
 
 ## Quick Start
 
 ### Installation
-\`\`\`bash
+```bash
 # Clone repository
 git clone https://github.com/AyseC/tabpfn-adversarial.git
 cd tabpfn-adversarial
@@ -189,10 +189,10 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### Running Experiments
-\`\`\`bash
+```bash
 # Boundary Attack (all datasets)
 python run_wine_experiment.py
 python run_iris_experiment.py
@@ -225,7 +225,7 @@ python run_breast_cancer_defense_experiment.py
 python run_statistical_analysis.py
 python run_parameter_sensitivity.py
 python analyze_defense_results.py
-\`\`\`
+```
 
 ---
 
@@ -288,7 +288,7 @@ python analyze_defense_results.py
 ---
 
 ## Citation
-\`\`\`bibtex
+```bibtex
 @mastersthesis{coskuner2025adversarial,
   title={Adversarial Robustness Evaluation of TabPFN: A Tabular Foundation Model},
   author={Coskuner, Ayse},
@@ -296,7 +296,7 @@ python analyze_defense_results.py
   school={University of Hildesheim},
   supervisor={Koloiarov, Ilia}
 }
-\`\`\`
+```
 
 ---
 
