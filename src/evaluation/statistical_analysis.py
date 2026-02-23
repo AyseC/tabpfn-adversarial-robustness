@@ -114,3 +114,34 @@ if tabpfn_nes:
     print(f"Significant (p<0.10)? {'✓ YES' if p_value3 < 0.10 else '✗ NO'}")
     print(f"TabPFN wins: {sum(1 for d in diff_nes if d < 0)}/5 datasets")
     print(f"Mean ASR difference: {np.mean(diff_nes):.2%}")
+
+print("")
+print("4. EFFECT SIZE AND BOOTSTRAP CI (Boundary Attack)")
+print("-"*60)
+
+tabpfn_b = []
+gbdt_b = []
+datasets = ['wine','iris','diabetes','heart','breast_cancer']
+
+for ds in datasets:
+    try:
+        d = json.load(open(f'results/{ds}_experiment.json'))
+        tabpfn_b.append(d['TabPFN']['attack_success_rate'])
+        gbdt_b.append(min(d['XGBoost']['attack_success_rate'], d['LightGBM']['attack_success_rate']))
+    except:
+        pass
+
+diff_b = np.array(tabpfn_b) - np.array(gbdt_b)
+
+# Cohen's d
+cohens_d = np.mean(diff_b) / np.std(diff_b, ddof=1)
+magnitude = 'Large' if abs(cohens_d) > 0.8 else ('Medium' if abs(cohens_d) > 0.5 else 'Small')
+print(f"Cohen's d: {cohens_d:.3f} ({magnitude} effect)")
+
+# Bootstrap CI
+np.random.seed(42)
+boots = [np.mean(np.random.choice(diff_b, len(diff_b), replace=True)) for _ in range(10000)]
+ci_low, ci_high = np.percentile(boots, [2.5, 97.5])
+print(f"Bootstrap 95% CI: [{ci_low*100:.1f}%, {ci_high*100:.1f}%]")
+print(f"CI excludes zero? {'YES (significant)' if ci_high < 0 or ci_low > 0 else 'NO'}")
+print(f"Mean ASR difference: {np.mean(diff_b)*100:.1f}%")
