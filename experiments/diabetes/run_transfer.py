@@ -9,6 +9,9 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 warnings.filterwarnings('ignore')
 
+# Reproducibility
+np.random.seed(42)
+
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack

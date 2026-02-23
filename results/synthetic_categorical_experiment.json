@@ -4,22 +4,22 @@
       "categorical_ratio": 0.0,
       "n_categorical": 0,
       "n_numerical": 10,
-      "clean_accuracy": 0.9166666666666666,
-      "attack_success_rate": 0.9230769230769231,
-      "adversarial_accuracy": 0.06666666666666662,
-      "avg_perturbation": 2.271282293069159,
-      "robustness_score": 0.4682871891586638,
+      "clean_accuracy": 0.9,
+      "attack_success_rate": 0.7692307692307693,
+      "adversarial_accuracy": 0.23076923076923073,
+      "avg_perturbation": 2.7826675085690042,
+      "robustness_score": 0.5502810593171192,
       "n_samples_tested": 13
     },
     "30%": {
       "categorical_ratio": 0.3,
       "n_categorical": 3,
       "n_numerical": 7,
-      "clean_accuracy": 0.8333333333333334,
-      "attack_success_rate": 0.9230769230769231,
-      "adversarial_accuracy": 0.06666666666666662,
-      "avg_perturbation": 2.379853098082806,
-      "robustness_score": 0.47263002135920973,
+      "clean_accuracy": 0.85,
+      "attack_success_rate": 0.7692307692307693,
+      "adversarial_accuracy": 0.23076923076923073,
+      "avg_perturbation": 2.0821321993318085,
+      "robustness_score": 0.5222596469476313,
       "n_samples_tested": 13
     },
     "50%": {
@@ -28,20 +28,20 @@
       "n_numerical": 5,
       "clean_accuracy": 0.8666666666666667,
       "attack_success_rate": 0.6923076923076923,
-      "adversarial_accuracy": 0.26666666666666666,
-      "avg_perturbation": 1.9501978114486773,
-      "robustness_score": 0.5477515022015369,
+      "adversarial_accuracy": 0.3076923076923077,
+      "avg_perturbation": 1.912525792378716,
+      "robustness_score": 0.5462446214387384,
       "n_samples_tested": 13
     },
     "70%": {
       "categorical_ratio": 0.7,
       "n_categorical": 7,
       "n_numerical": 3,
-      "clean_accuracy": 0.7833333333333333,
+      "clean_accuracy": 0.75,
       "attack_success_rate": 1.0,
       "adversarial_accuracy": 0.0,
-      "avg_perturbation": 1.052365023707702,
-      "robustness_score": 0.36209460094830814,
+      "avg_perturbation": 1.3848293792843016,
+      "robustness_score": 0.37539317517137216,
       "n_samples_tested": 12
     }
   },
@@ -51,10 +51,10 @@
       "n_categorical": 0,
       "n_numerical": 10,
       "clean_accuracy": 0.7666666666666667,
-      "attack_success_rate": 0.5,
-      "adversarial_accuracy": 0.3333333333333333,
-      "avg_perturbation": 1.8198676781384637,
-      "robustness_score": 0.5394613737922053,
+      "attack_success_rate": 0.6,
+      "adversarial_accuracy": 0.4,
+      "avg_perturbation": 1.9690918700261593,
+      "robustness_score": 0.505430341467713,
       "n_samples_tested": 10
     },
     "30%": {
@@ -63,9 +63,9 @@
       "n_numerical": 7,
       "clean_accuracy": 0.7166666666666667,
       "attack_success_rate": 0.7,
-      "adversarial_accuracy": 0.2,
-      "avg_perturbation": 2.372993356161691,
-      "robustness_score": 0.48158640091313437,
+      "adversarial_accuracy": 0.30000000000000004,
+      "avg_perturbation": 2.3207814704127556,
+      "robustness_score": 0.47949792548317693,
       "n_samples_tested": 10
     },
     "50%": {
@@ -74,7 +74,7 @@
       "n_numerical": 5,
       "clean_accuracy": 0.8333333333333334,
       "attack_success_rate": 0.8181818181818182,
-      "adversarial_accuracy": 0.13333333333333328,
+      "adversarial_accuracy": 0.18181818181818177,
       "avg_perturbation": 2.2282119002410083,
       "robustness_score": 0.4551890820702464,
       "n_samples_tested": 11
@@ -98,7 +98,7 @@
       "n_numerical": 10,
       "clean_accuracy": 0.7833333333333333,
       "attack_success_rate": 0.6666666666666666,
-      "adversarial_accuracy": 0.2666666666666667,
+      "adversarial_accuracy": 0.33333333333333337,
       "avg_perturbation": 1.7653675784473126,
       "robustness_score": 0.5239480364712259,
       "n_samples_tested": 12
@@ -109,7 +109,7 @@
       "n_numerical": 7,
       "clean_accuracy": 0.75,
       "attack_success_rate": 0.6363636363636364,
-      "adversarial_accuracy": 0.26666666666666666,
+      "adversarial_accuracy": 0.36363636363636365,
       "avg_perturbation": 1.7702935794486727,
       "robustness_score": 0.5095996219658258,
       "n_samples_tested": 11
@@ -120,7 +120,7 @@
       "n_numerical": 5,
       "clean_accuracy": 0.8666666666666667,
       "attack_success_rate": 0.75,
-      "adversarial_accuracy": 0.2,
+      "adversarial_accuracy": 0.25,
       "avg_perturbation": 1.8198907705302618,
       "robustness_score": 0.49279563082121053,
       "n_samples_tested": 12

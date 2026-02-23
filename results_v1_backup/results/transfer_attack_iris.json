@@ -1,0 +1,44 @@
+{
+  "TabPFN": {
+    "TabPFN": {
+      "transfer_rate": 1.0,
+      "n_samples": 13
+    },
+    "XGBoost": {
+      "transfer_rate": 0.23076923076923078,
+      "n_samples": 13
+    },
+    "LightGBM": {
+      "transfer_rate": 0.46153846153846156,
+      "n_samples": 13
+    }
+  },
+  "XGBoost": {
+    "TabPFN": {
+      "transfer_rate": 0.06666666666666667,
+      "n_samples": 15
+    },
+    "XGBoost": {
+      "transfer_rate": 1.0,
+      "n_samples": 15
+    },
+    "LightGBM": {
+      "transfer_rate": 0.4666666666666667,
+      "n_samples": 15
+    }
+  },
+  "LightGBM": {
+    "TabPFN": {
+      "transfer_rate": 0.0,
+      "n_samples": 15
+    },
+    "XGBoost": {
+      "transfer_rate": 0.5333333333333333,
+      "n_samples": 15
+    },
+    "LightGBM": {
+      "transfer_rate": 1.0,
+      "n_samples": 15
+    }
+  }
+}

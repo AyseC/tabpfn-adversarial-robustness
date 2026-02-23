@@ -11,6 +11,9 @@ from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
+# Reproducibility
+np.random.seed(42)
+
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
@@ -38,7 +41,7 @@ scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42
+    X, y, test_size=0.3, random_state=42, stratify=y
 )
 
 # Train all models
@@ -101,7 +104,7 @@ transfer_configs = [
     }
 ]
 
-n_samples = 30
+n_samples = 15
 transfer_results = {}
 
 print(f"\n[2/4] Running transfer attacks...")
@@ -118,7 +121,7 @@ for idx, config in enumerate(transfer_configs, 1):
     target_model = config['target']
     
     # Generate adversarial examples on source model
-    attack = BoundaryAttack(source_model, max_iterations=100, epsilon=0.5, verbose=False)
+    attack = BoundaryAttack(source_model, max_iterations=200, epsilon=0.5, verbose=False)
     
     source_success = 0
     transfer_success = 0

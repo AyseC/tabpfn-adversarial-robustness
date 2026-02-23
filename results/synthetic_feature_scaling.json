@@ -1,61 +1,61 @@
 {
   "TabPFN": {
     "5": {
-      "clean_accuracy": 0.9333333333333333,
-      "attack_success_rate": 0.8,
-      "avg_perturbation": 1.0216736323635465,
-      "robustness_score": 0.5208669452945418,
+      "clean_accuracy": 0.95,
+      "attack_success_rate": 0.7333333333333333,
+      "avg_perturbation": 1.0651752565588521,
+      "robustness_score": 0.5492736769290207,
       "n_samples_tested": 15
     },
     "10": {
-      "clean_accuracy": 0.9,
+      "clean_accuracy": 0.8833333333333333,
       "attack_success_rate": 0.8571428571428571,
-      "avg_perturbation": 1.7304928723436037,
-      "robustness_score": 0.4996959053699347,
+      "avg_perturbation": 2.075248486862221,
+      "robustness_score": 0.5134861299506793,
       "n_samples_tested": 14
     },
     "15": {
-      "clean_accuracy": 0.85,
-      "attack_success_rate": 0.8571428571428571,
-      "avg_perturbation": 3.497173851572713,
-      "robustness_score": 0.5703631445390991,
+      "clean_accuracy": 0.8333333333333334,
+      "attack_success_rate": 0.9285714285714286,
+      "avg_perturbation": 3.722603704412669,
+      "robustness_score": 0.5508089100812688,
       "n_samples_tested": 14
     },
     "20": {
-      "clean_accuracy": 0.8,
-      "attack_success_rate": 0.8,
-      "avg_perturbation": 3.2951908227636166,
-      "robustness_score": 0.4784742995772113,
-      "n_samples_tested": 10
+      "clean_accuracy": 0.75,
+      "attack_success_rate": 0.6666666666666666,
+      "avg_perturbation": 3.7033892648962747,
+      "robustness_score": 0.5214689039291843,
+      "n_samples_tested": 9
     }
   },
   "XGBoost": {
     "5": {
       "clean_accuracy": 0.9,
-      "attack_success_rate": 0.7333333333333333,
-      "avg_perturbation": 1.0393884774819453,
-      "robustness_score": 0.5482422057659445,
+      "attack_success_rate": 0.8,
+      "avg_perturbation": 1.500059908319632,
+      "robustness_score": 0.5400023963327852,
       "n_samples_tested": 15
     },
     "10": {
       "clean_accuracy": 0.7666666666666667,
-      "attack_success_rate": 0.9090909090909091,
-      "avg_perturbation": 1.9459440247763709,
-      "robustness_score": 0.40753473068802454,
+      "attack_success_rate": 1.0,
+      "avg_perturbation": 1.5677243489234933,
+      "robustness_score": 0.3560423072902731,
       "n_samples_tested": 11
     },
     "15": {
       "clean_accuracy": 0.7833333333333333,
-      "attack_success_rate": 1.0,
-      "avg_perturbation": 2.655026872904733,
-      "robustness_score": 0.452867741582856,
+      "attack_success_rate": 0.8461538461538461,
+      "avg_perturbation": 2.481073259106653,
+      "robustness_score": 0.5074480585693943,
       "n_samples_tested": 13
     },
     "20": {
       "clean_accuracy": 0.7833333333333333,
       "attack_success_rate": 0.7777777777777778,
-      "avg_perturbation": 3.002713824477692,
-      "robustness_score": 0.44899744186799656,
+      "avg_perturbation": 2.1678727132022177,
+      "robustness_score": 0.4156037974169776,
       "n_samples_tested": 9
     }
   },
@@ -63,29 +63,29 @@
     "5": {
       "clean_accuracy": 0.9166666666666666,
       "attack_success_rate": 0.8666666666666667,
-      "avg_perturbation": 1.290987522137478,
-      "robustness_score": 0.5049728342188324,
+      "avg_perturbation": 1.3947833567535413,
+      "robustness_score": 0.509124667603475,
       "n_samples_tested": 15
     },
     "10": {
       "clean_accuracy": 0.7333333333333333,
-      "attack_success_rate": 0.9090909090909091,
-      "avg_perturbation": 1.3762983233489066,
-      "robustness_score": 0.384748902630926,
+      "attack_success_rate": 1.0,
+      "avg_perturbation": 1.9917899181682615,
+      "robustness_score": 0.3730049300600638,
       "n_samples_tested": 11
     },
     "15": {
       "clean_accuracy": 0.7833333333333333,
-      "attack_success_rate": 0.9285714285714286,
-      "avg_perturbation": 2.9336986943148755,
-      "robustness_score": 0.5192527096773569,
+      "attack_success_rate": 0.7857142857142857,
+      "avg_perturbation": 2.607286472790412,
+      "robustness_score": 0.5633390779592355,
       "n_samples_tested": 14
     },
     "20": {
       "clean_accuracy": 0.7,
       "attack_success_rate": 0.875,
-      "avg_perturbation": 2.4240407455971678,
-      "robustness_score": 0.3602949631572201,
+      "avg_perturbation": 2.616039743466143,
+      "robustness_score": 0.3679749230719791,
       "n_samples_tested": 8
     }
   }

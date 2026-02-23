@@ -64,7 +64,7 @@ class RobustnessMetrics:
         Returns:
             Adversarial accuracy = clean_acc * (1 - asr)
         """
-        return clean_acc * (1 - asr)
+        return 1.0 - asr
     
     @staticmethod
     def robustness_score(clean_acc: float, asr: float, avg_pert: float) -> float:

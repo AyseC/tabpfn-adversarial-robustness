@@ -1,0 +1,286 @@
+{
+  "boundary": {
+    "max_iter_50": {
+      "TabPFN": {
+        "asr": 0.9,
+        "avg_perturbation": 2.910295619629307
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.893382849099866
+      },
+      "LightGBM": {
+        "asr": 0.9,
+        "avg_perturbation": 2.3634076237591435
+      }
+    },
+    "max_iter_100": {
+      "TabPFN": {
+        "asr": 0.8,
+        "avg_perturbation": 2.892223976680885
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.674450266476993
+      },
+      "LightGBM": {
+        "asr": 1.0,
+        "avg_perturbation": 2.885171985496934
+      }
+    },
+    "max_iter_200": {
+      "TabPFN": {
+        "asr": 0.8,
+        "avg_perturbation": 3.1253628579289217
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.7486381262819313
+      },
+      "LightGBM": {
+        "asr": 0.8,
+        "avg_perturbation": 2.3376463957831852
+      }
+    },
+    "max_iter_500": {
+      "TabPFN": {
+        "asr": 0.9,
+        "avg_perturbation": 2.9723606150106243
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.3501232834340717
+      },
+      "LightGBM": {
+        "asr": 0.8,
+        "avg_perturbation": 1.9290767660848784
+      }
+    },
+    "epsilon_0.1": {
+      "TabPFN": {
+        "asr": 0.8,
+        "avg_perturbation": 2.764729280993696
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.3981600708499293
+      },
+      "LightGBM": {
+        "asr": 0.9,
+        "avg_perturbation": 2.350340945346821
+      }
+    },
+    "epsilon_0.3": {
+      "TabPFN": {
+        "asr": 0.8,
+        "avg_perturbation": 2.393402267160752
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.592816485544215
+      },
+      "LightGBM": {
+        "asr": 0.9,
+        "avg_perturbation": 2.543376306668483
+      }
+    },
+    "epsilon_0.5": {
+      "TabPFN": {
+        "asr": 0.9,
+        "avg_perturbation": 2.524693326409493
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.569486452240223
+      },
+      "LightGBM": {
+        "asr": 0.9,
+        "avg_perturbation": 2.496071641988925
+      }
+    },
+    "epsilon_1.0": {
+      "TabPFN": {
+        "asr": 0.8,
+        "avg_perturbation": 2.693954704679059
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 2.8682580359257646
+      },
+      "LightGBM": {
+        "asr": 0.9,
+        "avg_perturbation": 2.375384812333243
+      }
+    }
+  },
+  "nes": {
+    "lr_0.1": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 0.7594619842168431
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.4817384103967634
+      }
+    },
+    "lr_0.3": {
+      "TabPFN": {
+        "asr": 0.4,
+        "avg_perturbation": 1.0879114376565246
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.6822183690676299
+      }
+    },
+    "lr_0.5": {
+      "TabPFN": {
+        "asr": 0.4,
+        "avg_perturbation": 1.1860555809694309
+      },
+      "XGBoost": {
+        "asr": 0.2222222222222222,
+        "avg_perturbation": 1.3387753887273202
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.9211114921188424
+      }
+    },
+    "lr_1.0": {
+      "TabPFN": {
+        "asr": 0.5,
+        "avg_perturbation": 1.7146570595479431
+      },
+      "XGBoost": {
+        "asr": 0.4444444444444444,
+        "avg_perturbation": 2.026755709390548
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 1.5997398452284244
+      }
+    },
+    "sigma_0.1": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 1.0232935955239806
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.7629828331927654
+      }
+    },
+    "sigma_0.3": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 0.8826833230635813
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.6873730595916072
+      }
+    },
+    "sigma_0.5": {
+      "TabPFN": {
+        "asr": 0.5,
+        "avg_perturbation": 1.1595112172952502
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 1.655977695282971
+      },
+      "LightGBM": {
+        "asr": 0.7,
+        "avg_perturbation": 1.2271093376461055
+      }
+    },
+    "sigma_1.0": {
+      "TabPFN": {
+        "asr": 0.9,
+        "avg_perturbation": 1.6558999700663515
+      },
+      "XGBoost": {
+        "asr": 1.0,
+        "avg_perturbation": 1.5517925537041037
+      },
+      "LightGBM": {
+        "asr": 1.0,
+        "avg_perturbation": 1.712563879025207
+      }
+    },
+    "n_samples_10": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 0.9809445897734861
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.839628251550515
+      }
+    },
+    "n_samples_30": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 0.8389807911279541
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.6678598195773833
+      }
+    },
+    "n_samples_50": {
+      "TabPFN": {
+        "asr": 0.4,
+        "avg_perturbation": 1.0343617986491174
+      },
+      "XGBoost": {
+        "asr": 0.0,
+        "avg_perturbation": 0
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.6683848404779612
+      }
+    },
+    "n_samples_100": {
+      "TabPFN": {
+        "asr": 0.3,
+        "avg_perturbation": 0.8632904757645502
+      },
+      "XGBoost": {
+        "asr": 0.1111111111111111,
+        "avg_perturbation": 1.0587670739073318
+      },
+      "LightGBM": {
+        "asr": 0.3,
+        "avg_perturbation": 0.6338772507822541
+      }
+    }
+  }
+}

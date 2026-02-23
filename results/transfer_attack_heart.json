@@ -9,36 +9,36 @@
       "n_samples": 6
     },
     "LightGBM": {
-      "transfer_rate": 0.16666666666666666,
+      "transfer_rate": 0.0,
       "n_samples": 6
     }
   },
   "XGBoost": {
     "TabPFN": {
-      "transfer_rate": 0.45454545454545453,
-      "n_samples": 11
+      "transfer_rate": 0.5,
+      "n_samples": 12
     },
     "XGBoost": {
       "transfer_rate": 1.0,
-      "n_samples": 11
+      "n_samples": 12
     },
     "LightGBM": {
-      "transfer_rate": 0.09090909090909091,
-      "n_samples": 11
+      "transfer_rate": 0.25,
+      "n_samples": 12
     }
   },
   "LightGBM": {
     "TabPFN": {
       "transfer_rate": 0.5,
-      "n_samples": 12
+      "n_samples": 10
     },
     "XGBoost": {
-      "transfer_rate": 0.5,
-      "n_samples": 12
+      "transfer_rate": 0.3,
+      "n_samples": 10
     },
     "LightGBM": {
       "transfer_rate": 1.0,
-      "n_samples": 12
+      "n_samples": 10
     }
   }
 }

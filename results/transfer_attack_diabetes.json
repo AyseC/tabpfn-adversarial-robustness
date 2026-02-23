@@ -2,20 +2,20 @@
   "TabPFN": {
     "TabPFN": {
       "transfer_rate": 1.0,
-      "n_samples": 11
+      "n_samples": 10
     },
     "XGBoost": {
-      "transfer_rate": 0.6363636363636364,
-      "n_samples": 11
+      "transfer_rate": 0.4,
+      "n_samples": 10
     },
     "LightGBM": {
-      "transfer_rate": 0.6363636363636364,
-      "n_samples": 11
+      "transfer_rate": 0.6,
+      "n_samples": 10
     }
   },
   "XGBoost": {
     "TabPFN": {
-      "transfer_rate": 0.0,
+      "transfer_rate": 0.1111111111111111,
       "n_samples": 9
     },
     "XGBoost": {
@@ -33,7 +33,7 @@
       "n_samples": 11
     },
     "XGBoost": {
-      "transfer_rate": 0.36363636363636365,
+      "transfer_rate": 0.18181818181818182,
       "n_samples": 11
     },
     "LightGBM": {

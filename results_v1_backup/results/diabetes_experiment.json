@@ -1,0 +1,26 @@
+{
+  "XGBoost": {
+    "clean_accuracy": 0.7575757575757576,
+    "attack_success_rate": 1.0,
+    "adversarial_accuracy": 0.0,
+    "avg_perturbation": 1.87955274896173,
+    "avg_queries": 348.8888888888889,
+    "robustness_score": 0.3151821099584692
+  },
+  "LightGBM": {
+    "clean_accuracy": 0.7705627705627706,
+    "attack_success_rate": 1.0,
+    "adversarial_accuracy": 0.0,
+    "avg_perturbation": 1.5744275035324165,
+    "avg_queries": 300.1818181818182,
+    "robustness_score": 0.35631043347463
+  },
+  "TabPFN": {
+    "clean_accuracy": 0.7489177489177489,
+    "attack_success_rate": 1.0,
+    "adversarial_accuracy": 0.0,
+    "avg_perturbation": 1.9132665658594872,
+    "avg_queries": 240.9090909090909,
+    "robustness_score": 0.3698639959677128
+  }
+}

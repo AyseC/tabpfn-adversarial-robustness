@@ -1,0 +1,92 @@
+{
+  "TabPFN": {
+    "5": {
+      "clean_accuracy": 0.9333333333333333,
+      "attack_success_rate": 0.8,
+      "avg_perturbation": 1.0216736323635465,
+      "robustness_score": 0.5208669452945418,
+      "n_samples_tested": 15
+    },
+    "10": {
+      "clean_accuracy": 0.9,
+      "attack_success_rate": 0.8571428571428571,
+      "avg_perturbation": 1.7304928723436037,
+      "robustness_score": 0.4996959053699347,
+      "n_samples_tested": 14
+    },
+    "15": {
+      "clean_accuracy": 0.85,
+      "attack_success_rate": 0.8571428571428571,
+      "avg_perturbation": 3.497173851572713,
+      "robustness_score": 0.5703631445390991,
+      "n_samples_tested": 14
+    },
+    "20": {
+      "clean_accuracy": 0.8,
+      "attack_success_rate": 0.8,
+      "avg_perturbation": 3.2951908227636166,
+      "robustness_score": 0.4784742995772113,
+      "n_samples_tested": 10
+    }
+  },
+  "XGBoost": {
+    "5": {
+      "clean_accuracy": 0.9,
+      "attack_success_rate": 0.7333333333333333,
+      "avg_perturbation": 1.0393884774819453,
+      "robustness_score": 0.5482422057659445,
+      "n_samples_tested": 15
+    },
+    "10": {
+      "clean_accuracy": 0.7666666666666667,
+      "attack_success_rate": 0.9090909090909091,
+      "avg_perturbation": 1.9459440247763709,
+      "robustness_score": 0.40753473068802454,
+      "n_samples_tested": 11
+    },
+    "15": {
+      "clean_accuracy": 0.7833333333333333,
+      "attack_success_rate": 1.0,
+      "avg_perturbation": 2.655026872904733,
+      "robustness_score": 0.452867741582856,
+      "n_samples_tested": 13
+    },
+    "20": {
+      "clean_accuracy": 0.7833333333333333,
+      "attack_success_rate": 0.7777777777777778,
+      "avg_perturbation": 3.002713824477692,
+      "robustness_score": 0.44899744186799656,
+      "n_samples_tested": 9
+    }
+  },
+  "LightGBM": {
+    "5": {
+      "clean_accuracy": 0.9166666666666666,
+      "attack_success_rate": 0.8666666666666667,
+      "avg_perturbation": 1.290987522137478,
+      "robustness_score": 0.5049728342188324,
+      "n_samples_tested": 15
+    },
+    "10": {
+      "clean_accuracy": 0.7333333333333333,
+      "attack_success_rate": 0.9090909090909091,
+      "avg_perturbation": 1.3762983233489066,
+      "robustness_score": 0.384748902630926,
+      "n_samples_tested": 11
+    },
+    "15": {
+      "clean_accuracy": 0.7833333333333333,
+      "attack_success_rate": 0.9285714285714286,
+      "avg_perturbation": 2.9336986943148755,
+      "robustness_score": 0.5192527096773569,
+      "n_samples_tested": 14
+    },
+    "20": {
+      "clean_accuracy": 0.7,
+      "attack_success_rate": 0.875,
+      "avg_perturbation": 2.4240407455971678,
+      "robustness_score": 0.3602949631572201,
+      "n_samples_tested": 8
+    }
+  }
+}
