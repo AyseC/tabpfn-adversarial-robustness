@@ -1,8 +1,0 @@
-{
-  "baseline_asr": 80.0,
-  "defenses": {
-    "gaussian_noise": 100.0,
-    "feature_squeezing": 0.0,
-    "ensemble_voting": 87.5
-  }
-}
