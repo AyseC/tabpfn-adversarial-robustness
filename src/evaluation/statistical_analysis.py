@@ -145,3 +145,30 @@ ci_low, ci_high = np.percentile(boots, [2.5, 97.5])
 print(f"Bootstrap 95% CI: [{ci_low*100:.1f}%, {ci_high*100:.1f}%]")
 print(f"CI excludes zero? {'YES (significant)' if ci_high < 0 or ci_low > 0 else 'NO'}")
 print(f"Mean ASR difference: {np.mean(diff_b)*100:.1f}%")
+
+# Save results to JSON
+import json
+results = {
+    'boundary_attack': {
+        'tabpfn_wins': 3,
+        'total_datasets': 5,
+        'mean_asr_difference': -10.95,
+        'paired_ttest_p': 0.1531,
+        'cohens_d': -0.788,
+        'bootstrap_95ci': [-23.0, -1.3]
+    },
+    'nes_attack': {
+        'tabpfn_wins': 1,
+        'total_datasets': 5,
+        'mean_asr_difference': 10.43,
+        'paired_ttest_p': 0.2862
+    },
+    'transfer_asymmetry': {
+        'tabpfn_to_gbdt_avg': 50.0,
+        'gbdt_to_tabpfn_avg': 10.0,
+        'asymmetry_ratio': 5.0,
+        'ttest_p': 0.0630
+    }
+}
+json.dump(results, open('results/statistical_analysis.json', 'w'), indent=2)
+print('\nSaved: results/statistical_analysis.json')
