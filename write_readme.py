@@ -1,4 +1,4 @@
-# Adversarial Robustness of TabPFN vs GBDTs
+content = """# Adversarial Robustness of TabPFN vs GBDTs
 
 **Master's Thesis Research**
 
@@ -212,3 +212,7 @@ MIT License
 - TabPFN authors (Hollmann et al.) for the foundation model
 - OpenML and UCI ML Repository for datasets
 - Thesis supervisor: Ilia Koloiarov
+"""
+
+open('README.md', 'w').write(content)
+print('README.md written!')
