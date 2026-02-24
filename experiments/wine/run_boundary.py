@@ -1,21 +1,38 @@
 """Wine dataset experiment - run from project root"""
 import numpy as np
+import torch
 import json
 import warnings
 from pathlib import Path
 from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 
 # Reproducibility
 np.random.seed(42)
+torch.manual_seed(42)
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
 from src.evaluation.metrics import RobustnessMetrics, AttackResult
+
+def get_stratified_attack_indices(y_test, y_pred, n_samples, random_state=42):
+    """Select n_samples indices stratified by class from correctly classified samples."""
+    correct_indices = np.where(y_pred == y_test)[0]
+    if len(correct_indices) <= n_samples:
+        return correct_indices
+    try:
+        sss = StratifiedShuffleSplit(n_splits=1, test_size=n_samples, random_state=random_state)
+        _, sel = next(sss.split(correct_indices.reshape(-1, 1), y_test[correct_indices]))
+        return correct_indices[sel]
+    except ValueError:
+        rng = np.random.RandomState(random_state)
+        sel = rng.choice(len(correct_indices), n_samples, replace=False)
+        return correct_indices[sel]
+
 
 
 print("="*70)
@@ -60,6 +77,7 @@ for model_name, model in models.items():
     
     y_pred = model.predict(X_test)
     clean_acc = np.mean(y_pred == y_test)
+    attack_indices = get_stratified_attack_indices(y_test, y_pred, n_samples)
     print(f"Clean Accuracy: {clean_acc:.4f}")
     
     print(f"\nAttacking {n_samples} samples...")
@@ -67,13 +85,10 @@ for model_name, model in models.items():
     
     results = []
     
-    for i in range(min(n_samples, len(X_test))):
+    for i in attack_indices:
         x_orig = X_test[i]
         y_true = y_test[i]
         y_pred_i = model.predict(x_orig.reshape(1, -1))[0]
-        
-        if y_pred_i != y_true:
-            continue
         
         x_adv, success, queries, pert = attack.attack(x_orig, y_true)
         y_adv = model.predict(x_adv.reshape(1, -1))[0]
@@ -93,7 +108,7 @@ for model_name, model in models.items():
         if success:
             print(f"  [{i+1}] SUCCESS: {y_true}→{y_adv}, pert={pert:.3f}, q={queries}")
     
-    metrics = RobustnessMetrics.compute_all(results, y_test[:n_samples], y_pred[:n_samples])
+    metrics = RobustnessMetrics.compute_all(results, y_test[attack_indices], y_pred[attack_indices])
     
     print(f"\n{model_name} Metrics:")
     print(f"  ASR: {metrics['attack_success_rate']:.2%}")

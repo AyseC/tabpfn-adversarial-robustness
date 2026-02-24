@@ -26,6 +26,7 @@ class TabPFNWrapper:
             print(f"Warning: TabPFN v2 works best with <500 features. Got {X.shape[1]}")
         
         # TabPFN v2
+        torch.manual_seed(self.random_state)
         self.model = TabPFNClassifier.create_default_for_version(ModelVersion.V2)
         self.model.random_state = self.random_state
         self.model.fit(X, y)
@@ -36,12 +37,14 @@ class TabPFNWrapper:
         """Predict labels"""
         if not self.is_fitted:
             raise ValueError("Model not fitted!")
+        torch.manual_seed(self.random_state)
         return self.model.predict(X)
-    
+
     def predict_proba(self, X):
         """Predict probabilities"""
         if not self.is_fitted:
             raise ValueError("Model not fitted!")
+        torch.manual_seed(self.random_state)
         return self.model.predict_proba(X)
     
     def score(self, X, y):

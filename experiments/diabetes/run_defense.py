@@ -1,20 +1,37 @@
 """Defense Mechanisms Experiment - Diabetes Dataset"""
 import numpy as np
+import torch
 import json
 import warnings
 from pathlib import Path
 from sklearn.datasets import fetch_openml
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 warnings.filterwarnings('ignore')
 
 # Reproducibility
 np.random.seed(42)
+torch.manual_seed(42)
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
+
+def get_stratified_attack_indices(y_test, y_pred, n_samples, random_state=42):
+    """Select n_samples indices stratified by class from correctly classified samples."""
+    correct_indices = np.where(y_pred == y_test)[0]
+    if len(correct_indices) <= n_samples:
+        return correct_indices
+    try:
+        sss = StratifiedShuffleSplit(n_splits=1, test_size=n_samples, random_state=random_state)
+        _, sel = next(sss.split(correct_indices.reshape(-1, 1), y_test[correct_indices]))
+        return correct_indices[sel]
+    except ValueError:
+        rng = np.random.RandomState(random_state)
+        sel = rng.choice(len(correct_indices), n_samples, replace=False)
+        return correct_indices[sel]
+
 
 print("="*70)
 print("DEFENSE MECHANISMS - DIABETES DATASET")
@@ -51,11 +68,12 @@ X_test = scaler.transform(X_test)
 # Train TabPFN
 print("\nTraining TabPFN...")
 model = TabPFNWrapper(device='cpu')
-model.fit(X_train, y_train)
-clean_acc = np.mean(model.predict(X_test) == y_test)
-print(f"  Clean Accuracy: {clean_acc:.2%}")
-
 n_samples = 15
+model.fit(X_train, y_train)
+y_pred_all = model.predict(X_test)
+clean_acc = np.mean(y_pred_all == y_test)
+attack_indices = get_stratified_attack_indices(y_test, y_pred_all, n_samples)
+print(f"  Clean Accuracy: {clean_acc:.2%}")
 results = {}
 
 # 1. No Defense (Baseline)
@@ -67,13 +85,9 @@ attack = BoundaryAttack(model, max_iterations=200, epsilon=0.5, verbose=False)
 baseline_success = 0
 baseline_total = 0
 
-for i in range(min(n_samples, len(X_test))):
+for i in attack_indices:
     x_orig = X_test[i]
     y_true = y_test[i]
-    y_pred = model.predict(x_orig.reshape(1, -1))[0]
-    
-    if y_pred != y_true:
-        continue
     
     x_adv, success, _, pert = attack.attack(x_orig, y_true)
     baseline_total += 1
@@ -95,13 +109,9 @@ for noise_std in noise_levels:
     success = 0
     total = 0
     
-    for i in range(min(n_samples, len(X_test))):
+    for i in attack_indices:
         x_orig = X_test[i]
         y_true = y_test[i]
-        y_pred = model.predict(x_orig.reshape(1, -1))[0]
-        
-        if y_pred != y_true:
-            continue
         
         x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
         
@@ -135,13 +145,9 @@ for bits in bit_depths:
     success = 0
     total = 0
     
-    for i in range(min(n_samples, len(X_test))):
+    for i in attack_indices:
         x_orig = X_test[i]
         y_true = y_test[i]
-        y_pred = model.predict(x_orig.reshape(1, -1))[0]
-        
-        if y_pred != y_true:
-            continue
         
         x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
         
@@ -181,13 +187,9 @@ lgb.fit(X_train, y_train)
 success = 0
 total = 0
 
-for i in range(min(n_samples, len(X_test))):
+for i in attack_indices:
     x_orig = X_test[i]
     y_true = y_test[i]
-    y_pred = model.predict(x_orig.reshape(1, -1))[0]
-    
-    if y_pred != y_true:
-        continue
     
     x_adv, attack_success, _, _ = attack.attack(x_orig, y_true)
     
