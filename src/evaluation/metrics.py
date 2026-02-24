@@ -64,7 +64,7 @@ class RobustnessMetrics:
         Returns:
             Adversarial accuracy = clean_acc * (1 - asr)
         """
-        return 1.0 - asr
+        return clean_acc * (1 - asr)
     
     @staticmethod
     def robustness_score(clean_acc: float, asr: float, avg_pert: float) -> float:
@@ -95,8 +95,17 @@ class RobustnessMetrics:
     def compute_all(results: List[AttackResult], y_true: np.ndarray,
                    y_pred: np.ndarray) -> Dict[str, float]:
         """Compute all metrics"""
+        # Some experiment scripts attack only correctly classified samples
+        # but pass fixed prefixes of y_true/y_pred. Align evaluation sets here.
+        if results and (len(results) != len(y_true) or len(results) != len(y_pred)):
+            y_true_eval = np.array([r.original_label for r in results])
+            y_pred_eval = np.array([r.predicted_label for r in results])
+        else:
+            y_true_eval = y_true
+            y_pred_eval = y_pred
+
         metrics = {
-            'clean_accuracy': RobustnessMetrics.clean_accuracy(y_true, y_pred),
+            'clean_accuracy': RobustnessMetrics.clean_accuracy(y_true_eval, y_pred_eval),
             'attack_success_rate': RobustnessMetrics.attack_success_rate(results),
             'avg_perturbation': RobustnessMetrics.average_perturbation(results),
             'avg_queries': RobustnessMetrics.average_queries(results),

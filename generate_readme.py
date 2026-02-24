@@ -1,8 +1,11 @@
 import json
 
 def load(path):
-    try: return json.load(open(path))
-    except: return {}
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return {}
 
 boundary = {ds: load(f'results/{ds}_experiment.json') for ds in ['wine','iris','diabetes','heart','breast_cancer']}
 nes = {ds: load(f'results/{ds}_nes_experiment.json') for ds in ['wine','iris','diabetes','heart','breast_cancer']}
@@ -72,5 +75,6 @@ lines.append("python experiments/<dataset>/run_defense.py")
 lines.append("python src/evaluation/statistical_analysis.py")
 lines.append("```")
 
-open('README.md', 'w').write('\n'.join(lines))
+with open('README.md', 'w') as f:
+    f.write('\n'.join(lines))
 print('README.md updated!')

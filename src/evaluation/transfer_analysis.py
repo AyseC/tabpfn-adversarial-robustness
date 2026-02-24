@@ -7,7 +7,8 @@ print(f"{'Dataset':<15} {'GBDT->TabPFN':>15} {'TabPFN->GBDT':>15}")
 print('-'*50)
 
 for ds in datasets:
-    d = json.load(open(f'results/transfer_attack_{ds}.json'))
+    with open(f'results/transfer_attack_{ds}.json') as f:
+        d = json.load(f)
     keys = list(d.keys())
     
     gbdt_to_tabpfn = []
@@ -26,12 +27,12 @@ for ds in datasets:
     else:
         for src in ['XGBoost','LightGBM']:
             if src in d and 'TabPFN' in d[src]:
-                gbdt_to_tabpfn.append(d[src]['TabPFN']['transfer_rate'] * 100)
+                gbdt_to_tabpfn.append(d[src]['TabPFN']['transfer_rate'])
         if 'TabPFN' in d:
             for tgt in ['XGBoost','LightGBM']:
                 if tgt in d['TabPFN']:
-                    tabpfn_to_gbdt.append(d['TabPFN'][tgt]['transfer_rate'] * 100)
+                    tabpfn_to_gbdt.append(d['TabPFN'][tgt]['transfer_rate'])
     
     g2t = sum(gbdt_to_tabpfn)/len(gbdt_to_tabpfn) if gbdt_to_tabpfn else 0
     t2g = sum(tabpfn_to_gbdt)/len(tabpfn_to_gbdt) if tabpfn_to_gbdt else 0
-    print(f'{ds:<15} {g2t:>14.1f}% {t2g:>14.1f}%')
+    print(f'{ds:<15} {g2t*100:>14.1f}% {t2g*100:>14.1f}%')

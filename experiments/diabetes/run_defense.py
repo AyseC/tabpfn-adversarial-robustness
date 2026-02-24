@@ -29,7 +29,7 @@ try:
         le = LabelEncoder()
         y = le.fit_transform(y)
     print("  ✓ Loaded from OpenML")
-except:
+except Exception:
     from sklearn.datasets import load_diabetes as load_diabetes_reg
     diabetes_reg = load_diabetes_reg()
     X = diabetes_reg.data
@@ -40,12 +40,13 @@ print(f"\nDataset: Diabetes")
 print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
 
 # Standardize
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Train TabPFN
 print("\nTraining TabPFN...")

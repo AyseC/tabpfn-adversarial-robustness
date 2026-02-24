@@ -28,7 +28,7 @@ try:
     if len(np.unique(y)) > 2:
         y = (y > 0).astype(int)
     print("  ✓ Loaded from OpenML")
-except:
+except Exception:
     import pandas as pd
     url = "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
     columns = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg',
@@ -41,12 +41,13 @@ except:
 print(f"\nDataset: Heart")
 print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
 
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Train models
 print("\n[1/4] Training models...")

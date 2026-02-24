@@ -1,17 +1,16 @@
-import numpy as np
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning)
-
-# Reproducibility
-np.random.seed(42)
-
 """Wine dataset experiment - run from project root"""
 import numpy as np
 import json
+import warnings
 from pathlib import Path
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+
+warnings.filterwarnings('ignore')
+
+# Reproducibility
+np.random.seed(42)
 
 from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
@@ -34,12 +33,13 @@ print(f"  Samples: {len(X)}")
 print(f"  Features: {X.shape[1]}")
 
 # Standardize features
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Models
 models = {

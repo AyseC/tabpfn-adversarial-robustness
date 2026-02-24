@@ -56,10 +56,9 @@ for n_features in feature_counts:
         n_samples=n_samples_per_dataset,
         n_features=n_features,
         n_informative=max(3, n_features // 2),
-        n_redundant=min(2, n_features // 3),
+        n_redundant=max(1, n_features // 5),
         n_classes=2,
-        random_state=42,
-        flip_y=0.1
+        random_state=42
     )
     
     print(f"  ✓ Generated: {len(X)} samples, {n_features} features")

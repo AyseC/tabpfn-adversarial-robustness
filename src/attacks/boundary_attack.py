@@ -62,13 +62,14 @@ class BoundaryAttack:
             # Check if still adversarial
             if self._predict_label(x_new) != y_true:
                 x_adv = x_new
-                
+                step_size *= 1.05  # Grow step size on success to keep exploring
+
                 # Try to move closer to original
                 direction = x_orig - x_adv
                 direction = direction / (np.linalg.norm(direction) + 1e-10)
-                
+
                 x_closer = x_adv + step_size * direction
-                
+
                 if self._predict_label(x_closer) != y_true:
                     x_adv = x_closer
             else:

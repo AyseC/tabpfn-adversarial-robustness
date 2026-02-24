@@ -37,12 +37,13 @@ print(f"  Features: {X.shape[1]}")
 print(f"  Classes: Binary (0 vs 1)")
 
 # Standardize
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Train all models
 print("\n[1/4] Training models...")
@@ -197,7 +198,7 @@ for idx, config in enumerate(transfer_configs, 1):
         'source_success': source_success,
         'transfer_success': transfer_success,
         'no_transfer': no_transfer,
-        'transfer_rate': transfer_rate,
+        'transfer_rate': transfer_rate / 100,  # Normalize to 0-1 fraction (consistent with other datasets)
         'attacks': successful_attacks
     }
 

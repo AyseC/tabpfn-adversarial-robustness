@@ -61,6 +61,7 @@ class NESAttack:
         x_adv = x_orig.copy()
         best_x = x_orig.copy()
         best_conf = 1.0
+        current_lr = self.learning_rate
         
         iterator = range(self.max_iterations)
         if self.verbose:
@@ -74,7 +75,7 @@ class NESAttack:
             grad = self._estimate_gradient(x_adv, y_true)
             
             # Update (gradient DESCENT to minimize confidence in true class)
-            x_adv = x_adv - self.learning_rate * grad
+            x_adv = x_adv - current_lr * grad
             
             # Check current state
             probs = self._get_proba(x_adv)
@@ -93,7 +94,7 @@ class NESAttack:
             
             # Adaptive learning rate
             if i % 50 == 0 and i > 0:
-                self.learning_rate *= 0.9
+                current_lr *= 0.9
         
         # Final check
         final_probs = self._get_proba(best_x)

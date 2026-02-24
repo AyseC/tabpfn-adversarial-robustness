@@ -24,9 +24,14 @@ tabpfn_asrs = []
 best_gbdt_asrs = []
 
 for ds in datasets:
-    data = json.load(open(files[ds]))
-    tabpfn_asr = data['TabPFN']['attack_success_rate']
-    gbdt_asr = min(data['XGBoost']['attack_success_rate'], data['LightGBM']['attack_success_rate'])
+    try:
+        with open(files[ds]) as f:
+            data = json.load(f)
+        tabpfn_asr = data['TabPFN']['attack_success_rate']
+        gbdt_asr = min(data['XGBoost']['attack_success_rate'], data['LightGBM']['attack_success_rate'])
+    except Exception as e:
+        print(f"  Error {files[ds]}: {e}")
+        continue
     tabpfn_asrs.append(tabpfn_asr)
     best_gbdt_asrs.append(gbdt_asr)
     winner = "TabPFN ✓" if tabpfn_asr < gbdt_asr else ("Tie" if tabpfn_asr == gbdt_asr else "GBDT")
@@ -56,14 +61,34 @@ gbdt_to_tabpfn = []
 
 for ds, path in transfer_files.items():
     try:
-        data = json.load(open(path))
+        with open(path) as f:
+            data = json.load(f)
         for key, val in data.items():
             if isinstance(val, dict) and 'transfer_rate' in val:
-                rate = val['transfer_rate'] / 100.0
-                if 'TabPFN' in key.split(' → ')[0] and key.split(' → ')[1] in ['XGBoost', 'LightGBM']:
-                    tabpfn_to_gbdt.append(rate)
-                elif key.split(' → ')[0] in ['XGBoost', 'LightGBM'] and 'TabPFN' in key.split(' → ')[1]:
-                    gbdt_to_tabpfn.append(rate)
+                # Wine-style flat format: {"XGBoost → TabPFN": {"transfer_rate": 0.5}}
+                rate = val['transfer_rate']
+                parts = key.split(' → ')
+                if len(parts) == 2:
+                    src, tgt = parts[0], parts[1]
+                    if src == tgt:
+                        continue
+                    if 'TabPFN' in src and tgt in ['XGBoost', 'LightGBM']:
+                        tabpfn_to_gbdt.append(rate)
+                    elif src in ['XGBoost', 'LightGBM'] and 'TabPFN' in tgt:
+                        gbdt_to_tabpfn.append(rate)
+            elif isinstance(val, dict):
+                # Nested matrix format: {"TabPFN": {"XGBoost": {"transfer_rate": 0.5}}}
+                for tgt, tgt_data in val.items():
+                    if not isinstance(tgt_data, dict) or 'transfer_rate' not in tgt_data:
+                        continue
+                    if key == tgt:
+                        continue  # Skip self-transfer
+                    rate = tgt_data['transfer_rate']
+                    src = key
+                    if src == 'TabPFN' and tgt in ['XGBoost', 'LightGBM']:
+                        tabpfn_to_gbdt.append(rate)
+                    elif src in ['XGBoost', 'LightGBM'] and tgt == 'TabPFN':
+                        gbdt_to_tabpfn.append(rate)
     except Exception as e:
         print(f"  Error {path}: {e}")
 
@@ -75,9 +100,6 @@ if tabpfn_to_gbdt and gbdt_to_tabpfn:
     t_stat2, p_value2 = stats.ttest_ind(tabpfn_to_gbdt, gbdt_to_tabpfn)
     print(f"T-test: t={t_stat2:.3f}, p={p_value2:.4f}")
     print(f"Significant (p<0.05)? {'✓ YES' if p_value2 < 0.05 else '✗ NO'}")
-
-print("\n" + "="*80)
-print("DONE")
 
 print("")
 print("3. TabPFN vs GBDT - NES ATTACK")
@@ -96,7 +118,8 @@ best_gbdt_nes = []
 
 for ds, path in nes_files.items():
     try:
-        data = json.load(open(path))
+        with open(path) as f:
+            data = json.load(f)
         tabpfn_asr = data["TabPFN"]["attack_success_rate"]
         gbdt_asr = min(data["XGBoost"]["attack_success_rate"], data["LightGBM"]["attack_success_rate"])
         tabpfn_nes.append(tabpfn_asr)
@@ -125,10 +148,11 @@ datasets = ['wine','iris','diabetes','heart','breast_cancer']
 
 for ds in datasets:
     try:
-        d = json.load(open(f'results/{ds}_experiment.json'))
+        with open(f'results/{ds}_experiment.json') as f:
+            d = json.load(f)
         tabpfn_b.append(d['TabPFN']['attack_success_rate'])
         gbdt_b.append(min(d['XGBoost']['attack_success_rate'], d['LightGBM']['attack_success_rate']))
-    except:
+    except Exception:
         pass
 
 diff_b = np.array(tabpfn_b) - np.array(gbdt_b)
@@ -146,29 +170,35 @@ print(f"Bootstrap 95% CI: [{ci_low*100:.1f}%, {ci_high*100:.1f}%]")
 print(f"CI excludes zero? {'YES (significant)' if ci_high < 0 or ci_low > 0 else 'NO'}")
 print(f"Mean ASR difference: {np.mean(diff_b)*100:.1f}%")
 
-# Save results to JSON
-import json
-results = {
-    'boundary_attack': {
-        'tabpfn_wins': 3,
-        'total_datasets': 5,
-        'mean_asr_difference': -10.95,
-        'paired_ttest_p': 0.1531,
-        'cohens_d': -0.788,
-        'bootstrap_95ci': [-23.0, -1.3]
-    },
-    'nes_attack': {
-        'tabpfn_wins': 1,
-        'total_datasets': 5,
-        'mean_asr_difference': 10.43,
-        'paired_ttest_p': 0.2862
-    },
-    'transfer_asymmetry': {
-        'tabpfn_to_gbdt_avg': 50.0,
-        'gbdt_to_tabpfn_avg': 10.0,
-        'asymmetry_ratio': 5.0,
-        'ttest_p': 0.0630
+# Save results to JSON (dynamically from computed values)
+results = {}
+
+if tabpfn_b:
+    results['boundary_attack'] = {
+        'tabpfn_wins': int(sum(1 for d in diff_b if d < 0)),
+        'total_datasets': len(tabpfn_b),
+        'mean_asr_difference': float(round(np.mean(diff_b) * 100, 2)),
+        'paired_ttest_p': float(round(p_value, 4)),
+        'cohens_d': float(round(cohens_d, 3)),
+        'bootstrap_95ci': [float(round(ci_low * 100, 1)), float(round(ci_high * 100, 1))]
     }
-}
-json.dump(results, open('results/statistical_analysis.json', 'w'), indent=2)
+
+if tabpfn_nes:
+    results['nes_attack'] = {
+        'tabpfn_wins': int(sum(1 for d in diff_nes if d < 0)),
+        'total_datasets': len(tabpfn_nes),
+        'mean_asr_difference': float(round(np.mean(diff_nes) * 100, 2)),
+        'paired_ttest_p': float(round(p_value3, 4))
+    }
+
+if tabpfn_to_gbdt and gbdt_to_tabpfn:
+    results['transfer_asymmetry'] = {
+        'tabpfn_to_gbdt_avg': float(round(np.mean(tabpfn_to_gbdt) * 100, 1)),
+        'gbdt_to_tabpfn_avg': float(round(np.mean(gbdt_to_tabpfn) * 100, 1)),
+        'asymmetry_ratio': float(round(ratio, 2)),
+        'ttest_p': float(round(p_value2, 4))
+    }
+
+with open('results/statistical_analysis.json', 'w') as f:
+    json.dump(results, f, indent=2)
 print('\nSaved: results/statistical_analysis.json')

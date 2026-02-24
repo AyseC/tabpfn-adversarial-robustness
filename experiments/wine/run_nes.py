@@ -27,13 +27,18 @@ X, y = data.data, data.target
 mask = y < 2
 X, y = X[mask], y[mask]
 
-# Standardize features
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
+print(f"\nDataset: Wine (Binary)")
+print(f"  Samples: {len(X)}")
+print(f"  Features: {X.shape[1]}")
 
+# Standardize features
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Models
 models = {
@@ -59,11 +64,10 @@ for model_name, model in models.items():
     print(f"\nNES Attack on {n_samples} samples...")
     attack = NESAttack(
         model,
-        max_iterations=50,
+        max_iterations=200,
         n_samples=30,
         learning_rate=0.3,
         sigma=0.3,
-        max_queries=2000,
         verbose=False
     )
     
@@ -103,6 +107,7 @@ for model_name, model in models.items():
     
     print(f"\n{model_name} Metrics:")
     print(f"  ASR: {metrics['attack_success_rate']:.2%}")
+    print(f"  Adversarial Accuracy: {metrics['adversarial_accuracy']:.2%}")
     print(f"  Avg Pert: {metrics['avg_perturbation']:.4f}")
     print(f"  Avg Queries: {metrics['avg_queries']:.0f}")
     print(f"  Robustness: {metrics['robustness_score']:.4f}")

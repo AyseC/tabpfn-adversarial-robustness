@@ -32,12 +32,13 @@ print(f"  Samples: {len(X)}")
 print(f"  Features: {X.shape[1]}")
 
 # Standardize features
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Models
 models = {
@@ -61,7 +62,7 @@ for model_name, model in models.items():
     print(f"Clean Accuracy: {clean_acc:.4f}")
     
     print(f"\nAttacking {n_samples} samples...")
-    attack = BoundaryAttack(model, max_iterations=200, epsilon=1.0, verbose=False)
+    attack = BoundaryAttack(model, max_iterations=200, epsilon=0.5, verbose=False)
     
     results = []
     successful = 0

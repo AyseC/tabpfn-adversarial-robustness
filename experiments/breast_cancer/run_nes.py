@@ -2,6 +2,7 @@
 import numpy as np
 import json
 import warnings
+from pathlib import Path
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -25,12 +26,13 @@ data = load_breast_cancer()
 X, y = data.data, data.target
 
 # Standardize features
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 print(f"\nDataset: Breast Cancer")
 print(f"  Samples: {len(X)}, Features: {X.shape[1]}")
@@ -87,22 +89,19 @@ for model_name, model in models.items():
     
     metrics = RobustnessMetrics.compute_all(results, y_test[:n_samples], y_pred[:n_samples])
     
-    all_results[model_name] = {
-        'clean_accuracy': clean_acc,
-        'attack_success_rate': metrics['attack_success_rate'],
-        'adversarial_accuracy': metrics['adversarial_accuracy'],
-        'avg_perturbation': metrics['avg_perturbation'],
-        'avg_queries': metrics['avg_queries'],
-        'robustness_score': metrics['robustness_score']
-    }
-    
+    all_results[model_name] = metrics
+    all_results[model_name]["clean_accuracy"] = clean_acc
+
     print(f"\n{model_name} Metrics:")
     print(f"  ASR: {metrics['attack_success_rate']:.2%}")
     print(f"  Adversarial Accuracy: {metrics['adversarial_accuracy']:.2%}")
 
 # Save results
+Path("results").mkdir(exist_ok=True)
 with open('results/breast_cancer_nes_experiment.json', 'w') as f:
-    json.dump(all_results, f, indent=2)
+    save_data = {k: {kk: float(vv) for kk, vv in v.items()}
+                 for k, v in all_results.items()}
+    json.dump(save_data, f, indent=2)
 
 print(f"\n{'='*70}")
 print("RESULTS")

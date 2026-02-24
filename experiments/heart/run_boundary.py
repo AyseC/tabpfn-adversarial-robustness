@@ -52,7 +52,7 @@ except Exception as e:
         
         print(f"  ✓ Loaded from UCI")
     
-    except:
+    except Exception:
         print("  ✗ All methods failed. Using synthetic data as fallback...")
         from sklearn.datasets import make_classification
         X, y = make_classification(n_samples=300, n_features=13, n_informative=10,
@@ -63,12 +63,13 @@ print(f"  Samples: {len(X)}")
 print(f"  Features: {X.shape[1]}")
 print(f"  Class 0: {sum(y==0)}, Class 1: {sum(y==1)}")
 
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 models = {
     'XGBoost': GBDTWrapper(model_type='xgboost'),
@@ -91,7 +92,7 @@ for model_name, model in models.items():
     print(f"Clean Accuracy: {clean_acc:.4f}")
     
     print(f"\nAttacking {n_samples} samples...")
-    attack = BoundaryAttack(model, max_iterations=150, epsilon=0.5, verbose=False)
+    attack = BoundaryAttack(model, max_iterations=200, epsilon=0.5, verbose=False)
     
     results = []
     successful = 0
@@ -155,9 +156,13 @@ if 'TabPFN' in all_results:
     gbdt_best = max([('XGBoost', all_results['XGBoost']), 
                      ('LightGBM', all_results['LightGBM'])],
                     key=lambda x: x[1]['robustness_score'])
-    
-    ratio = all_results['TabPFN']['attack_success_rate'] / gbdt_best[1]['attack_success_rate']
-    print(f"\n TabPFN is {ratio:.2f}x vulnerability vs {gbdt_best[0]}")
+
+    gbdt_asr = gbdt_best[1]['attack_success_rate']
+    if gbdt_asr > 0:
+        ratio = all_results['TabPFN']['attack_success_rate'] / gbdt_asr
+        print(f"\n TabPFN is {ratio:.2f}x vulnerability vs {gbdt_best[0]}")
+    else:
+        print(f"\n TabPFN vulnerability ratio vs {gbdt_best[0]}: undefined (GBDT ASR=0)")
 
 Path("results").mkdir(exist_ok=True)
 with open("results/heart_experiment.json", 'w') as f:
