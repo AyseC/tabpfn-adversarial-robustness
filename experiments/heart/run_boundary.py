@@ -157,7 +157,7 @@ if 'TabPFN' in all_results:
                     key=lambda x: x[1]['robustness_score'])
     
     ratio = all_results['TabPFN']['attack_success_rate'] / gbdt_best[1]['attack_success_rate']
-    print(f"\n📊 TabPFN is {ratio:.2f}x vulnerability vs {gbdt_best[0]}")
+    print(f"\n TabPFN is {ratio:.2f}x vulnerability vs {gbdt_best[0]}")
 
 Path("results").mkdir(exist_ok=True)
 with open("results/heart_experiment.json", 'w') as f:
