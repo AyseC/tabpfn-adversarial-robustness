@@ -12,15 +12,15 @@
     "attack_success_rate": 0.3333333333333333,
     "avg_perturbation": 0.8771814325545007,
     "avg_queries": 441.2,
-    "adversarial_accuracy": 0.6667,
+    "adversarial_accuracy": 0.6666666666666667,
     "robustness_score": 0.7017539239688467
   },
   "TabPFN": {
     "clean_accuracy": 1.0,
     "attack_success_rate": 0.2,
-    "avg_perturbation": 1.3079232251861925,
-    "avg_queries": 807.0,
+    "avg_perturbation": 1.2416241560113719,
+    "avg_queries": 796.6666666666666,
     "adversarial_accuracy": 0.8,
-    "robustness_score": 0.7723169290074477
+    "robustness_score": 0.769664966240455
   }
 }

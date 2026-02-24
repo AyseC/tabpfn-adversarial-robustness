@@ -20,7 +20,7 @@
     "attack_success_rate": 0.9333333333333333,
     "avg_perturbation": 1.9003840138391261,
     "avg_queries": 224.07142857142858,
-    "adversarial_accuracy": 0.0667,
+    "adversarial_accuracy": 0.06666666666666665,
     "robustness_score": 0.5026820272202317
   }
 }

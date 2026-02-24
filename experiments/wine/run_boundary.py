@@ -102,6 +102,7 @@ for model_name, model in models.items():
     print(f"  Robustness: {metrics['robustness_score']:.4f}")
     
     all_results[model_name] = metrics
+    all_results[model_name]["clean_accuracy"] = clean_acc
 
 # Summary
 print("\n" + "="*70)
