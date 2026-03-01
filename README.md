@@ -17,51 +17,55 @@ Comprehensive evaluation of adversarial robustness in TabPFN (Tabular Prior-Fitt
 
 | Dataset | Features | TabPFN ASR | Best GBDT ASR | Difference | Winner |
 |---------|----------|------------|---------------|------------|--------|
-| Wine | 13 | 78.57% | 93.33% | -14.76% | TabPFN |
-| Iris | 4 | 93.33% | 100.00% | -6.67% | TabPFN |
+| Wine | 13 | 93.33% | 100.00% (XGBoost) | -6.67% | TabPFN |
+| Iris | 4 | 86.67% | 100.00% | -13.33% | TabPFN |
 | Diabetes | 8 | 100.00% | 100.00% | 0.00% | Tie |
-| Heart | 13 | 50.00% | 83.33% | -33.33% | TabPFN |
-| Breast Cancer | 30 | 78.57% | 78.57% | 0.00% | Tie |
+| Heart | 13 | 66.67% | 100.00% (XGBoost) | -33.33% | TabPFN |
+| Breast Cancer | 30 | 80.00% | 86.67% | -6.67% | TabPFN |
 
 Statistical Analysis:
-- Mean ASR difference: -11.0% (TabPFN lower)
-- Bootstrap 95% CI: [-23.0%, -1.3%] (excludes zero = significant)
-- Cohen's d: -0.788 (Medium effect size)
-- Paired t-test: p=0.153 (limited by small n=5)
+- Mean ASR difference: -9.33% (TabPFN lower)
+- Bootstrap 95% CI: [-18.7%, -1.3%] (excludes zero = significant)
+- Cohen's d: -0.837 (Large effect size)
+- Paired t-test: p=0.135 (limited by small n=5)
 
 ### 2. NES Attack Results
 
 | Dataset | TabPFN ASR | Best GBDT ASR | Winner |
 |---------|------------|---------------|--------|
-| Wine | 35.71% | 14.29% | GBDT |
-| Iris | 20.00% | 33.33% | TabPFN |
+| Wine | 73.33% | 73.33% (LightGBM) | Tie |
+| Iris | 20.00% | 53.33% | TabPFN |
 | Diabetes | 100.00% | 100.00% | Tie |
-| Heart | 50.00% | 41.67% | GBDT |
-| Breast Cancer | 85.71% | 50.00% | GBDT |
+| Heart | 86.67% | 93.33% (LightGBM) | GBDT |
+| Breast Cancer | 86.67% | 73.33% (XGBoost) | GBDT |
+
+Statistical Analysis:
+- Mean ASR difference: +5.33% (TabPFN slightly higher)
+- Paired t-test: p=0.675 (not significant)
 
 ### 3. Transfer Attack Asymmetry
 
 | Dataset | GBDT -> TabPFN | TabPFN -> GBDT | Ratio |
 |---------|----------------|----------------|-------|
-| Wine | 10.00% | 50.00% | 5.0x |
-| Iris | 0.00% | 53.33% | - |
-| Diabetes | 14.64% | 50.00% | 3.4x |
-| Heart | 33.33% | 8.33% | 0.25x |
-| Breast Cancer | 28.33% | 20.83% | 0.73x |
+| Wine | 17.14% | 53.57% | 3.12x |
+| Iris | 3.33% | 53.33% | 16.00x |
+| Diabetes | 10.00% | 71.43% | 7.14x |
+| Heart | 34.52% | 55.56% | 1.61x |
+| Breast Cancer | 11.54% | 15.38% | 1.33x |
 
-- Overall TabPFN -> GBDT avg: 50.00%
-- Overall GBDT -> TabPFN avg: 10.00%
-- Asymmetry ratio: 5.0x (t-test p=0.063)
+- Overall TabPFN -> GBDT avg: 49.85%
+- Overall GBDT -> TabPFN avg: 15.31%
+- Asymmetry ratio: 3.26x (t-test p=0.0004, highly significant)
 
 ### 4. Defense Mechanisms Evaluation
 
-| Dataset | Features | Best Defense | Recovery |
-|---------|----------|-------------|---------|
-| Wine | 13 | Gaussian Noise s=0.01 | 71.43% |
-| Iris | 4 | Feature Squeezing 8-bit | 100.00% |
-| Diabetes | 8 | Gaussian Noise s=0.01 | 100.00% |
-| Heart | 13 | Ensemble Voting | 41.67% |
-| Breast Cancer | 30 | Gaussian Noise s=0.01 | 78.57% |
+| Dataset | Features | Best Defense | Adv ASR After Defense | Recovery |
+|---------|----------|--------------|-----------------------|---------|
+| Wine | 13 | Gaussian Noise σ=0.01 | 0.00% | 93.33% |
+| Iris | 4 | Ensemble Voting | 60.00% | 40.00% |
+| Diabetes | 8 | Feature Squeezing 4-bit | 33.33% | 60.00% |
+| Heart | 13 | Gaussian Noise σ=0.01 | 26.67% | 40.00% |
+| Breast Cancer | 30 | Gaussian Noise σ=0.01 | 7.14% | 78.57% |
 
 Key Finding: No single defense works best for all datasets.
 
@@ -69,19 +73,19 @@ Key Finding: No single defense works best for all datasets.
 
 | Experiment | Key Finding | TabPFN Correlation |
 |-----------|-------------|-------------------|
-| Label Noise | ASR increases with noise | r = +0.945 |
-| Class Imbalance | ASR decreases with imbalance | r = -0.832 |
-| Feature Scaling | No clear linear trend | r = -0.140 |
-| Categorical Mix | All models vulnerable at 70%+ categorical | r = +0.548 |
+| Label Noise | ASR increases with noise | r = +0.969 |
+| Class Imbalance | ASR decreases with imbalance | r = -0.544 |
+| Feature Scaling | ASR strongly decreases with more features | r = -0.965 |
+| Categorical Mix | ASR increases with categorical ratio | r = +0.886 |
 
 ## Statistical Validation Summary
 
 | Finding | Test | Result | Significant? |
 |---------|------|--------|-------------|
-| TabPFN > GBDT (Boundary) | Bootstrap CI | [-23.0%, -1.3%] | Yes |
-| TabPFN > GBDT (Boundary) | Paired t-test | p=0.153 | Marginal (small n=5) |
-| Transfer Asymmetry | Paired t-test | p=0.063 | Marginal |
-| TabPFN > GBDT (NES) | Paired t-test | p=0.286 | No |
+| TabPFN > GBDT (Boundary) | Bootstrap CI | [-18.7%, -1.3%] | Yes |
+| TabPFN > GBDT (Boundary) | Paired t-test | p=0.135 | Marginal (small n=5) |
+| Transfer Asymmetry | Paired t-test | p=0.0004 | Yes (highly significant) |
+| TabPFN > GBDT (NES) | Paired t-test | p=0.675 | No |
 
 ## Experimental Setup
 
@@ -100,6 +104,7 @@ Key Finding: No single defense works best for all datasets.
 - stratify=y in train/test split (70/30)
 - random_state=42 for reproducibility
 - n_samples=15 adversarial examples per experiment
+- **Common attack indices**: attack samples are drawn only from examples correctly classified by ALL models, ensuring fair comparison
 
 ### Attack Methods
 
@@ -132,6 +137,7 @@ tabpfn-adversarial/
 │   │   └── nes_attack.py
 │   └── evaluation/
 │       ├── metrics.py
+│       ├── plot_boundary_results.py
 │       └── statistical_analysis.py
 ├── experiments/
 │   ├── breast_cancer/
@@ -146,6 +152,7 @@ tabpfn-adversarial/
 │   ├── *_defense_results.json
 │   ├── transfer_attack_*.json
 │   ├── synthetic_*.json
+│   ├── figures/
 │   └── statistical_analysis.json
 └── README.md
 ```
@@ -180,9 +187,9 @@ python src/evaluation/statistical_analysis.py
 
 1. First comprehensive adversarial evaluation of TabPFN v2 - 5 real datasets, 3 attack types, 3 defense mechanisms, synthetic experiments
 2. Dataset-dependent vulnerability patterns - No universal winner
-3. Transfer attack asymmetry - TabPFN -> GBDT transfers 5x more effectively overall
+3. Transfer attack asymmetry - TabPFN -> GBDT transfers 3.26x more effectively on average (p=0.0004, highly significant)
 4. Defense mechanism evaluation - Best defense varies by dataset
-5. Synthetic experiment insights - Label noise strongly increases TabPFN vulnerability (r=+0.945)
+5. Synthetic experiment insights - Label noise and high categorical ratios increase vulnerability; more features strongly improve robustness (r=-0.965)
 
 ## Limitations
 - Black-box attacks only (no gradient-based white-box attacks)
