@@ -6,54 +6,14 @@
     "source_success": 15,
     "transfer_success": 3,
     "no_transfer": 12,
-    "transfer_rate": 20.0,
+    "transfer_rate": 0.2,
     "attacks": [
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.4620018148460923,
-        "queries": 344
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.5184814990256726,
-        "queries": 366
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.5999108100086789,
-        "queries": 375
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.7304320539474407,
-        "queries": 363
-      },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 1.7353021814955276,
-        "queries": 384
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 1.980101618108402,
+        "perturbation": 1.488758494697461,
         "queries": 353
       },
       {
@@ -61,39 +21,7 @@
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 1.2166810032291413,
-        "queries": 361
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.0223829306148784,
-        "queries": 389
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.5790631787578224,
-        "queries": 360
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.1136776842759812,
-        "queries": 336
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 1.4689632081778663,
+        "perturbation": 1.4835757255713724,
         "queries": 339
       },
       {
@@ -101,154 +29,138 @@
         "source_prediction": 1,
         "target_prediction": 0,
         "transfer_success": false,
-        "perturbation": 1.1098595447794815,
-        "queries": 343
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.53435668139913,
-        "queries": 345
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.9209403942934935,
-        "queries": 353
+        "perturbation": 1.9539574979972334,
+        "queries": 350
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 0,
         "transfer_success": true,
-        "perturbation": 2.4233692004367264,
-        "queries": 348
+        "perturbation": 1.574123733428415,
+        "queries": 350
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 5.5653336650296765,
+        "queries": 385
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.2558330989419844,
+        "queries": 334
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.4595976766127299,
+        "queries": 334
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.431137962717376,
+        "queries": 356
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.4330015888053924,
+        "queries": 356
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.8907059027742357,
+        "queries": 351
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.44038035610050164,
+        "queries": 48
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.575053228351084,
+        "queries": 349
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.570736961603853,
+        "queries": 371
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.7370485123252517,
+        "queries": 350
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 3.355599043637158,
+        "queries": 368
       }
     ]
   },
   "LightGBM \u2192 TabPFN": {
     "source_model": "LightGBM",
     "target_model": "TabPFN",
-    "samples_tested": 15,
-    "source_success": 15,
-    "transfer_success": 0,
-    "no_transfer": 15,
-    "transfer_rate": 0.0,
+    "samples_tested": 14,
+    "source_success": 14,
+    "transfer_success": 2,
+    "no_transfer": 12,
+    "transfer_rate": 0.14285714285714285,
     "attacks": [
       {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 2.630294146796276,
-        "queries": 349
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.49333106993933407,
-        "queries": 98
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.9078599730569213,
-        "queries": 362
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.780382253347635,
-        "queries": 366
+        "perturbation": 1.3564993644881997,
+        "queries": 350
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 1.8250674069825439,
-        "queries": 357
+        "perturbation": 2.3978637068489514,
+        "queries": 353
       },
       {
         "original_label": 0,
         "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 1.9672825453467873,
-        "queries": 340
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
         "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.640077636484429,
-        "queries": 357
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 1.9623279425765565,
-        "queries": 381
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.0105496089703347,
-        "queries": 355
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.977257865756362,
-        "queries": 361
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.4839134679820346,
-        "queries": 130
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.218037994543964,
-        "queries": 348
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.35346755286487863,
-        "queries": 73
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 1.8293951792594976,
+        "transfer_success": true,
+        "perturbation": 2.7528957924489967,
         "queries": 359
       },
       {
@@ -256,66 +168,261 @@
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 0.4241974422254251,
-        "queries": 76
-      }
-    ]
-  },
-  "TabPFN \u2192 XGBoost": {
-    "source_model": "TabPFN",
-    "target_model": "XGBoost",
-    "samples_tested": 15,
-    "source_success": 15,
-    "transfer_success": 8,
-    "no_transfer": 7,
-    "transfer_rate": 53.333333333333336,
-    "attacks": [
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 1.7554441957514084,
-        "queries": 315
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 1.8994802675610074,
-        "queries": 321
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.005714743959227,
-        "queries": 302
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.104177509990995,
-        "queries": 319
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 3.366115209211012,
-        "queries": 307
+        "perturbation": 1.0785593405616896,
+        "queries": 343
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 3.5903506368213622,
+        "perturbation": 0.8321483127623155,
+        "queries": 335
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.8135705347368933,
+        "queries": 359
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.82215203426129,
+        "queries": 338
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.576962164620096,
+        "queries": 340
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.166058876856017,
+        "queries": 349
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.800708912408727,
+        "queries": 338
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.3306254023335216,
+        "queries": 39
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.482607355082746,
+        "queries": 359
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.3456559632327265,
+        "queries": 343
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.3429096447470812,
+        "queries": 342
+      }
+    ]
+  },
+  "TabPFN \u2192 XGBoost": {
+    "source_model": "TabPFN",
+    "target_model": "XGBoost",
+    "samples_tested": 14,
+    "source_success": 14,
+    "transfer_success": 7,
+    "no_transfer": 7,
+    "transfer_rate": 0.5,
+    "attacks": [
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.5965751537695554,
+        "queries": 291
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.92558982882619,
+        "queries": 267
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.581385640466914,
+        "queries": 243
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.965501110404124,
+        "queries": 220
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.463655892055045,
+        "queries": 286
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.9437027927580273,
+        "queries": 230
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.985802746493586,
+        "queries": 263
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 4.5787932681831585,
+        "queries": 316
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 11.17899727441911,
+        "queries": 371
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.2268245256110633,
+        "queries": 252
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.2162207187595824,
+        "queries": 248
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.8626320398710823,
+        "queries": 240
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.4945693168584055,
+        "queries": 304
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.7034882299216867,
+        "queries": 249
+      }
+    ]
+  },
+  "TabPFN \u2192 LightGBM": {
+    "source_model": "TabPFN",
+    "target_model": "LightGBM",
+    "samples_tested": 14,
+    "source_success": 14,
+    "transfer_success": 8,
+    "no_transfer": 6,
+    "transfer_rate": 0.5714285714285714,
+    "attacks": [
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.0147038854498835,
+        "queries": 263
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 3.184823094697944,
+        "queries": 271
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.5409384982032635,
+        "queries": 263
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.5153415041125373,
+        "queries": 249
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.1865972149024129,
         "queries": 296
       },
       {
@@ -323,203 +430,72 @@
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 2.557872871264441,
-        "queries": 343
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 0.49997374839133535,
-        "queries": 110
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.8287125946265212,
-        "queries": 304
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 1.3622079958189008,
-        "queries": 309
+        "perturbation": 3.9466118270570916,
+        "queries": 245
       },
       {
         "original_label": 0,
         "source_prediction": 1,
         "target_prediction": 1,
         "transfer_success": true,
-        "perturbation": 2.900201546729264,
-        "queries": 259
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 4.020199351600074,
-        "queries": 322
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.349115420614148,
-        "queries": 318
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.8862855738717537,
-        "queries": 379
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 2.0996704535564414,
+        "perturbation": 2.6471050277115107,
         "queries": 299
-      }
-    ]
-  },
-  "TabPFN \u2192 LightGBM": {
-    "source_model": "TabPFN",
-    "target_model": "LightGBM",
-    "samples_tested": 15,
-    "source_success": 15,
-    "transfer_success": 7,
-    "no_transfer": 8,
-    "transfer_rate": 46.666666666666664,
-    "attacks": [
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 1.9166268926668397,
-        "queries": 266
       },
       {
         "original_label": 0,
         "source_prediction": 1,
         "target_prediction": 1,
         "transfer_success": true,
-        "perturbation": 2.3089795393491492,
-        "queries": 271
+        "perturbation": 2.5787907897083673,
+        "queries": 290
       },
       {
         "original_label": 0,
         "source_prediction": 1,
         "target_prediction": 1,
         "transfer_success": true,
-        "perturbation": 2.174962863257893,
-        "queries": 293
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.751471585096266,
-        "queries": 266
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 3.085516050071468,
-        "queries": 315
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 2.0961893472736537,
-        "queries": 308
+        "perturbation": 2.391436942837992,
+        "queries": 250
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 3.3998866462944206,
-        "queries": 295
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 0.4927712077133807,
-        "queries": 110
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.2151212819345765,
-        "queries": 311
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.46296625552995685,
-        "queries": 82
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.708901604608647,
-        "queries": 305
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 3.151542460581246,
-        "queries": 319
+        "perturbation": 2.094630038642943,
+        "queries": 285
       },
       {
         "original_label": 0,
         "source_prediction": 1,
         "target_prediction": 1,
         "transfer_success": true,
-        "perturbation": 1.7536171783930274,
-        "queries": 264
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.144530918334202,
-        "queries": 287
+        "perturbation": 1.0198853476014393,
+        "queries": 260
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 0,
         "transfer_success": true,
-        "perturbation": 1.043671473246553,
-        "queries": 318
+        "perturbation": 2.3148930207762213,
+        "queries": 256
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.8872060594428348,
+        "queries": 276
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.2339265363723215,
+        "queries": 265
       }
     ]
   },
@@ -528,24 +504,219 @@
     "target_model": "LightGBM",
     "samples_tested": 15,
     "source_success": 15,
-    "transfer_success": 7,
-    "no_transfer": 8,
-    "transfer_rate": 46.666666666666664,
+    "transfer_success": 6,
+    "no_transfer": 9,
+    "transfer_rate": 0.4,
     "attacks": [
       {
-        "original_label": 0,
-        "source_prediction": 1,
+        "original_label": 1,
+        "source_prediction": 0,
         "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.0583246576901189,
+        "queries": 351
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 3.2910187695037307,
-        "queries": 349
+        "perturbation": 1.6376010489860995,
+        "queries": 356
       },
       {
         "original_label": 0,
         "source_prediction": 1,
         "target_prediction": 0,
         "transfer_success": false,
-        "perturbation": 0.8815901536862645,
+        "perturbation": 0.8677348114414151,
+        "queries": 344
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.1889325331519391,
+        "queries": 345
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.071363983873811,
+        "queries": 340
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.1577232590992836,
+        "queries": 358
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.9520280628253905,
+        "queries": 353
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.632608242544854,
+        "queries": 356
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 1.9617602932490628,
+        "queries": 342
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 2.127958197634079,
+        "queries": 360
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 0.3038842611081082,
+        "queries": 116
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.1117780733751368,
+        "queries": 363
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 2.6255119205595236,
+        "queries": 398
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.6323930484845108,
+        "queries": 340
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 5.411909438545636,
+        "queries": 373
+      }
+    ]
+  },
+  "LightGBM \u2192 XGBoost": {
+    "source_model": "LightGBM",
+    "target_model": "XGBoost",
+    "samples_tested": 14,
+    "source_success": 14,
+    "transfer_success": 4,
+    "no_transfer": 10,
+    "transfer_rate": 0.2857142857142857,
+    "attacks": [
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.21818452036924,
+        "queries": 350
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 0,
+        "transfer_success": true,
+        "perturbation": 1.869561197589398,
+        "queries": 349
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 1.7953868354256206,
+        "queries": 311
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.9734419132133685,
+        "queries": 343
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.5874482192356327,
+        "queries": 351
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 1.892891611095591,
+        "queries": 359
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.9297847468129006,
+        "queries": 358
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 0,
+        "transfer_success": false,
+        "perturbation": 2.0782745812408217,
+        "queries": 342
+      },
+      {
+        "original_label": 0,
+        "source_prediction": 1,
+        "target_prediction": 1,
+        "transfer_success": true,
+        "perturbation": 2.192050502956985,
+        "queries": 351
+      },
+      {
+        "original_label": 1,
+        "source_prediction": 0,
+        "target_prediction": 1,
+        "transfer_success": false,
+        "perturbation": 0.5460307791546997,
         "queries": 344
       },
       {
@@ -553,202 +724,15 @@
         "source_prediction": 1,
         "target_prediction": 0,
         "transfer_success": false,
-        "perturbation": 1.0328833427947088,
-        "queries": 366
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.6199466106304583,
-        "queries": 379
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 2.4282449374163635,
-        "queries": 378
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.3406318318647497,
-        "queries": 347
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 1.8928147812825402,
-        "queries": 345
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 1.9697556829034288,
-        "queries": 399
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 0.488874080428407,
-        "queries": 55
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 3.711222127033689,
-        "queries": 346
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 1.2687225798063309,
-        "queries": 351
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 2.4968140776995074,
-        "queries": 365
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 0,
-        "transfer_success": true,
-        "perturbation": 1.5229552139272196,
-        "queries": 385
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 0.46720902490131233,
-        "queries": 86
+        "perturbation": 0.46956732082696856,
+        "queries": 64
       },
       {
         "original_label": 1,
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 2.7270133836675177,
-        "queries": 387
-      }
-    ]
-  },
-  "LightGBM \u2192 XGBoost": {
-    "source_model": "LightGBM",
-    "target_model": "XGBoost",
-    "samples_tested": 15,
-    "source_success": 15,
-    "transfer_success": 7,
-    "no_transfer": 8,
-    "transfer_rate": 46.666666666666664,
-    "attacks": [
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.9716964983225926,
-        "queries": 352
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 0.6804464750461686,
-        "queries": 355
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 1.4737813833468738,
-        "queries": 345
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.802592691038514,
-        "queries": 380
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 2.5831266550384107,
-        "queries": 411
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.0720960114521283,
-        "queries": 354
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.9677872625381204,
-        "queries": 356
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 1.9405221224838864,
-        "queries": 370
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 2.5240638764433307,
-        "queries": 351
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 1.1566423525430929,
-        "queries": 354
-      },
-      {
-        "original_label": 0,
-        "source_prediction": 1,
-        "target_prediction": 0,
-        "transfer_success": false,
-        "perturbation": 0.7783611675098716,
+        "perturbation": 1.3566224687615611,
         "queries": 339
       },
       {
@@ -756,32 +740,16 @@
         "source_prediction": 0,
         "target_prediction": 1,
         "transfer_success": false,
-        "perturbation": 3.2453309245893838,
-        "queries": 355
+        "perturbation": 2.2867937772034947,
+        "queries": 350
       },
       {
         "original_label": 0,
         "source_prediction": 1,
-        "target_prediction": 1,
-        "transfer_success": true,
-        "perturbation": 0.4824516945804205,
-        "queries": 62
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
+        "target_prediction": 0,
         "transfer_success": false,
-        "perturbation": 1.4897091271001752,
-        "queries": 351
-      },
-      {
-        "original_label": 1,
-        "source_prediction": 0,
-        "target_prediction": 1,
-        "transfer_success": false,
-        "perturbation": 0.4856079397251812,
-        "queries": 66
+        "perturbation": 1.3233888003102992,
+        "queries": 333
       }
     ]
   }

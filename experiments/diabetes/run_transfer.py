@@ -18,19 +18,20 @@ from src.models.tabpfn_wrapper import TabPFNWrapper
 from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.boundary_attack import BoundaryAttack
 
-def get_stratified_attack_indices(y_test, y_pred, n_samples, random_state=42):
-    """Select n_samples indices stratified by class from correctly classified samples."""
-    correct_indices = np.where(y_pred == y_test)[0]
-    if len(correct_indices) <= n_samples:
-        return correct_indices
+def get_common_attack_indices(y_test, all_preds, n_samples, random_state=42):
+    """Select n_samples from samples correctly classified by ALL models, stratified by class."""
+    correct_sets = [set(np.where(preds == y_test)[0]) for preds in all_preds.values()]
+    common_correct = np.array(sorted(set.intersection(*correct_sets)))
+    if len(common_correct) <= n_samples:
+        return common_correct
     try:
         sss = StratifiedShuffleSplit(n_splits=1, test_size=n_samples, random_state=random_state)
-        _, sel = next(sss.split(correct_indices.reshape(-1, 1), y_test[correct_indices]))
-        return correct_indices[sel]
+        _, sel = next(sss.split(common_correct.reshape(-1, 1), y_test[common_correct]))
+        return common_correct[sel]
     except ValueError:
         rng = np.random.RandomState(random_state)
-        sel = rng.choice(len(correct_indices), n_samples, replace=False)
-        return correct_indices[sel]
+        sel = rng.choice(len(common_correct), n_samples, replace=False)
+        return common_correct[sel]
 
 
 print("="*80)
@@ -80,13 +81,15 @@ for name, model in models.items():
 n_samples = 15
 transfer_results = {}
 
+# Pre-compute common attack indices (samples correct for ALL models)
+all_preds_for_common = {name: model.predict(X_test) for name, model in models.items()}
+attack_indices = get_common_attack_indices(y_test, all_preds_for_common, n_samples)
+
 print(f"\n[2/4] Generating adversarial examples...")
 
 for source_name, source_model in models.items():
     print(f"\n  Source: {source_name}")
     attack = BoundaryAttack(source_model, max_iterations=200, epsilon=0.5, verbose=False)
-    source_y_pred = source_model.predict(X_test)
-    attack_indices = get_stratified_attack_indices(y_test, source_y_pred, n_samples)
     
     adversarial_examples = []
     for i in attack_indices:

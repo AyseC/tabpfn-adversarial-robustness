@@ -1,45 +1,45 @@
 {
   "no_defense": {
-    "asr": 1.0,
-    "n_samples": 10
+    "asr": 0.9333333333333333,
+    "n_samples": 15
   },
   "gaussian_noise_0.01": {
-    "asr": 0.0,
-    "recovery": 1.0,
+    "asr": 0.6,
+    "recovery": 0.33333333333333337,
     "noise_std": 0.01
   },
   "gaussian_noise_0.03": {
-    "asr": 0.4,
-    "recovery": 0.6,
+    "asr": 0.6,
+    "recovery": 0.33333333333333337,
     "noise_std": 0.03
   },
   "gaussian_noise_0.05": {
-    "asr": 0.5,
-    "recovery": 0.5,
+    "asr": 0.5333333333333333,
+    "recovery": 0.4,
     "noise_std": 0.05
   },
   "gaussian_noise_0.1": {
-    "asr": 0.3,
-    "recovery": 0.7,
+    "asr": 0.6,
+    "recovery": 0.33333333333333337,
     "noise_std": 0.1
   },
   "feature_squeezing_4bit": {
-    "asr": 0.5,
-    "recovery": 0.5,
+    "asr": 0.3333333333333333,
+    "recovery": 0.6000000000000001,
     "bit_depth": 4
   },
   "feature_squeezing_8bit": {
-    "asr": 0.6,
-    "recovery": 0.4,
+    "asr": 0.4666666666666667,
+    "recovery": 0.4666666666666667,
     "bit_depth": 8
   },
   "feature_squeezing_16bit": {
-    "asr": 0.3,
-    "recovery": 0.7,
+    "asr": 0.6,
+    "recovery": 0.33333333333333337,
     "bit_depth": 16
   },
   "ensemble_voting": {
-    "asr": 0.9,
-    "recovery": 0.09999999999999998
+    "asr": 0.6,
+    "recovery": 0.33333333333333337
   }
 }

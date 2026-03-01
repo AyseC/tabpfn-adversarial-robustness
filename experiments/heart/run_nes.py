@@ -19,19 +19,20 @@ from src.models.gbdt_wrapper import GBDTWrapper
 from src.attacks.nes_attack import NESAttack
 from src.evaluation.metrics import RobustnessMetrics, AttackResult
 
-def get_stratified_attack_indices(y_test, y_pred, n_samples, random_state=42):
-    """Select n_samples indices stratified by class from correctly classified samples."""
-    correct_indices = np.where(y_pred == y_test)[0]
-    if len(correct_indices) <= n_samples:
-        return correct_indices
+def get_common_attack_indices(y_test, all_preds, n_samples, random_state=42):
+    """Select n_samples from samples correctly classified by ALL models, stratified by class."""
+    correct_sets = [set(np.where(preds == y_test)[0]) for preds in all_preds.values()]
+    common_correct = np.array(sorted(set.intersection(*correct_sets)))
+    if len(common_correct) <= n_samples:
+        return common_correct
     try:
         sss = StratifiedShuffleSplit(n_splits=1, test_size=n_samples, random_state=random_state)
-        _, sel = next(sss.split(correct_indices.reshape(-1, 1), y_test[correct_indices]))
-        return correct_indices[sel]
+        _, sel = next(sss.split(common_correct.reshape(-1, 1), y_test[common_correct]))
+        return common_correct[sel]
     except ValueError:
         rng = np.random.RandomState(random_state)
-        sel = rng.choice(len(correct_indices), n_samples, replace=False)
-        return correct_indices[sel]
+        sel = rng.choice(len(common_correct), n_samples, replace=False)
+        return common_correct[sel]
 
 
 print("="*70)
@@ -79,15 +80,23 @@ models = {
     'LightGBM': GBDTWrapper(model_type='lightgbm')
 }
 
+# Pre-train all models and collect predictions for common indices
+print("\nPre-training all models...")
+all_preds = {}
+for _name, _model in models.items():
+    _model.fit(X_train, y_train)
+    all_preds[_name] = _model.predict(X_test)
+    print(f"  {_name} trained")
+
+attack_indices = get_common_attack_indices(y_test, all_preds, n_samples)
+
 for model_name, model in models.items():
     print(f"\n{'-'*70}")
     print(f"Model: {model_name}")
     print(f"{'-'*70}")
     
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
+    y_pred = all_preds[model_name]
     clean_acc = np.mean(y_pred == y_test)
-    attack_indices = get_stratified_attack_indices(y_test, y_pred, n_samples)
     print(f"Clean Accuracy: {clean_acc:.4f}")
     
     print(f"\nNES Attack on {n_samples} samples...")

@@ -15,7 +15,7 @@
   },
   "XGBoost": {
     "TabPFN": {
-      "transfer_rate": 0.0,
+      "transfer_rate": 0.06666666666666667,
       "n_samples": 15
     },
     "XGBoost": {
@@ -23,7 +23,7 @@
       "n_samples": 15
     },
     "LightGBM": {
-      "transfer_rate": 0.4666666666666667,
+      "transfer_rate": 0.6,
       "n_samples": 15
     }
   },
@@ -33,7 +33,7 @@
       "n_samples": 15
     },
     "XGBoost": {
-      "transfer_rate": 0.5333333333333333,
+      "transfer_rate": 0.4666666666666667,
       "n_samples": 15
     },
     "LightGBM": {

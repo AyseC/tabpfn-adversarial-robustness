@@ -1,0 +1,116 @@
+{
+  "TabPFN": {
+    "0%": {
+      "noise_level": 0.0,
+      "clean_accuracy": 0.9333333333333333,
+      "attack_success_rate": 0.9333333333333333,
+      "adversarial_accuracy": 0.06666666666666665,
+      "avg_perturbation": 1.8158586921861135,
+      "robustness_score": 0.49930101435411123,
+      "n_samples_tested": 15
+    },
+    "5%": {
+      "noise_level": 0.05,
+      "clean_accuracy": 0.85,
+      "attack_success_rate": 1.0,
+      "adversarial_accuracy": 0.0,
+      "avg_perturbation": 1.6411743124098546,
+      "robustness_score": 0.4656469724963942,
+      "n_samples_tested": 15
+    },
+    "10%": {
+      "noise_level": 0.1,
+      "clean_accuracy": 0.8333333333333334,
+      "attack_success_rate": 0.8666666666666667,
+      "adversarial_accuracy": 0.1333333333333333,
+      "avg_perturbation": 1.7373858288659922,
+      "robustness_score": 0.522828766487973,
+      "n_samples_tested": 15
+    },
+    "20%": {
+      "noise_level": 0.2,
+      "clean_accuracy": 0.7666666666666667,
+      "attack_success_rate": 1.0,
+      "adversarial_accuracy": 0.0,
+      "avg_perturbation": 1.4073224608265933,
+      "robustness_score": 0.45629289843306375,
+      "n_samples_tested": 15
+    }
+  },
+  "XGBoost": {
+    "0%": {
+      "noise_level": 0.0,
+      "clean_accuracy": 0.85,
+      "attack_success_rate": 0.6666666666666666,
+      "adversarial_accuracy": 0.33333333333333337,
+      "avg_perturbation": 1.2867096468063866,
+      "robustness_score": 0.5848017192055889,
+      "n_samples_tested": 15
+    },
+    "5%": {
+      "noise_level": 0.05,
+      "clean_accuracy": 0.8333333333333334,
+      "attack_success_rate": 0.8666666666666667,
+      "adversarial_accuracy": 0.1333333333333333,
+      "avg_perturbation": 1.3460791358783584,
+      "robustness_score": 0.5071764987684677,
+      "n_samples_tested": 15
+    },
+    "10%": {
+      "noise_level": 0.1,
+      "clean_accuracy": 0.75,
+      "attack_success_rate": 0.7333333333333333,
+      "adversarial_accuracy": 0.2666666666666667,
+      "avg_perturbation": 1.4567367370713986,
+      "robustness_score": 0.5649361361495226,
+      "n_samples_tested": 15
+    },
+    "20%": {
+      "noise_level": 0.2,
+      "clean_accuracy": 0.7666666666666667,
+      "attack_success_rate": 1.0,
+      "adversarial_accuracy": 0.0,
+      "avg_perturbation": 1.2081731329186005,
+      "robustness_score": 0.44832692531674406,
+      "n_samples_tested": 15
+    }
+  },
+  "LightGBM": {
+    "0%": {
+      "noise_level": 0.0,
+      "clean_accuracy": 0.7833333333333333,
+      "attack_success_rate": 0.8,
+      "adversarial_accuracy": 0.19999999999999996,
+      "avg_perturbation": 1.5487102187429442,
+      "robustness_score": 0.5419484087497177,
+      "n_samples_tested": 15
+    },
+    "5%": {
+      "noise_level": 0.05,
+      "clean_accuracy": 0.8,
+      "attack_success_rate": 0.9333333333333333,
+      "adversarial_accuracy": 0.06666666666666665,
+      "avg_perturbation": 1.1792488504022445,
+      "robustness_score": 0.47383662068275645,
+      "n_samples_tested": 15
+    },
+    "10%": {
+      "noise_level": 0.1,
+      "clean_accuracy": 0.7333333333333333,
+      "attack_success_rate": 0.6666666666666666,
+      "adversarial_accuracy": 0.33333333333333337,
+      "avg_perturbation": 1.4506606766958892,
+      "robustness_score": 0.591359760401169,
+      "n_samples_tested": 15
+    },
+    "20%": {
+      "noise_level": 0.2,
+      "clean_accuracy": 0.7,
+      "attack_success_rate": 0.9333333333333333,
+      "adversarial_accuracy": 0.06666666666666665,
+      "avg_perturbation": 0.8150104458779336,
+      "robustness_score": 0.45926708450178405,
+      "n_samples_tested": 15
+    }
+  }
+}
